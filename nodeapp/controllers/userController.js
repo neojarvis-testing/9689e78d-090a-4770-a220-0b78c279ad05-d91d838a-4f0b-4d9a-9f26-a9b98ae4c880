@@ -1,5 +1,5 @@
-const User = require('../models/User');
-const { generateToken } = require('../utils/JwtUtils'); // Import JWT generation function
+const User = require('../models/userModel');
+const { generateToken } = require('../authUtils'); // Import JWT generation function
 
 // ✅ Login User
 // This function retrieves a user from the database by matching the provided email and password.
@@ -21,7 +21,7 @@ exports.getUserByEmailAndPassword = async (req, res) => {
             token,
         });
     } catch (error) {
-        res.status(500).json({ message: "Server error", error: error.message });
+        res.status(500).json({ message: error.message });
     }
 };
 
@@ -36,6 +36,6 @@ exports.addUser = async (req, res) => {
         const newUser = await User.create({ userName, email, mobile, password, role });
         res.status(200).json({ message: "Success", user: newUser });
     } catch (error) {
-        res.status(500).json({ message: "Server error", error: error.message });
+        res.status(500).json({ message: error.message });
     }
 };
