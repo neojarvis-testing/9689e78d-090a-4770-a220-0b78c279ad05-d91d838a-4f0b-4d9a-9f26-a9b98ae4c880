@@ -1,7 +1,7 @@
+require('dotenv').config();  // Load environment variables from the .env file
 const mongoose = require('mongoose');
 const express = require('express');
 
-require('dotenv').config();  // Load environment variables from the .env file
 
 const app = express();
 
@@ -19,7 +19,7 @@ app.use(express.json());
     `useNewUrlParser: true` ensures that the latest MongoDB URL parsing mechanism is used.
     `useUnifiedTopology: true` improves the management of MongoDB server discovery and monitoring.
 */
-mongoose.connect(process.env.CONNECTION_URI, {
+mongoose.connect(process.env.MONGO_CONNECTION_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
