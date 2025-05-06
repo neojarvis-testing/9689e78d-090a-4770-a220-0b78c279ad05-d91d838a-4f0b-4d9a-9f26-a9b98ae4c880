@@ -44,8 +44,7 @@ exports.getRequestById = async (req, res) => {
 exports.getRequestsByUserId = async (req, res) => {
     try {
         const requests = await Request.find({ userId: req.params.userId })
-            .populate('feedId')
-            .populate('livestockId');
+           .populate([{path: 'feedId'}, {path: 'livestockId'}])
         res.status(200).json(requests);
     } catch (error) {
         res.status(500).json({ error: error.message });
