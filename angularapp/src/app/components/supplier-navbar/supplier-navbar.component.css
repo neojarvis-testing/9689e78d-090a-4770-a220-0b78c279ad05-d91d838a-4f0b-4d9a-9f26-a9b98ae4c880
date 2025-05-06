@@ -1,0 +1,11 @@
+.navbar-custom {
+      background-color: #28a745;
+    }
+    .btn-supplier {
+      background-color: #ffc107;
+    color: black;
+    }
+    .btn-logout {
+      background-color: #dc3545;
+      color: white;
+    }
