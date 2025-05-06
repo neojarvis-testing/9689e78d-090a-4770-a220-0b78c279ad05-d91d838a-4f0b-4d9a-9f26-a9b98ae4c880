@@ -1,4 +1,4 @@
-const Request = require('../models/Request');
+const Request = require('../models/requestModel');
 
 /**
  * Retrieves all requests from the database.
