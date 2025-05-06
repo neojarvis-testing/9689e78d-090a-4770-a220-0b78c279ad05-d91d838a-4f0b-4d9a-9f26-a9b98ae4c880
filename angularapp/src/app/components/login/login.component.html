@@ -1,0 +1,42 @@
+
+  <div class="d-flex justify-content-center align-items-center vh-100 container-fluid">
+      <div class="row g-0 w-75">
+          <!-- Left Side: FarmConnect Description -->
+          <div class="col-md-6 d-flex flex-column justify-content-center align-items-center text-white p-4"
+              style="background: linear-gradient(to right,#03e167,#03A791);">
+              <h1>FarmConnect</h1>
+              <p class="text-center fs-4">Connecting Livestock Owners with Feed Sellers</p>
+          </div>
+  
+          <!-- Right Side: Login Form -->
+          <div class="col-md-6 p-4" style="background: linear-gradient(to right, #077A7D, #03A791);">
+              <div class="card shadow-lg p-5 m-2">
+                  <h2 class="text-center">Login</h2>
+                  <form [formGroup]="loginForm" (ngSubmit)="login()" novalidate>
+                      <div class="mb-3">
+                          <input type="email" class="form-control bg-white p-3" placeholder="Email" formControlName="email">
+                          <div *ngIf="loginForm.controls['email']?.invalid && loginForm.controls['email']?.touched"
+                              class="text-danger">
+                              Valid email is required.
+                          </div>
+                      </div>
+                      <div class="mb-3">
+                          <input type="password" class="form-control bg-white p-3" placeholder="Password"
+                              formControlName="password">
+                          <div *ngIf="loginForm.controls['password']?.invalid && loginForm.controls['password']?.touched"
+                              class="text-danger">
+                              Password must be at least 6 characters.
+                          </div>
+                      </div>
+                      <button type="submit" class="btn btn-success w-100 p-3 fw-bold">Login</button>
+                  </form>
+                  <p class="text-center mt-3">Don't have an account? 
+                      <a href="#" class="text-success fw-bold">Sign up</a>
+                  </p>
+              </div>
+          </div>
+      </div>
+  </div>
+  
+  
+  
