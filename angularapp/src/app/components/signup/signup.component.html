@@ -1,19 +1,19 @@
 <div class="container-fluid min-vh-100 d-flex flex-column justify-content-center align-items-center" 
-     style="background: url('../../../assets/images/farmconnect.png') no-repeat center center fixed; background-size: cover;">
+     style="background: url('https://shorturl.at/cjOeS') no-repeat center center fixed; background-size: cover;">
   
   <!-- FarmConnect Heading (Centered) -->
-  <div class="text-center mt-3">
+  <div class="dark-bg text-center mt-3">
     <h1 class="fw-bold text-success">FarmConnect</h1>
   </div>
 
   <!-- Signup Form -->
-  <div class="col-md-6 p-4">
-    <div class="card shadow-lg p-5 border-0 bg-white">
-      <h2 class="text-center mb-4">Sign Up</h2>
+  <div class="col-md-6 p-4 " style="background: linear-gradient(to right,  #077A7D, #03A791);">
+    <div class="card shadow-lg p-5 m-3 bg-white">
+      <h2 class="text-center mb-4 ">Sign Up</h2>
       <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" novalidate>
         <div class="mb-3">
           <label class="form-label">User Name <span class="text-danger">*</span></label>
-          <input type="text" class="form-control" formControlName="userName">
+          <input type="text" class="form-control" formControlName="userName" placeholder="Username">
           <div *ngIf="signupForm.get('userName')?.touched && signupForm.get('userName')?.invalid" class="text-danger">
             User Name is required.
           </div>
@@ -31,7 +31,7 @@
           <label class="form-label">Mobile Number <span class="text-danger">*</span></label>
           <!-- <input type="tel" class="form-control" formControlName="mobile"> -->
           <input type="tel" class="form-control" formControlName="mobile" maxlength="10" pattern="[0-9]{10}" 
-       (keypress)="validateNumber($event)">
+       (keypress)="validateNumber($event)" placeholder="Mobile">
           <div *ngIf="signupForm.get('mobile')?.touched && signupForm.get('mobile')?.invalid" class="text-danger">
             Valid 10-digit Mobile Number is required.
           </div>
@@ -39,20 +39,31 @@
 
         <div class="mb-3">
           <label class="form-label">Password <span class="text-danger">*</span></label>
-          <input type="password" class="form-control" formControlName="password">
+          <input type="password" class="form-control" formControlName="password" placeholder="Password">
           <div *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.invalid" class="text-danger">
-            Password must be at least 8 characters.
+            Password does not meet the required constraints.
           </div>
         </div>
 
         <div class="mb-3">
           <label class="form-label">Confirm Password <span class="text-danger">*</span></label>
-          <input type="password" class="form-control" formControlName="confirmPassword">
+          <input type="password" class="form-control" formControlName="confirmPassword" placeholder="Confirm Password">
           <div *ngIf="signupForm.get('confirmPassword')?.touched && signupForm.hasError('mismatch')" class="text-danger">
             Passwords must match.
           </div>
         </div>
 
+        <div class="mb-3">
+          <small class="text-muted d-block">Your password must meet the following requirements:</small>
+          <ul class="text-muted">
+            <li>Be at least 8 characters long</li>
+            <li>Contain at least one uppercase letter</li>
+            <li>Contain at least one lowercase letter</li>
+            <li>Include at least one number</li>
+            <li>Include at least one special character (!"&#64;"#$%^&*)</li>
+          </ul>
+        </div>
+        
         <div class="mb-3">
           <label class="form-label">Role <span class="text-danger">*</span></label>
           <select class="form-select" formControlName="role">
@@ -69,7 +80,7 @@
       </form>
 
       <p class="text-center mt-3">Already have an account?
-        <a routerLink="/login" class="text-success fw-bold">Login</a>
+        <a routerLink="/login" class="text-success fw-bold text-decoration-none">Login</a>
       </p>
     </div>
   </div>
