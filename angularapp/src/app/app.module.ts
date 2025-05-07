@@ -3,14 +3,10 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { OwnerNavbarComponent } from './components/owner-navbar/owner-navbar.component';
-import { SupplierNavbarComponent } from './components/supplier-navbar/supplier-navbar.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    OwnerNavbarComponent,
-    SupplierNavbarComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
