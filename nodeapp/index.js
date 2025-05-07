@@ -1,18 +1,26 @@
-require('dotenv').config();  // Load environment variables from the .env file
+require('dotenv').config();
 const mongoose = require('mongoose');
 const express = require('express');
 const feedRouter=require('./routers/feedRouter');
-
-
+const livestockRouter = require('./routers/liveStockRouter')
+const userRouetr=require('./routers/userRouter');
+const requestRouter=require('./routers/requestRouter');
 const app = express();
-
+const cors=require('cors');
+app.use(cors({
+    origin:process.env.FRONT_END_URL,
+    methods:['GET','POST','PUT','DELETE','PATCH'],
+    allowedHeaders:['Content-Type','authentication'],
+    exposedHeaders:['Content-Type','X-Powered-By'],
+    credentials:false
+}))
+app.use(express.urlencoded({ extended: true }));
 /*
-    The following middleware enables the server to parse incoming JSON requests.
-    Without this, Express cannot process JSON request bodies properly.
-    It ensures that data sent from the client as JSON is converted into a usable JavaScript object.
+The following middleware enables the server to parse incoming JSON requests.
+Without this, Express cannot process JSON request bodies properly.
+It ensures that data sent from the client as JSON is converted into a usable JavaScript object.
 */
 app.use(express.json());
-app.use('/feed',feedRouter);
 
 /*
     Establishes a connection to the MongoDB database using environment variables.
@@ -21,7 +29,7 @@ app.use('/feed',feedRouter);
     `useNewUrlParser: true` ensures that the latest MongoDB URL parsing mechanism is used.
     `useUnifiedTopology: true` improves the management of MongoDB server discovery and monitoring.
 */
-mongoose.connect(process.env.MONGO_CONNECTION_URI, {
+mongoose.set('strictQuery', true).connect('mongodb://127.0.0.1:27017/farmconnect', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
@@ -32,11 +40,11 @@ mongoose.connect(process.env.MONGO_CONNECTION_URI, {
             
             The callback function inside `app.listen` logs a message to indicate the server is running.
         */
+       console.log('Database is Connected Successfully!');
         app.listen(process.env.SERVER_PORT, () => {
             console.log(`Server is running on port ${process.env.SERVER_PORT}`);
         });
 
-        console.log('Database is Connected Successfully!');
     })
     .catch((error) => {
         /*
