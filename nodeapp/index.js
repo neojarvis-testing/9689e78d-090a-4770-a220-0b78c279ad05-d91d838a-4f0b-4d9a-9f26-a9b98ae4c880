@@ -1,6 +1,7 @@
 require('dotenv').config();  // Load environment variables from the .env file
 const mongoose = require('mongoose');
 const express = require('express');
+const feedRouter=require('./routers/feedRouter');
 
 
 const app = express();
@@ -11,6 +12,7 @@ const app = express();
     It ensures that data sent from the client as JSON is converted into a usable JavaScript object.
 */
 app.use(express.json());
+app.use('/feed',feedRouter);
 
 /*
     Establishes a connection to the MongoDB database using environment variables.
