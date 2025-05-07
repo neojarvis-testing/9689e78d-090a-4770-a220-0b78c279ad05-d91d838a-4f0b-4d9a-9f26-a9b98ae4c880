@@ -1,6 +1,7 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 const express = require('express');
+const feedRouter=require('./routers/feedRouter');
 const livestockRouter = require('./routers/liveStockRouter')
 const userRouetr=require('./routers/userRouter');
 const requestRouter=require('./routers/requestRouter');
@@ -20,9 +21,7 @@ Without this, Express cannot process JSON request bodies properly.
 It ensures that data sent from the client as JSON is converted into a usable JavaScript object.
 */
 app.use(express.json());
-app.use('/liveStock', livestockRouter);
-app.use('/user',userRouetr);
-app.use('/request',requestRouter);
+
 /*
     Establishes a connection to the MongoDB database using environment variables.
     The connection string is stored in `process.env.CONNECTION_URI` for security.

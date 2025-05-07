@@ -14,8 +14,11 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      email: ['', [Validators.required, Validators.pattern(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)]], //email validation
+      password: ['', [
+        Validators.required,
+        Validators.minLength(8) //pasword validation
+    ]]
     });
   }
 
@@ -23,7 +26,7 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       console.log('Form Data:', this.loginForm.value);
     } else {
-      console.log('Invalid form submission');
+      this.loginForm.markAllAsTouched();
     }
   }
 
