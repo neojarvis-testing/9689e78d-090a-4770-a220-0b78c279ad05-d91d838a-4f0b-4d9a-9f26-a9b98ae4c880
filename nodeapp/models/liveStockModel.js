@@ -41,4 +41,4 @@ const livestockSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
-module.exports = mongoose.model('Livestock', livestockSchema);;
+module.exports = mongoose.model('Livestock', livestockSchema);
