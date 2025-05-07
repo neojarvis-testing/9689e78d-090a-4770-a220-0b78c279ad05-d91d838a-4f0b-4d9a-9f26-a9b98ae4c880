@@ -1,0 +1,51 @@
+  /* Gradient background for navbar */
+    .navbar-custom {
+      /* background: linear-gradient(to right, #28a745, #1f7a37, #28a745); */
+      background-color: #1F7D53;
+      padding: 10px; /* Adjusted padding */
+      font-size: 18px;
+    }
+
+    .navbar .navbar-brand{
+        font-size: 24px;
+    }
+
+    /* Supplier button style */
+    .btn-supplier {
+      border: 2px solid white;
+      background-color: transparent;
+      color: rgb(219, 219, 11);
+      font-weight: bold;
+      margin-right: 15px; /* Space after button */
+    }
+
+    /* Logout button */
+    .btn-logout {
+      background-color: #dc3545;
+      color: white;
+      font-weight: bold;
+    }
+
+    /* Navbar links */
+    .navbar-nav .nav-item a, .navbar-brand {
+      color: white !important;
+      font-weight: bold;
+      padding: 10px 15px; /* Space between links */
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .navbar-nav {
+        flex-direction: column;
+        text-align: center;
+      }
+      .btn-supplier, .btn-logout {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+      .navbar-nav .nav-item a {
+        display: block;
+        padding: 10px;
+      }
+    }
+  
