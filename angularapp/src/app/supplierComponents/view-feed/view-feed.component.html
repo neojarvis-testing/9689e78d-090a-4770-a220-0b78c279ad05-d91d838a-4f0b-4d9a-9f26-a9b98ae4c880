@@ -1,1 +1,58 @@
-<p>view-feed works!</p>
+<div class="p-4">
+    <h1 class="mb-4 text-center">Feeds</h1>
+
+    <input type="text" id="searchInput" class="form-control form-control-sm mb-3 custom-search"
+        placeholder="Search by Feed Name..." [(ngModel)]="searchQuery" (input)="filterFeeds()">
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>SNo</th>
+                <th>Feed Name</th>
+                <th>Type</th>
+                <th>Description</th>
+                <th>Unit</th>
+                <th>Price Per Unit</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let feed of paginatedFeeds">
+                <td>{{ feed.id }}</td>
+                <td>{{ feed.feedName }}</td>
+                <td>{{ feed.type }}</td>
+                <td>{{ feed.description }}</td>
+                <td>{{ feed.unit }}</td>
+                <td>{{ feed.pricePerUnit }}</td>
+                <td>
+                    <button class="btn btn-success btn-sm me-2">Edit</button>
+                    <button class="btn btn-danger btn-sm" (click)="confirmDelete(feed)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="pagination-controls text-center mt-3">
+        <button (click)="prevPage()" [disabled]="currentPage === 1">Prev</button>
+        <span>Page {{ currentPage }} of {{ totalPages }}</span>
+        <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="custom-modal" *ngIf="showModal">
+        <div class="custom-modal-content">
+            <div class="custom-modal-header">
+                <h5>Confirm Delete</h5>
+                <button type="button" class="close" (click)="closeModal()">&times;</button>
+            </div>
+            <div class="custom-modal-body">
+
+                Are you sure you want to delete this feed?
+            </div>
+            <div class="custom-modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+                <button type="button" class="btn btn-danger" (click)="deleteFeed()">Yes, Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
