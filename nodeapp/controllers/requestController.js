@@ -1,4 +1,4 @@
-const Request = require('../models/Request');
+const Request = require('../models/requestModel');
 
 /**
  * Retrieves all requests from the database.
@@ -44,8 +44,7 @@ exports.getRequestById = async (req, res) => {
 exports.getRequestsByUserId = async (req, res) => {
     try {
         const requests = await Request.find({ userId: req.params.userId })
-            .populate('feedId')
-            .populate('livestockId');
+            .populate([{path: 'feedId'}, {path: 'livestockId'}])
         res.status(200).json(requests);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -101,3 +100,4 @@ exports.deleteRequest = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+

@@ -1,0 +1,93 @@
+<div class="container-fluid min-vh-100 d-flex flex-column justify-content-center align-items-center" 
+     style="background: url('../../../assets/images/farmconnect.png') no-repeat center center fixed; background-size: cover;">
+  
+  <!-- FarmConnect Heading (Centered) -->
+  <div class="text-center mt-3">
+    <h1 class="fw-bold text-success">FarmConnect</h1>
+  </div>
+
+  <!-- Signup Form -->
+  <div class="col-md-6 p-4">
+    <div class="card shadow-lg p-5 border-0 bg-white">
+      <h2 class="text-center mb-4">Sign Up</h2>
+      <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" novalidate>
+        <div class="mb-3">
+          <label class="form-label">User Name <span class="text-danger">*</span></label>
+          <input type="text" class="form-control" formControlName="userName">
+          <div *ngIf="signupForm.get('userName')?.touched && signupForm.get('userName')?.invalid" class="text-danger">
+            User Name is required.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Email <span class="text-danger">*</span></label>
+          <input type="email" class="form-control" formControlName="email" placeholder="Email">
+          <div *ngIf="signupForm.get('email')?.touched && signupForm.get('email')?.invalid" class="text-danger">
+            Valid email is required.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Mobile Number <span class="text-danger">*</span></label>
+          <!-- <input type="tel" class="form-control" formControlName="mobile"> -->
+          <input type="tel" class="form-control" formControlName="mobile" maxlength="10" pattern="[0-9]{10}" 
+       (keypress)="validateNumber($event)">
+          <div *ngIf="signupForm.get('mobile')?.touched && signupForm.get('mobile')?.invalid" class="text-danger">
+            Valid 10-digit Mobile Number is required.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Password <span class="text-danger">*</span></label>
+          <input type="password" class="form-control" formControlName="password">
+          <div *ngIf="signupForm.get('password')?.touched && signupForm.get('password')?.invalid" class="text-danger">
+            Password must be at least 8 characters.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Confirm Password <span class="text-danger">*</span></label>
+          <input type="password" class="form-control" formControlName="confirmPassword">
+          <div *ngIf="signupForm.get('confirmPassword')?.touched && signupForm.hasError('mismatch')" class="text-danger">
+            Passwords must match.
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Role <span class="text-danger">*</span></label>
+          <select class="form-select" formControlName="role">
+            <option value="" selected disabled>Select Role</option>
+            <option value="Owner">Owner</option>
+            <option value="Supplier">Supplier</option>
+          </select>
+          <div *ngIf="signupForm.get('role')?.touched && signupForm.get('role')?.invalid" class="text-danger">
+            Role is required.
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-success w-100 fw-bold">Signup</button>
+      </form>
+
+      <p class="text-center mt-3">Already have an account?
+        <a routerLink="/login" class="text-success fw-bold">Login</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Success Modal -->
+<div *ngIf="showModal" class="modal fade show d-block" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Signup Successful</h5>
+      </div>
+      <div class="modal-body">
+        <p>User Registration Successful</p>
+      </div>
+      <div class="modal-footer d-flex justify-content-center">
+        <button class="btn btn-primary" (click)="closeModal()">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
