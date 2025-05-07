@@ -27,7 +27,8 @@ export class SignupComponent {
       ]],
       password: ['', [
         Validators.required,
-        Validators.minLength(8) // Minimum 8 characters
+        Validators.minLength(8), // Minimum 8 characters
+        Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/) 
       ]],
       confirmPassword: ['', Validators.required],
       role: ['', Validators.required]

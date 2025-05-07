@@ -3,7 +3,12 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  // backendUrl:'https://8080-accecafecdeeafbaaaafafeddafbdafabaec.premiumproject.examly.io'//supriya
+  // backendUrl:'https://8080-adaebaebcccbfbaaaafafeddafbdafabaec.premiumproject.examly.io' //kiran
+  // backendUrl:'https://8080-eeddcfeffbaaaafafeddafbdafabaec.premiumproject.examly.io' // Sumanth
+  // backendUrl:'https://8080-edeafbaaaafafeddafbdafabaec.premiumproject.examly.io' // aditya
+  // backendUrl:'https://8080-eedceaeaffefbaaaafafeddafbdafabaec.premiumproject.examly.io' // Nilabh
 };
 
 /*
