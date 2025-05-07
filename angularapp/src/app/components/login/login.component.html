@@ -14,24 +14,24 @@
                   <h2 class="text-center">Login</h2>
                   <form [formGroup]="loginForm" (ngSubmit)="login()" novalidate>
                       <div class="mb-3">
-                          <input type="email" class="form-control bg-white p-3" placeholder="Email" formControlName="email">
+                          <input type="email" class="form-control  p-2" placeholder="Email" formControlName="email">
                           <div *ngIf="loginForm.controls['email']?.invalid && loginForm.controls['email']?.touched"
                               class="text-danger">
                               Valid email is required.
                           </div>
                       </div>
                       <div class="mb-3">
-                          <input type="password" class="form-control bg-white p-3" placeholder="Password"
+                          <input type="password" class="form-control bg-white p-2" placeholder="Password"
                               formControlName="password">
                           <div *ngIf="loginForm.controls['password']?.invalid && loginForm.controls['password']?.touched"
                               class="text-danger">
-                              Password must be at least 6 characters.
-                          </div>
+                              Password is required
+                            </div>
                       </div>
-                      <button type="submit" class="btn btn-success w-100 p-3 fw-bold">Login</button>
+                      <button type="submit" class="btn btn-success w-100 p-2 mt-2 fw-bold">Login</button>
                   </form>
                   <p class="text-center mt-3">Don't have an account? 
-                      <a href="#" class="text-success fw-bold">Sign up</a>
+                      <a href="#" class="text-success fw-bold" routerLink="/signup">Sign up</a>
                   </p>
               </div>
           </div>
