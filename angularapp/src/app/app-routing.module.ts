@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { LivestockFormComponent } from './ownerComponents/livestock-form/livestock-form.component';
 
 const routes: Routes = [];
 
