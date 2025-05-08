@@ -29,6 +29,10 @@ app.use(express.json());
     `useNewUrlParser: true` ensures that the latest MongoDB URL parsing mechanism is used.
     `useUnifiedTopology: true` improves the management of MongoDB server discovery and monitoring.
 */
+app.use('/liveStock',livestockRouter)
+app.use('/feed',feedRouter)
+app.use('/user',userRouetr)
+app.use('/request',requestRouter)
 mongoose.set('strictQuery', true).connect('mongodb://127.0.0.1:27017/farmconnect', {
     useNewUrlParser: true,
     useUnifiedTopology: true
