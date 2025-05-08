@@ -5,11 +5,11 @@
 export const environment = {
   production: false,
   // backendUrl:'https://8080-accecafecdeeafbaaaafafeddafbdafabaec.premiumproject.examly.io'//supriya
-  // backendUrl:'https://8080-adaebaebcccbfbaaaafafeddafbdafabaec.premiumproject.examly.io'//saikiran
-  // backendUrl:'https://8080-eeddcfeffbaaaafafeddafbdafabaec.premiumproject.examly.io' // Sumanth
+  // backendUrl:'https://8080-adaebaebcccbfbaaaafafeddafbdafabaec.premiumproject.examly.io' //kiran
+  // backendUrl:'https://8080-eeddcfeffbaaaafafeddafbdafabaec.premiumproject.examly.io' Sumanth
   // backendUrl:'https://8080-edeafbaaaafafeddafbdafabaec.premiumproject.examly.io' // aditya
   // backendUrl:'https://8080-eedceaeaffefbaaaafafeddafbdafabaec.premiumproject.examly.io' // Nilabh
-};``
+};
 
 /*
  * For easier debugging in development mode, you can import the following file
