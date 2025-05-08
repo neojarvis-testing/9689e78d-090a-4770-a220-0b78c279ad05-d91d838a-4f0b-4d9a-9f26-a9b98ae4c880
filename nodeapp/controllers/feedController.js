@@ -1,6 +1,5 @@
 
 const Feed = require('../models/feedModel');
-
 // Get all Feeds
 // This function retrieves all feed items from the database using `Feed.find({})`.
 // If feeds are found, it responds with a status code of 200 and sends the data in JSON format.
@@ -40,7 +39,8 @@ exports.getFeedById = async (req, res) => {
 // If an error occurs, it responds with a 500 status code and the error message.
 exports.addFeed = async (req, res) => {
     try {
-        await Feed.create(req.body);
+        const {feedName,type,description,unit,pricePerUnit}=req.body;
+        await Feed.create({feedName,type,description,unit,pricePerUnit});
         res.status(200).json({ message: "Feed Added Successfully"});
     } catch (error) {
         res.status(500).json({ message: error.message });

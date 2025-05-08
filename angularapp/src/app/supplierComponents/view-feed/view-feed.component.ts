@@ -11,13 +11,13 @@ import { Feed } from 'src/app/models/feed';
 })
 export class ViewFeedComponent implements OnInit {
   feeds: Feed[] = [
-    { id: 2, feedName: "agrofeed updated", type: "feed xtreme", description: "value for money", unit: "kg", pricePerUnit: 34 },
-    { id: 3, feedName: "demo name", type: "demo type", description: "demo description", unit: "Kg", pricePerUnit: 34 },
-    { id: 4, feedName: "grow fast", type: "grower", description: "high protein", unit: "Kg", pricePerUnit: 40 },
-    { id: 1, feedName: "starter", type: "crumbled", description: "best in class", unit: "kg", pricePerUnit: 56 },
-    { id: 5, feedName: "agrofeed updated", type: "feed xtreme", description: "value for money", unit: "kg", pricePerUnit: 34 },
-    { id: 6, feedName: "demo name", type: "demo type", description: "demo description", unit: "Kg", pricePerUnit: 34 },
-    { id: 7, feedName: "grow fast", type: "grower", description: "high protein", unit: "Kg", pricePerUnit: 40 }
+    { id: 2, feedName: "agrofeed updated", type: "feed xtreme", description: "value for money", unit: "kg", pricePerUnit: "34" },
+    { id: 3, feedName: "demo name", type: "demo type", description: "demo description", unit: "Kg", pricePerUnit: "34" },
+    { id: 4, feedName: "grow fast", type: "grower", description: "high protein", unit: "Kg", pricePerUnit: "40" },
+    { id: 1, feedName: "starter", type: "crumbled", description: "best in class", unit: "kg", pricePerUnit: "56" },
+    { id: 5, feedName: "agrofeed updated", type: "feed xtreme", description: "value for money", unit: "kg", pricePerUnit: "34" },
+    { id: 6, feedName: "demo name", type: "demo type", description: "demo description", unit: "Kg", pricePerUnit: "34" },
+    { id: 7, feedName: "grow fast", type: "grower", description: "high protein", unit: "Kg", pricePerUnit: "40" }
   ];
   itemsPerPage = 3;
   currentPage = 1;
