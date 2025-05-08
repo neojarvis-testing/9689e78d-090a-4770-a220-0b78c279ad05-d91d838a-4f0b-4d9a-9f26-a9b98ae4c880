@@ -4,5 +4,5 @@ export interface Feed {
         type: string;
         description: string;
         unit: string;
-        pricePerUnit: number;
+        pricePerUnit: string;
 }

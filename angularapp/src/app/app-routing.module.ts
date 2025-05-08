@@ -29,8 +29,7 @@ const routes: Routes = [
   {path:'owner/livestock-form/:id',component:LivestockFormComponent},
   {path:'owner/my-request',component:MyRequestComponent},
   {path:'owner/view-feed',component:OwnerViewfeedComponent},
-  {path:'owner/view-livestock',component:ViewLivestockComponent},
-  {path:'',redirectTo:'login',pathMatch:'full'}
+  {path:'owner/view-livestock',component:ViewLivestockComponent}
 ];
 
 @NgModule({
