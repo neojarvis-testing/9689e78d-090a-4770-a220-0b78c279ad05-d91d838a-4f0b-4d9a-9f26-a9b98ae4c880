@@ -1,1 +1,137 @@
 <router-outlet></router-outlet>
+<div *ngIf="isLanding()">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark p-2">
+        <a class="navbar-brand me-4" href="#" style="font-size: 1.8rem;">Farm Connect</a>
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+            <div class="ml-3">
+                <button class="btn btn-outline-light btn-sm mx-2" routerLink="/login">Login</button>
+                <button class="btn btn-outline-light btn-sm mx-4" routerLink="/signup">Sign Up</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section position-relative">
+        <video autoplay loop muted class="background-video">
+            <source src="https://cdn.pixabay.com/video/2023/10/23/186195-877323695_large.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+
+        <div class="overlay-container">
+            <div class="overlay-content">
+                <!-- Animated Farm Scene -->
+                    <div class="hero-text">
+                        <h1 class="hero-title">🌾 Farm Connect 🌱</h1>
+                        <p class="hero-tagline">Connecting Livestock Owners with Feed Sellers</p>
+                    </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section with Animated Bulb -->
+<section class="container my-5 text-center">
+    <h2 class="mb-4">
+        <i class="fa fa-lightbulb blink"></i> About Us
+    </h2>
+    <div class="row">
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-lg border-0 h-100 bg-light hover-shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Our Farm</h5>
+                    <ul class="card-text text-left">
+                        <li>🌱 Sustainable and ethical farming practices.</li>
+                        <li>🐄 Healthy livestock raised with proper care.</li>
+                        <li>🌍 Focus on eco-friendly and organic production.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-lg border-0 h-100 bg-light hover-shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Our People</h5>
+                    <ul class="card-text text-left">
+                        <li>🧑‍⚕️ Dedicated veterinarians ensuring animal health.</li>
+                        <li>💼 Committed suppliers and farm managers.</li>
+                        <li>🤝 Strong community support and collaboration.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="card shadow-lg border-0 h-100 bg-light hover-shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Our Technology</h5>
+                    <ul class="card-text text-left">
+                        <li>🔬 Smart farming tools for precision agriculture.</li>
+                        <li>📊 Data-driven decisions for better efficiency.</li>
+                        <li>🚀 AI-powered livestock monitoring.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+    <!-- Mission & Vision -->
+    <section class="py-5 mission">
+        <div class="container">
+            <h2 class="text-center mb-5">Our Mission & Vision</h2>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div class="card border-0 shadow-lg p-4">
+                        <h4 class="text-center">Mission</h4>
+                        <ul>
+                            <li>Promote ethical livestock farming</li>
+                            <li>Empower rural communities</li>
+                            <li>Ensure food sustainability</li>
+                            <li>Encourage eco-friendly practices</li>
+                            <li>Enhance quality through technology</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="card border-0 shadow-lg p-4">
+                        <h4 class="text-center">Vision</h4>
+                        <ul>
+                            <li>Become a leader in sustainable agriculture</li>
+                            <li>Innovate advanced farming techniques</li>
+                            <li>Bridge the gap between farmers and suppliers</li>
+                            <li>Expand global farm networks</li>
+                            <li>Implement cutting-edge research for better farming</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light pt-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 text-center mb-3">
+                    <h5>Farm Connect</h5>
+                    <p>Connecting Nature and Technology</p>
+                </div>
+                <div class="col-md-4 text-center mb-3">
+                    <h5>Navigation</h5>
+                    <ul class="list-unstyled">
+                        <li><a class="text-light" href="#">Home</a></li>
+                        <li><a class="text-light" href="#">Services</a></li>
+                        <li><a class="text-light" href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 text-center mb-3">
+                    <h5>Contact</h5>
+                    <p>Phone: +1 234 567 890</p>
+                    <p>Email: infofarmconnect.com</p>
+                </div>
+            </div>
+            <hr class="bg-light" />
+            <p class="text-center mb-0">&copy; 2025 Farm Connect. All rights reserved.</p>
+        </div>
+    </footer>
+</div>
