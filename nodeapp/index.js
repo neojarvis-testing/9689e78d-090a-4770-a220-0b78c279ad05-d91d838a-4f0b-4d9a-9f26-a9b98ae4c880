@@ -16,7 +16,7 @@ app.use(cors({
 }))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/feed',feedRouter)
+app.use('/feed',feedRouter);
 /*
 The following middleware enables the server to parse incoming JSON requests.
 Without this, Express cannot process JSON request bodies properly.
