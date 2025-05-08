@@ -68,8 +68,8 @@
           <label class="form-label">Role <span class="text-danger">*</span></label>
           <select class="form-select" formControlName="role">
             <option value="" selected disabled>Select Role</option>
-            <option value="Owner">Owner</option>
-            <option value="Supplier">Supplier</option>
+            <option value="user">Owner</option>
+            <option value="admin">Supplier</option>
           </select>
           <div *ngIf="signupForm.get('role')?.touched && signupForm.get('role')?.invalid" class="text-danger">
             Role is required.
@@ -86,3 +86,19 @@
   </div>
 </div>
 
+<!-- Bootstrap Modal -->
+<div class="modal fade" [class.show]="showModal" [style.display]="showModal ? 'block' : 'none'" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center">
+      <div class="modal-body">
+        <h4>User Registration Successful</h4>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-success" (click)="closeModal()">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Overlay background when modal is open -->
+<div *ngIf="showModal" class="modal-backdrop fade show"></div>
