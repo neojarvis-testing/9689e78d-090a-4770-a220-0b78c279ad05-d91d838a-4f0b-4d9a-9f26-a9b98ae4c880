@@ -3,13 +3,19 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark p-2">
         <a class="navbar-brand me-4" href="#" style="font-size: 1.8rem;">Farm Connect</a>
-        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-            <div class="ml-3">
-                <button class="btn btn-outline-light btn-sm mx-2" routerLink="/login">Login</button>
-                <button class="btn btn-outline-light btn-sm mx-4" routerLink="/signup">Sign Up</button>
-            </div>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto text-center">
+                <li class="nav-item">
+                    <button class="btn btn-outline-light btn-sm mx-2 mt-2" routerLink="/login">Login</button>
+                </li>
+            </ul>
         </div>
     </nav>
+    
 
     <!-- Hero Section -->
     <section class="hero-section position-relative">
