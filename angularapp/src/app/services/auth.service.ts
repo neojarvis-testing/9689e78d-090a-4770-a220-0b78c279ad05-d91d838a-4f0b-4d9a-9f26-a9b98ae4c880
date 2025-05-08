@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'https://8080-eeddcfeffbaaaafafeddafbdafabaec.premiumproject.examly.io';
+  private apiUrl ='https://8080-eeddcfeffbaaaafafeddafbdafabaec.premiumproject.examly.io';
 
   constructor(private http: HttpClient) {}
 

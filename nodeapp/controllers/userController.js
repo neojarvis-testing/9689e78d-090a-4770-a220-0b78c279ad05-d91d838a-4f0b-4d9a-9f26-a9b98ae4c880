@@ -38,7 +38,6 @@ exports.getUserByEmailAndPassword = async (req, res) => {
 exports.addUser = async (req, res) => {
     try {
         const { userName, email, mobile, password, role } = req.body;
-        console.log(req.body) 
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = await User.create({ 
             userName, 
