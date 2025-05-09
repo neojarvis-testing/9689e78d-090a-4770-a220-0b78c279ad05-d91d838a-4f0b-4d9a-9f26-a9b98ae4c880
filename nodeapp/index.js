@@ -8,7 +8,7 @@ const userRouetr=require('./routers/userRouter');
 const requestRouter=require('./routers/requestRouter');
 const app = express();
 app.use(cors({
-    origin:process.env.FRONT_END_URL,
+    origin:'https://8081-eedceaeaffefbaaaafafeddafbdafabaec.premiumproject.examly.io',
     methods:['GET','POST','PUT','DELETE','PATCH'],
     allowedHeaders:['Content-Type','authentication'],
     exposedHeaders:['Content-Type','X-Powered-By'],
@@ -16,13 +16,13 @@ app.use(cors({
 }))
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use('/feed',feedRouter)
+app.use('/feed',feedRouter);
 /*
 The following middleware enables the server to parse incoming JSON requests.
 Without this, Express cannot process JSON request bodies properly.
 It ensures that data sent from the client as JSON is converted into a usable JavaScript object.
 */
-
+app.use('/livestock',livestockRouter);
 
 /*
     Establishes a connection to the MongoDB database using environment variables.

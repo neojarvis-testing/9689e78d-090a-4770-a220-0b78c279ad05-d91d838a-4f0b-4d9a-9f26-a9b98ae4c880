@@ -1,1 +1,62 @@
-<p>my-request works!</p>
+<div class="p-4">
+    <h1 class="mb-4 text-center">My Requests</h1>
+
+    <input type="text" class="form-control form-control-sm mb-3" placeholder="Search by Feed Name..."
+        [(ngModel)]="searchQuery">
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>SNo</th>
+                <th>Feed Name</th>
+                <th>Quantity</th>
+                <th>Status</th>
+                <th>Request Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let request of paginatedRequests; let i = index">
+                <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
+                <td>{{ request.feedId.feedName }}</td>
+                <td>{{ request.quantity }}</td>
+                <td [ngClass]="{'text-warning': request.status === 'PENDING', 
+                               'text-success': request.status === 'APPROVED', 
+                               'text-danger': request.status === 'REJECTED'}">
+                    {{ request.status }}
+                </td>
+                <td>{{ request.requestDate | date:'short' }}</td>
+                <td>
+                    <button class="btn btn-danger btn-sm" 
+                        [disabled]="request.status !== 'PENDING'"
+                        (click)="confirmDelete(request)">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="pagination-controls text-center mt-3">
+        <button (click)="prevPage()" [disabled]="currentPage === 1">Prev</button>
+        <span>Page {{ currentPage }} of {{ totalPages }}</span>
+        <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="custom-modal" *ngIf="showModal">
+        <div class="custom-modal-content">
+            <div class="custom-modal-header">
+                <h5>Confirm Delete</h5>
+                <button type="button" class="close" (click)="closeModal()">&times;</button>
+            </div>
+            <div class="custom-modal-body">
+                Are you sure you want to delete this request?
+            </div>
+            <div class="custom-modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+                <button type="button" class="btn btn-danger" (click)="deleteRequest()">Yes, Delete</button>
+            </div>
+        </div>
+    </div>
+</div>

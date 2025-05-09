@@ -1,12 +1,3 @@
-// import { Injectable } from '@angular/core';
-
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class FeedService {
-
-//   constructor() { }
-// }
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -21,7 +12,7 @@ export class FeedService {
 
   constructor(private http: HttpClient) { }
 
-  private readonly backendUrl = 'https://8080-adaebaebcccbfbaaaafafeddafbdafabaec.premiumproject.examly.io'
+  private readonly backendUrl = 'https://8080-eedceaeaffefbaaaafafeddafbdafabaec.premiumproject.examly.io'
   private getHeaders() {
     const token = localStorage.getItem('authToken'); // Retrieve token from storage
     return {
@@ -55,4 +46,3 @@ export class FeedService {
     return this.http.delete<{ message: string }>(`${this.backendUrl}/feed/deleteFeed/${id}`);
   }
 }
-
