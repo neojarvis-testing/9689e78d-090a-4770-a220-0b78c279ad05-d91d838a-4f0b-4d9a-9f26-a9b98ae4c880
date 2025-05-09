@@ -8,7 +8,7 @@ const requestRouter=require('./routers/requestRouter');
 const app = express();
 const cors=require('cors');
 app.use(cors({
-    origin:process.env.FRONT_END_URL,
+    origin:'https://8081-eeddcfeffbaaaafafeddafbdafabaec.premiumproject.examly.io',
     methods:['GET','POST','PUT','DELETE','PATCH'],
     allowedHeaders:['Content-Type','authentication'],
     exposedHeaders:['Content-Type','X-Powered-By'],
