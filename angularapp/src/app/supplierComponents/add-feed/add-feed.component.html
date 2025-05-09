@@ -1,36 +1,41 @@
 <div class="container mt-5 d-flex justify-content-center">
     <div class="card p-4 shadow" style="width: 400px;">
-        <!-- Back Button -->
-        <div class="d-flex justify-content-end">
-            <button *ngIf="editMode" (click)="goBack()" class="btn btn-primary mb-3">Back</button>
+      <!-- Back Button -->
+      <div class="d-flex justify-content-end">
+        <button *ngIf="editMode" (click)="goBack()" class="btn btn-primary mb-3">Back</button>
+      </div>
+  
+      <form [formGroup]="feedForm" (ngSubmit)="onSubmit()" novalidate>
+        <h2 class="text-center mb-4">{{ editMode ? 'Edit Feed' : 'Add New Feed' }}</h2>
+  
+        <!-- Form Fields -->
+        <div class="form-group mb-4" *ngFor="let field of fields">
+          <label class="form-label w-100 text-center fw-semibold">
+            {{ field.label }}
+            <span *ngIf="field.name === 'unit'" class="text-muted">(e.g. kg)</span>
+            <span class="text-danger">*</span>
+          </label>
+  
+          <input [type]="field.type"
+                 [formControlName]="field.name"
+                 class="form-control border-0 border-bottom border-3 rounded-0 text-center"
+                 [ngClass]="{ 'is-invalid': isInvalid(field.name) }" />
+  
+          <!-- Validation Messages -->
+          <div *ngIf="isInvalid(field.name)" class="text-danger text-center small mt-1">
+            <span *ngIf="feedForm.get(field.name)?.errors?.required">{{ field.label }} is required.</span>
+            <span *ngIf="field.name === 'description' && feedForm.get('description')?.errors?.minlength">
+              Minimum 6 characters required.
+            </span>
+          </div>
         </div>
-
-        <form [formGroup]="feedForm" (ngSubmit)="onSubmit()" novalidate>
-            <h2 class="text-center mb-4">{{ editMode ? 'Edit Feed' : 'Add New Feed' }}</h2>
-
-            <!-- Form Fields -->
-            <div class="form-group mb-4" *ngFor="let field of fields">
-                <label class="form-label w-100 text-center fw-semibold">
-                    {{ field.label }} <span class="text-danger">*</span>
-                </label>
-                <input [type]="field.type" [formControlName]="field.name"
-                    class="form-control border-0 border-bottom border-3 rounded-0 text-center"
-                    [ngClass]="{ 'is-invalid': isInvalid(field.name) }" />
-
-                <!-- Validation Messages -->
-                <div *ngIf="isInvalid(field.name)" class="text-danger text-center small mt-1">
-                    <span *ngIf="feedForm.get(field.name)?.errors?.required">{{ field.label }} is required.</span>
-                    <span *ngIf="field.name === 'description' && feedForm.get('description')?.errors?.minlength">Minimum
-                        6 characters required.</span>
-                </div>
-            </div>
-
-            <!-- Submit Button -->
-            <div class="text-center">
-                <button type="submit" class="btn btn-success px-4">
-                    {{ editMode ? 'Update Feed' : 'Add Feed' }}
-                </button>
-            </div>
-        </form>
+  
+        <!-- Submit Button -->
+        <div class="text-center">
+          <button type="submit" class="btn btn-success px-4">
+            {{ editMode ? 'Update Feed' : 'Add Feed' }}
+          </button>
+        </div>
+      </form>
     </div>
-</div>
+  </div>

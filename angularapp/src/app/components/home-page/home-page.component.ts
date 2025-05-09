@@ -6,10 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home-page.component.css']
 })
 export class HomePageComponent implements OnInit {
-
+  userRole:string;
   constructor() { }
 
   ngOnInit(): void {
+    this.userRole=localStorage.getItem('currentuserRole');
   }
 
 }

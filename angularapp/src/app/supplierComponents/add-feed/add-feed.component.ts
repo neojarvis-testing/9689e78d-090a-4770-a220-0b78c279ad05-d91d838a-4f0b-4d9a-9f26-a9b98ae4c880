@@ -110,7 +110,7 @@ export class AddFeedComponent implements OnInit {
     { name: 'feedName', label: 'Feed Name', type: 'text' },
     { name: 'type', label: 'Type', type: 'text' },
     { name: 'description', label: 'Description', type: 'text' },
-    { name: 'unit', label: 'Unit (kg)', type: 'text' }, // Label updated with (kg)
+    { name: 'unit', label: 'Unit', type: 'text' }, // Label updated with (kg)
     { name: 'pricePerUnit', label: 'Price Per Unit', type: 'number' }
   ];
 
@@ -127,7 +127,7 @@ export class AddFeedComponent implements OnInit {
       feedName: ['', Validators.required],
       type: ['', Validators.required],
       description: ['', [Validators.required, Validators.minLength(6)]],
-      unit: ['kg', Validators.required],
+      unit: ['', Validators.required],
       pricePerUnit: ['', [Validators.required, Validators.min(0)]]
     });
   }

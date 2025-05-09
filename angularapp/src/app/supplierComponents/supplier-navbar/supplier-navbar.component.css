@@ -48,4 +48,6 @@
         padding: 10px;
       }
     }
-  
+.modal-backdrop {
+      backdrop-filter: blur(5px); /* Blurs background when modal is active */
+    }

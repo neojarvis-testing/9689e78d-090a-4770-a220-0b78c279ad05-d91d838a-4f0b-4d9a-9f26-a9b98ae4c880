@@ -4,15 +4,16 @@ import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors }
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user';
 
-
 @Component({
   selector: 'app-signup',
-  templateUrl: './signup.component.html'
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.css'] // Optional, for styling
 })
 export class SignupComponent {
   signupForm!: FormGroup;
   showModal: boolean = false;
-  successMessage: string = ''; // Store backend message
+  successMessage: string = ''; // Store backend success message
+  errorMessage: string = ''; // Store backend error message
 
   constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) {
     this.signupForm = this.fb.group({
@@ -50,11 +51,16 @@ export class SignupComponent {
       this.authService.registerUser(userData).subscribe({
         next: (response) => {
           this.successMessage = response.message; // Get success message from backend
+          localStorage.setItem('currentuserFarm',JSON.stringify(this.signupForm.value))
+          console.log(response.message);
+          
           this.showModal = true; // Show success modal
+          this.errorMessage = ''; // Clear any previous error messages
         },
         error: (err) => {
           console.error('Signup failed', err);
-          alert('Signup failed! Please try again.');
+          this.errorMessage = err.error.message || 'Signup failed! Please try again.';
+          this.showModal =false; // Show modal for error message too
         }
       });
     } else {
@@ -62,11 +68,15 @@ export class SignupComponent {
     }
   }
 
-  // Close modal and navigate to another page
+  // Close modal and navigate after success
   closeModal(): void {
     this.showModal = false;
-    this.router.navigate(['/home']); // Navigate after closing modal
+    if (this.successMessage==='Success') {
+      this.router.navigate(['/login']); // Navigate only if signup was successful
+    }
   }
+
+  // Validate numeric input for mobile field
   validateNumber(event: KeyboardEvent): void {
     const key = event.key;
     if (!/^[0-9]$/.test(key)) {  // Only allows digits 0-9
@@ -74,4 +84,3 @@ export class SignupComponent {
     }
   }
 }
-
