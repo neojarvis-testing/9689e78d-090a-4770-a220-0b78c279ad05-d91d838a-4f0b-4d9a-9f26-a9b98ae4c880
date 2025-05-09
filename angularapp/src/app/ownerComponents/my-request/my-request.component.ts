@@ -11,6 +11,8 @@ export class MyRequestComponent implements OnInit {
   searchQuery: string = '';
   itemsPerPage = 5;
   currentPage = 1;
+  requestToDelete: any | null = null; 
+  showModal = false; // Track modal visibility
 
   constructor(private requestService: RequestService) {}
 
@@ -18,7 +20,6 @@ export class MyRequestComponent implements OnInit {
     this.fetchRequests();
   }
 
-  // Fetch requests by logged-in user ID
   fetchRequests() {
     const userId = localStorage.getItem('userId'); 
     this.requestService.getRequestsByUserId(userId!).subscribe((data: any) => {
@@ -55,5 +56,27 @@ export class MyRequestComponent implements OnInit {
       this.currentPage++;
     }
   }
-}
 
+  // Show confirmation modal before deleting
+  confirmDelete(request: any): void {
+    this.requestToDelete = request;
+    this.showModal = true;
+  }
+
+  closeModal(): void {
+    this.showModal = false;
+    this.requestToDelete = null;
+  }
+
+  // Delete request only if status is PENDING
+  deleteRequest(): void {
+    if (this.requestToDelete) {
+      this.requestService.deleteRequest(this.requestToDelete._id).subscribe(() => {
+        this.fetchRequests(); // Refresh requests after deletion
+        this.closeModal();
+      }, error => {
+        console.error("Error deleting request:", error);
+      });
+    }
+  }
+}

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FeedService } from '../../services/feed.service';
 import { RequestService } from '../../services/request.service';
+import { LivestockService } from '../../services/livestock.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-owner-viewfeed',
@@ -9,26 +11,52 @@ import { RequestService } from '../../services/request.service';
 })
 export class OwnerViewfeedComponent implements OnInit {
   feeds: any[] = [];
+  livestockList: any[] = [];
   searchQuery: string = '';
   itemsPerPage = 5;
   currentPage = 1;
   selectedFeed: any | null = null;
+  selectedLivestock: any | null = null;
   showRequestModal = false;
-  requestData = { quantity: null };
+  requestData = { quantity: null, livestockId: null, userId: null };
 
-  constructor(private feedService: FeedService, private requestService: RequestService) {}
+  constructor(
+    private feedService: FeedService,
+    private requestService: RequestService,
+    private livestockService: LivestockService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
-    // this.fetchFeeds();
+    this.fetchFeeds();
+    this.fetchLivestock();
+    this.loadUserId();
   }
 
-  // fetchFeeds() {
-  //   this.feedService.getAllFeeds().subscribe((data: any) => {
-  //     this.feeds = data;
-  //   }, error => {
-  //     console.error("Error fetching feeds:", error);
-  //   });
-  // }
+  fetchFeeds() {
+    this.feedService.getAllFeeds().subscribe((data: any) => {
+      this.feeds = data;
+    }, error => {
+      console.error("Error fetching feeds:", error);
+    });
+  }
+
+  fetchLivestock() {
+    this.livestockService.getAllLivestocks().subscribe((data: any) => {
+      this.livestockList = data;
+    }, error => {
+      console.error("Error fetching livestock:", error);
+    });
+  }
+
+  loadUserId() {
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      console.error("User ID not found in localStorage.");
+      return;
+    }
+    this.requestData.userId = userId;
+  }
 
   filterFeeds() {
     return this.feeds.filter(feed =>
@@ -67,22 +95,27 @@ export class OwnerViewfeedComponent implements OnInit {
     this.showRequestModal = false;
     this.selectedFeed = null;
     this.requestData.quantity = null;
+    this.requestData.livestockId = null;
   }
 
   submitRequest(): void {
-    if (!this.requestData.quantity) {
-      alert('Please enter quantity.');
+    if (!this.requestData.quantity || !this.requestData.livestockId || !this.requestData.userId) {
+      alert('Please select livestock, enter quantity, and ensure user ID is available.');
       return;
     }
-    
+
     const requestPayload = {
       feedId: this.selectedFeed._id,
-      quantity: this.requestData.quantity
+      livestockId: this.requestData.livestockId,
+      userId: this.requestData.userId,
+      quantity: this.requestData.quantity,
+      status: 'PENDING' // Default status when submitting
     };
 
     this.requestService.addRequest(requestPayload).subscribe(() => {
       alert('Request submitted successfully!');
       this.closeRequestModal();
+      this.router.navigate(['/owner/my-request']); // Redirect to My Requests Page
     }, error => {
       console.error("Error submitting request:", error);
     });
