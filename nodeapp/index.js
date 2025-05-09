@@ -1,26 +1,28 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
+const cors=require('cors');
 const express = require('express');
 const feedRouter=require('./routers/feedRouter');
 const livestockRouter = require('./routers/liveStockRouter')
 const userRouetr=require('./routers/userRouter');
 const requestRouter=require('./routers/requestRouter');
 const app = express();
-const cors=require('cors');
 app.use(cors({
-    origin:process.env.FRONT_END_URL,
+    origin:'https://8081-edeafbaaaafafeddafbdafabaec.premiumproject.examly.io',
     methods:['GET','POST','PUT','DELETE','PATCH'],
     allowedHeaders:['Content-Type','authentication'],
     exposedHeaders:['Content-Type','X-Powered-By'],
     credentials:false
 }))
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/feed',feedRouter);
 /*
 The following middleware enables the server to parse incoming JSON requests.
 Without this, Express cannot process JSON request bodies properly.
 It ensures that data sent from the client as JSON is converted into a usable JavaScript object.
 */
-app.use(express.json());
+app.use('/livestock',livestockRouter);
 
 /*
     Establishes a connection to the MongoDB database using environment variables.
@@ -29,6 +31,10 @@ app.use(express.json());
     `useNewUrlParser: true` ensures that the latest MongoDB URL parsing mechanism is used.
     `useUnifiedTopology: true` improves the management of MongoDB server discovery and monitoring.
 */
+app.use('/liveStock',livestockRouter)
+app.use('/feed',feedRouter)
+app.use('/user',userRouetr)
+app.use('/request',requestRouter)
 mongoose.set('strictQuery', true).connect('mongodb://127.0.0.1:27017/farmconnect', {
     useNewUrlParser: true,
     useUnifiedTopology: true

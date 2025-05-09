@@ -1,7 +1,7 @@
-
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Feed } from 'src/app/models/feed';
-
+import { FeedService } from 'src/app/services/feed.service';
 
 
 @Component({
@@ -10,26 +10,32 @@ import { Feed } from 'src/app/models/feed';
   styleUrls: ['./view-feed.component.css']
 })
 export class ViewFeedComponent implements OnInit {
-  feeds: Feed[] = [
-    { id: 2, feedName: "agrofeed updated", type: "feed xtreme", description: "value for money", unit: "kg", pricePerUnit: 34 },
-    { id: 3, feedName: "demo name", type: "demo type", description: "demo description", unit: "Kg", pricePerUnit: 34 },
-    { id: 4, feedName: "grow fast", type: "grower", description: "high protein", unit: "Kg", pricePerUnit: 40 },
-    { id: 1, feedName: "starter", type: "crumbled", description: "best in class", unit: "kg", pricePerUnit: 56 },
-    { id: 5, feedName: "agrofeed updated", type: "feed xtreme", description: "value for money", unit: "kg", pricePerUnit: 34 },
-    { id: 6, feedName: "demo name", type: "demo type", description: "demo description", unit: "Kg", pricePerUnit: 34 },
-    { id: 7, feedName: "grow fast", type: "grower", description: "high protein", unit: "Kg", pricePerUnit: 40 }
-  ];
+  feeds: Feed[] = [];
   itemsPerPage = 3;
   currentPage = 1;
   searchQuery = '';
-  filteredFeeds: Feed[] = [...this.feeds];
-  feedToDelete: Feed | null = null;
+  filteredFeeds: Feed[] = [];
+  feedToDelete: any;
   showModal = false;
 
-  constructor() { }
+  constructor(private feedService: FeedService,private router:Router) { }
 
   ngOnInit(): void {
-    this.renderTable();
+    this.loadFeeds();
+  }
+
+  // Load feeds from the service
+  loadFeeds(): void {
+    this.feedService.getAllFeeds().subscribe(
+      (data: Feed[]) => {
+        this.feeds = data;
+        this.filteredFeeds = [...this.feeds];
+        this.renderTable();
+      },
+      (error) => {
+        console.error('Error fetching feeds', error);
+      }
+    );
   }
 
   // Returns the feeds to be displayed on the current page
@@ -78,6 +84,9 @@ export class ViewFeedComponent implements OnInit {
   confirmDelete(feed: Feed): void {
     this.feedToDelete = feed;
     this.showModal = true;
+    
+    
+    
   }
 
   // Closes the confirmation modal without deleting the feed
@@ -89,10 +98,19 @@ export class ViewFeedComponent implements OnInit {
   // Deletes the selected feed and updates the filtered feeds list
   deleteFeed(): void {
     if (this.feedToDelete) {
-      this.feeds = this.feeds.filter(feed => feed !== this.feedToDelete);
-      this.filterFeeds();
-      this.closeModal();
+      this.feedService.deleteFeed(this.feedToDelete._id).subscribe(
+        () => {
+          this.feeds = this.feeds.filter(feed => feed !== this.feedToDelete);
+          this.filterFeeds();
+          this.closeModal();
+        },
+        (error) => {
+          console.error('Error deleting feed', error);
+        }
+      );
     }
   }
+  confirmUpdate(id:number):void{
+    this.router.navigate(['/supplier/add-feed',id])
+  }
 }
-

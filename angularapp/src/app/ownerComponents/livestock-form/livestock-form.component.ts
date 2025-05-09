@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Livestock } from 'src/app/models/livestock';
+import { LivestockService } from 'src/app/services/livestock.service';
 
 @Component({
   selector: 'app-livestock-form',
@@ -9,11 +11,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class LivestockFormComponent implements OnInit {
 
-  livestockForm: FormGroup;
+  livestockForm!: FormGroup;
+  livestockId!: string;
   editMode = false;
+  vaccinationOptions = ['Vaccinated', 'Not Vaccinated', 'Up to Date'];
   fileRequired = false;
   fileTouched = false;
   attachment: File | null = null;
+  livestocks: Livestock[] = [];
 
   fields = [
     { name: 'name', label: 'Name', type: 'text' },
@@ -21,16 +26,16 @@ export class LivestockFormComponent implements OnInit {
     { name: 'age', label: 'Age', type: 'number' },
     { name: 'breed', label: 'Breed', type: 'text' },
     { name: 'healthCondition', label: 'Health Condition', type: 'text' },
-    { name: 'location', label: 'Location', type: 'text' }
+    { name: 'location', label: 'Location', type: 'text' },
   ];
 
   constructor(
     private fb: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router
+    private livestockService: LivestockService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     // Creating the reactive form with required validations
-    // Each field is initialized with an empty value and proper validation rules
     this.livestockForm = this.fb.group({
       name: ['', Validators.required],
       species: ['', Validators.required],
@@ -38,38 +43,38 @@ export class LivestockFormComponent implements OnInit {
       breed: ['', Validators.required],
       healthCondition: ['', Validators.required],
       location: ['', Validators.required],
-      vaccinationStatus: ['', Validators.required],
-      attachment:['',Validators.required]
+      vaccinationStatus: ['', Validators.required], // Keeping this separate from fields array
     });
   }
 
-  /** 
-   * Lifecycle hook called when the component is initialized 
-   * Checks if there's an ID in the URL route 
-   * If an ID is found, switches to edit mode
-   */
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
+    this.livestockId = this.route.snapshot.params['id'];
+    if (this.livestockId) {
       this.editMode = true;
+      this.loadLivestockDetails();
     }
   }
 
-  /** 
-   * Determines if a form control is invalid 
-   * Checks whether the field is touched or dirty and invalid 
-   * Returns true if validation errors are present
-   */
+  loadLivestockDetails(): void {
+    this.livestockService.getLivestockById(this.livestockId).subscribe(livestock => {
+      this.livestockId=livestock._id
+      this.livestockForm.patchValue({
+        name: livestock.name,
+        species: livestock.species,
+        breed: livestock.breed,
+        age: livestock.age,
+        healthCondition: livestock.healthCondition,
+        location: livestock.location,
+        vaccinationStatus: livestock.vaccinationStatus
+      });
+    });
+  }
+
   isInvalid(controlName: string): boolean {
     const control = this.livestockForm.get(controlName);
     return !!(control && control.invalid && (control.dirty || control.touched));
   }
 
-  /** 
-   * Handles file input changes when a user uploads an attachment 
-   * Tracks whether a file was selected and ensures it's required 
-   * Updates the form control based on the user's input 
-   */
   onFileChange(event: any): void {
     this.fileTouched = true;
     const file = event.target.files[0];
@@ -77,21 +82,6 @@ export class LivestockFormComponent implements OnInit {
     this.fileRequired = !this.attachment;
   }
 
-  /** 
-   * Navigates back to the livestock list page 
-   * Used in edit mode when the user clicks "Back" 
-   * Redirects to the appropriate route 
-   */
-  goBack(): void {
-    this.router.navigate(['/livestock']); // Adjust based on your routing
-  }
-
-  /** 
-   * Handles form submission when the user clicks "Add" or "Update" 
-   * Validates all fields, ensuring no missing required values 
-   * Displays an alert indicating whether the livestock was added or updated successfully
-   * Resets the form after submission
-   */
   onSubmit(): void {
     this.fileTouched = true;
     if (!this.attachment) {
@@ -102,11 +92,28 @@ export class LivestockFormComponent implements OnInit {
       this.livestockForm.markAllAsTouched();
       return;
     }
+    
+    const formData = new FormData();
+    const formValues = this.livestockForm.value;
 
+    Object.keys(formValues).forEach(key => {
+      formData.append(key, formValues[key]);
+    })
+
+    if (this.attachment) {
+      formData.append('attachment', this.attachment);
+    }
+
+    console.log(this.editMode);
     if (this.editMode) {
-      alert('Livestock updated successfully!');
+      console.log(Object.entries(formData));
+      this.livestockService.updateLivestock(this.livestockId, formData).subscribe(() => {
+        this.router.navigate(['/owner/view-livestock']);
+      });
     } else {
-      alert('Livestock added successfully!');
+      this.livestockService.addLivestock(formData).subscribe(() => {
+        this.router.navigate(['/owner/view-livestock']);
+      });
     }
 
     this.livestockForm.reset();
@@ -114,4 +121,8 @@ export class LivestockFormComponent implements OnInit {
     this.fileRequired = false;
     this.fileTouched = false;
   }
+  goBack():void{
+    this.router.navigate(['/owner/view-livestock'])
+  }
 }
+

@@ -1,3 +1,4 @@
+<!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-custom p-3">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">FarmConnect</a>
@@ -7,27 +8,48 @@
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <button class="btn btn-supplier">sup / Supplier</button>
+          <button class="btn btn-supplier">{{userName}} / Supplier</button>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Home</a>
+          <a class="nav-link" routerLink="/home-page">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Feed</a>
+          <a class="nav-link" href="/supplier/view-feed">Feed</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             View Requests
           </a>
           <ul class="dropdown-menu dropdown-menu-dark">
-            <li><a class="dropdown-item" routerLink="/add-feed">Add Feed</a></li>
-            <li><a class="dropdown-item" routerLink="/view-feed">View Feed</a></li>
+            <li><a class="dropdown-item" routerLink="/supplier/add-feed">Add Feed</a></li>
+            <li><a class="dropdown-item" routerLink="/supplier/view-feed">View Feed</a></li>
           </ul>
         </li>
         <li class="nav-item">
-          <button class="btn btn-logout">Logout</button>
+          <button class="btn btn-logout" (click)="openModal()">Logout</button>
         </li>
       </ul>
     </div>
   </div>
 </nav>
+
+<!-- Logout Confirmation Modal -->
+<div class="modal fade" [class.show]="showModal" [style.display]="showModal ? 'block' : 'none'" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center">
+      <div class="modal-header">
+        <h5 class="modal-title">Logout Confirmation</h5>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to logout?</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+        <button type="button" class="btn btn-danger" (click)="confirmLogout()">Logout</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Blurred Background Effect -->
+<div *ngIf="showModal" class="modal-backdrop fade show"></div>

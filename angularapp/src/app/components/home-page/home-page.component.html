@@ -1,14 +1,13 @@
-<!-- Calling Navbar from SupplierComponent -->
-<app-supplier-navbar></app-supplier-navbar>
-
-<!-- Background Image Section -->
+<app-owner-navbar *ngIf="userRole === 'user'"></app-owner-navbar>
+<app-supplier-navbar *ngIf="userRole === 'admin'"></app-supplier-navbar>
 <section class="hero-section">
   <video autoplay loop class="background-video">
     <source src= "https://videos.pexels.com/video-files/5982476/5982476-uhd_2560_1440_30fps.mp4" type="video/mp4">
     Your browser does not support the video tag.
   </video>
   <div class="overlay">
-    <h1 class="hero-title text-center">🌾 Farm Connect 🌱</h1>
+    <!-- <h1 class="hero-title text-center">🌾 Farm Connect 🌱</h1> -->
+    <h1 class="hero-title text-center">FarmConnect</h1>
     <p class="hero-tagline text-center mt-4">Connecting Livestock Owners with Feed Sellers</p>
   </div>
 </section>
@@ -25,7 +24,7 @@
               At Farm Connect, we bridge the gap between farmers and suppliers, ensuring access to quality farming
               resources.
               Whether it's Medicine feed , seeds, fertilizers, or advanced equipment, we make it easier for farmers to
-              obtain top-tier products.
+              obtain top-tier products and Success.
             </p>
           </div>
         </div>

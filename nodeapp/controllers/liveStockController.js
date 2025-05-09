@@ -1,4 +1,6 @@
 const Livestock = require('../models/liveStockModel');
+const fs=require('fs');
+const path=require('path');
 
 /**
  * Retrieves all livestock from the database.
@@ -51,6 +53,27 @@ exports.getLivestockByUserId = async (req, res) => {
  */
 exports.addLivestock = async (req, res) => {
     try {
+        // const { name, species, age, breed, healthCondition, location, vaccinationStatus, userId } = req.body;
+        // if (!req.file) {
+        //     return res.status(400).json({ message: "Attachment file is required" });
+        // }
+        // const newLivestock = new Livestock({
+        //     name,
+        //     species,
+        //     age,
+        //     breed,
+        //     healthCondition,
+        //     location,
+        //     vaccinationStatus,
+        //     userId,
+        //     attachment: {
+        //         filename: req.file.filename,
+        //         path: req.file.path,
+        //         mimetype: req.file.mimetype,
+        //         size: req.file.size
+        //     }
+        // });
+        // await newLivestock.save();
         const newLivestock = await Livestock.create(req.body);
         res.status(200).json({ message: "Livestock Added Successfully" });
     } catch (error) {
@@ -65,7 +88,20 @@ exports.addLivestock = async (req, res) => {
  */
 exports.updateLivestock = async (req, res) => {
     try {
-        const updatedLivestock = await Livestock.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        console.log(req.body);
+        let updateData = { ...req.body };
+
+        // If a new file is uploaded, update the attachment field
+        if (req.file) {
+            updateData.attachment = {
+                filename: req.file.filename,
+                path: req.file.path,
+                mimetype: req.file.mimetype,
+                size: req.file.size
+            };
+        }
+
+        const updatedLivestock = await Livestock.findByIdAndUpdate(req.params.id, updateData, { new: true });
         if (!updatedLivestock) {
             return res.status(404).json({ message: `Cannot find any livestock with ID ${req.params.id}` });
         }
@@ -90,3 +126,18 @@ exports.deleteLivestock = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+exports.getFileByLivestockId = async (req, res, next) => {
+    try {
+        const livestock = await Livestock.findById(req.params.id);
+        if (!livestock) {
+            return res.status(404).json({ message: `Cannot find any livestock with ID ${req.params.id}` });
+        }
+        const file = livestock.attachment;
+        const filepath = path.resolve(__dirname, '..', `${file.path}`);
+        if (!fs.existsSync(filepath)) res.status(404).send('No such directory or file found.')
+        return res.sendFile(filepath)
+    } catch (error) {
+        next(error)
+    }
+}

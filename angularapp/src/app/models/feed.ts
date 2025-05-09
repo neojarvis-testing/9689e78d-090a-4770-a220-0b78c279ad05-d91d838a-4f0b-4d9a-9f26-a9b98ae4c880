@@ -1,8 +1,8 @@
 export interface Feed {
-        id?: number;
+        id?: string;
         feedName: string;
         type: string;
         description: string;
         unit: string;
-        pricePerUnit: number;
+        pricePerUnit: string;
 }
