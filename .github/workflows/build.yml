@@ -21,7 +21,7 @@ jobs:
         env:
           GITHUB_TOKEN: >-
             9689e78d-090a-4770-a220-0b78c279ad05-d91d838a-4f0b-4d9a-9f26-a9b98ae4c880
-          SONAR_TOKEN: 811c9a490983734401ba4e491eaefc8bfa7281de
+          SONAR_TOKEN: 9d7592a215aa5d6c220de85460da10eef432ae2f
       - name: Trigger API
         if: always()
         env:
