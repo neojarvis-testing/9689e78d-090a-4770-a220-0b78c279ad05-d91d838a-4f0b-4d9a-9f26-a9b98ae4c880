@@ -28,10 +28,11 @@ const livestockSchema = new mongoose.Schema({
     vaccinationStatus: {
         type: String,
         required: true,
-        enum: ['vaccinated', 'Not Vaccinated' , 'Up to date'],
+        enum: ['Vaccinated', 'Not Vaccinated' , 'Up to date'],
     },
     userId: {
         type: mongoose.Schema.Types.ObjectId,
+        required:true,
         ref: 'User'
     },
     attachment:{

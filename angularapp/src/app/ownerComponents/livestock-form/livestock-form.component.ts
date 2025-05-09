@@ -44,12 +44,11 @@ export class LivestockFormComponent implements OnInit {
       healthCondition: ['', Validators.required],
       location: ['', Validators.required],
       vaccinationStatus: ['', Validators.required], // Keeping this separate from fields array
-      attachment: [null, Validators.required]
     });
   }
 
   ngOnInit(): void {
-    this.livestockId = this.route.snapshot.params['id']; // Fixed issue
+    this.livestockId = this.route.snapshot.params['id'];
     if (this.livestockId) {
       this.editMode = true;
       this.loadLivestockDetails();
@@ -58,7 +57,16 @@ export class LivestockFormComponent implements OnInit {
 
   loadLivestockDetails(): void {
     this.livestockService.getLivestockById(this.livestockId).subscribe(livestock => {
-      this.livestockForm.patchValue(livestock);
+      this.livestockId=livestock._id
+      this.livestockForm.patchValue({
+        name: livestock.name,
+        species: livestock.species,
+        breed: livestock.breed,
+        age: livestock.age,
+        healthCondition: livestock.healthCondition,
+        location: livestock.location,
+        vaccinationStatus: livestock.vaccinationStatus
+      });
     });
   }
 
@@ -71,12 +79,7 @@ export class LivestockFormComponent implements OnInit {
     this.fileTouched = true;
     const file = event.target.files[0];
     this.attachment = file ? file : null;
-    this.livestockForm.patchValue({ attachment: this.attachment });
     this.fileRequired = !this.attachment;
-  }
-
-  goBack(): void {
-    this.router.navigate(['/livestock']);
   }
 
   onSubmit(): void {
@@ -84,37 +87,39 @@ export class LivestockFormComponent implements OnInit {
     if (!this.attachment) {
       this.fileRequired = true;
     }
-  
+
     if (this.livestockForm.invalid || this.fileRequired) {
       this.livestockForm.markAllAsTouched();
       return;
     }
-  
-    const formData = new FormData();
     
-    // Append form fields
-    Object.keys(this.livestockForm.value).forEach((key) => {
-      formData.append(key, this.livestockForm.value[key]);
-    });
-  
-    // Append file separately
+    const formData = new FormData();
+    const formValues = this.livestockForm.value;
+
+    Object.keys(formValues).forEach(key => {
+      formData.append(key, formValues[key]);
+    })
+
     if (this.attachment) {
       formData.append('attachment', this.attachment);
     }
-  
+
+    console.log(this.editMode);
     if (this.editMode) {
+      console.log(Object.entries(formData));
       this.livestockService.updateLivestock(this.livestockId, formData).subscribe(() => {
-        this.router.navigate(['/livestock-list']);
+        this.router.navigate(['/owner/view-livestock']);
       });
     } else {
       this.livestockService.addLivestock(formData).subscribe(() => {
         this.router.navigate(['/livestock-list']);
       });
     }
-  
+
     this.livestockForm.reset();
     this.attachment = null;
     this.fileRequired = false;
     this.fileTouched = false;
   }
 }
+

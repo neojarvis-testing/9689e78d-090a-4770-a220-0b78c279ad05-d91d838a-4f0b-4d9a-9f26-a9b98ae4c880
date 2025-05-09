@@ -86,7 +86,20 @@ exports.addLivestock = async (req, res) => {
  */
 exports.updateLivestock = async (req, res) => {
     try {
-        const updatedLivestock = await Livestock.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        console.log(req.body);
+        let updateData = { ...req.body };
+
+        // If a new file is uploaded, update the attachment field
+        if (req.file) {
+            updateData.attachment = {
+                filename: req.file.filename,
+                path: req.file.path,
+                mimetype: req.file.mimetype,
+                size: req.file.size
+            };
+        }
+
+        const updatedLivestock = await Livestock.findByIdAndUpdate(req.params.id, updateData, { new: true });
         if (!updatedLivestock) {
             return res.status(404).json({ message: `Cannot find any livestock with ID ${req.params.id}` });
         }
