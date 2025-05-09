@@ -1,4 +1,6 @@
 const Livestock = require('../models/liveStockModel');
+const fs=require('fs');
+const path=require('path');
 
 /**
  * Retrieves all livestock from the database.
@@ -124,3 +126,18 @@ exports.deleteLivestock = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+exports.getFileByLivestockId = async (req, res, next) => {
+    try {
+        const livestock = await Livestock.findById(req.params.id);
+        if (!livestock) {
+            return res.status(404).json({ message: `Cannot find any livestock with ID ${req.params.id}` });
+        }
+        const file = livestock.attachment;
+        const filepath = path.resolve(__dirname, '..', `${file.path}`);
+        if (!fs.existsSync(filepath)) res.status(404).send('No such directory or file found.')
+        return res.sendFile(filepath)
+    } catch (error) {
+        next(error)
+    }
+}

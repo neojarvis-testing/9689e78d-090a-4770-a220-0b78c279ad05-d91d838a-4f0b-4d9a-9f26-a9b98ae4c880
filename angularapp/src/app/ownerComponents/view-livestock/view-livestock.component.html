@@ -1,5 +1,3 @@
-
-
 <div class="p-4">
     <!-- Main heading of the livestock component -->
     <h1 class="mb-4 text-center">Livestocks</h1>
@@ -50,7 +48,7 @@
                     <!-- Button to confirm deletion of the livestock -->
                     <button class="btn btn-danger btn-sm me-2" (click)="confirmDelete(livestock)">Delete</button>
                     <!-- Button to view the attachment of the livestock -->
-                    <button class="btn btn-success btn-sm">View Attachment</button>
+                    <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#imageModal" (click)="viewAttachment(livestock._id)">View Attachment</button>
                 </td>
             </tr>
         </tbody>
@@ -82,6 +80,21 @@
             <div class="custom-modal-footer">
                 <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
                 <button type="button" class="btn btn-danger" (click)="deleteLivestock()">Yes, Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Modal -->
+    <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body text-center">
+                    <!-- <p>{{ liveStock | json }}</p> -->
+                    <img id="modalImage" [src]="imageUrl" class="img-fluid" alt="Attachment Image">
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
