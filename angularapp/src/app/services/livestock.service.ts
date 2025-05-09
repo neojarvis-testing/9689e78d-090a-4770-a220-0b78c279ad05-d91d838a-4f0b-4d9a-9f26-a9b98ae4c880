@@ -2,19 +2,25 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Livestock } from '../models/livestock';
+import { map } from 'rxjs/operators'
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LivestockService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private sanitizer: DomSanitizer) { }
 
-  private apiUrl:string='https://8080-accecafecdeeafbaaaafafeddafbdafabaec.premiumproject.examly.io'
+  private apiUrl:string='https://8080-eedceaeaffefbaaaafafeddafbdafabaec.premiumproject.examly.io'
 
   private getHeaders() {
     const token = localStorage.getItem('authToken');
     return { headers: new HttpHeaders({ Authorization: `Bearer ${token}` }) };
+  }
+  //get all livestocks
+  getAllLivestocks():Observable<any>{
+    return this.http.get<any>(`${this.apiUrl}/livestock/getAllLivestock`)
   }
 
   //  Get livestock by ID
@@ -46,5 +52,13 @@ export class LivestockService {
   //  Get livestock by user ID (owner-specific)
   getLivestockByUserIdOwner(userId: string): Observable<Livestock> {
     return this.http.post<Livestock>(`${this.apiUrl}/livestock/getLivestockByUserId/${userId}`, { userId });
+  }
+  getFileByLivestockId(id:string):Observable<SafeUrl>{
+    return this.http.get(`${this.apiUrl}/liveStock/getFileByLivestockId/${id}/file`,{responseType:'blob'}).pipe(
+      map(file=>{
+        const objectURL=URL.createObjectURL(file);
+        return this.sanitizer.bypassSecurityTrustUrl(objectURL);
+      })
+    )
   }
 }

@@ -10,5 +10,5 @@ export interface Livestock {
     location:string;
     vaccinationStatus:string;
     attachment:string;
-    userId?:User
+    userId?:User;
 }

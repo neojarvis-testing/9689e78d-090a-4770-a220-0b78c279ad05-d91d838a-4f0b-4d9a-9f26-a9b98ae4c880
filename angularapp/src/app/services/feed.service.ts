@@ -1,12 +1,3 @@
-// import { Injectable } from '@angular/core';
-
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class FeedService {
-
-//   constructor() { }
-// }
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -55,4 +46,3 @@ export class FeedService {
     return this.http.delete<{ message: string }>(`${this.backendUrl}/feed/deleteFeed/${id}`);
   }
 }
-

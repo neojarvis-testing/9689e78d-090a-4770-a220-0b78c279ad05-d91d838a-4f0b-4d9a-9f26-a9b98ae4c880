@@ -1,7 +1,8 @@
-
 import { Component, OnInit } from '@angular/core';
+import { SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Livestock } from 'src/app/models/livestock';
+import { LivestockService } from 'src/app/services/livestock.service';
 
 @Component({
   selector: 'app-livestock',
@@ -10,64 +11,54 @@ import { Livestock } from 'src/app/models/livestock';
 })
 
 export class ViewLivestockComponent implements OnInit {
-  livestocks: Livestock[] = [
-    { _id: "1", name: "Bella", species: "Cow", age: 34, breed: "Holstein", healthCondition: "Healthy", location: "Farm xyz", vaccinationStatus: "Up to date", attachment: "attachment1"},
-    { _id: "2", name: "Max", species: "Sheep", age: 6, breed: "Merino", healthCondition: "Needs attention", location: "Farm kl", vaccinationStatus: "Pending", attachment: "attachment2" },
-    { _id: "3", name: "demo livestock", species: "demo species", age: 2, breed: "demo breed", healthCondition: "healthy", location: "demo location", vaccinationStatus: "Up to date", attachment: "attachment3" },
-    { _id: "4", name: "Bella", species: "Cow", age: 34, breed: "Holstein", healthCondition: "Healthy", location: "Farm xyz", vaccinationStatus: "Up to date", attachment: "attachment1" },
-    { _id: "5", name: "Max", species: "Sheep", age: 6, breed: "Merino", healthCondition: "Needs attention", location: "Farm kl", vaccinationStatus: "Pending", attachment: "attachment2"},
-    { _id: "6", name: "demo livestock", species: "demo species", age: 2, breed: "demo breed", healthCondition: "healthy", location: "demo location", vaccinationStatus: "Up to date", attachment: "attachment3"}
-  ];
+  livestocks: any = [];
+  imageUrl!:SafeUrl;
   itemsPerPage = 3;
   currentPage = 1;
   searchQuery = '';
-  filteredLivestocks: Livestock[] = [...this.livestocks];
+  filteredLivestocks: Livestock[] = [];
   livestockToDelete: Livestock | null = null;
   showModal = false;
+  imageLink:string;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private livestockService: LivestockService) { }
 
   ngOnInit(): void {
-    // Initialize the table when the component is initialized
-    // This function is called once the component is created
-    this.renderTable();
+    this.fetchLivestocks();
+  }
+
+  fetchLivestocks(): void {
+    this.livestockService.getAllLivestocks().subscribe((data) => {
+      this.livestocks = data;
+      this.filteredLivestocks = [...this.livestocks];
+      this.renderTable();
+
+    })
   }
 
   get paginatedLivestocks(): Livestock[] {
-    // Calculate the start and end indices for the current page
-    // Return the slice of the filtered livestock array for the current page
     const start = (this.currentPage - 1) * this.itemsPerPage;
     const end = start + this.itemsPerPage;
-    console.log(this.filteredLivestocks.slice(start, end));
-    
     return this.filteredLivestocks.slice(start, end);
   }
 
   get totalPages(): number {
-    // Calculate the total number of pages based on the number of filtered livestock
-    // Ensure there is at least one page
     return Math.max(Math.ceil(this.filteredLivestocks.length / this.itemsPerPage), 1);
   }
 
   filterLivestocks(): void {
-    // Filter the livestock array based on the search query
-    // Reset the current page to 1 and re-render the table
     this.filteredLivestocks = this.livestocks.filter(livestock => livestock.name.toLowerCase().includes(this.searchQuery.toLowerCase()));
     this.currentPage = 1;
     this.renderTable();
   }
 
   renderTable(): void {
-    // Ensure the current page is within the valid range
-    // Adjust the current page if it exceeds the total number of pages
     if (this.currentPage > this.totalPages) {
       this.currentPage = this.totalPages;
     }
   }
 
   prevPage(): void {
-    // Navigate to the previous page if it exists
-    // Re-render the table after changing the page
     if (this.currentPage > 1) {
       this.currentPage--;
       this.renderTable();
@@ -75,8 +66,6 @@ export class ViewLivestockComponent implements OnInit {
   }
 
   nextPage(): void {
-    // Navigate to the next page if it exists
-    // Re-render the table after changing the page
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
       this.renderTable();
@@ -84,32 +73,36 @@ export class ViewLivestockComponent implements OnInit {
   }
 
   confirmDelete(livestock: Livestock): void {
-    // Set the livestock to be deleted and show the confirmation modal
-    // This function is called when the delete button is clicked
     this.livestockToDelete = livestock;
     this.showModal = true;
   }
 
   closeModal(): void {
-    // Close the confirmation modal and reset the livestock to be deleted
-    // This function is called when the cancel button is clicked
     this.showModal = false;
     this.livestockToDelete = null;
   }
 
   deleteLivestock(): void {
-    // Delete the selected livestock from the array
-    // Filter the livestock array and close the confirmation modal
     if (this.livestockToDelete) {
-      this.livestocks = this.livestocks.filter(livestock => livestock !== this.livestockToDelete);
-      this.filterLivestocks();
-      this.closeModal();
+      this.livestockService.deleteLivestock(this.livestockToDelete._id)
+        .subscribe(() => {
+          this.livestocks = this.livestocks.filter(livestock => livestock !== this.livestockToDelete);
+          this.filterLivestocks();
+          this.closeModal();
+          this.imageUrl='';
+        });
     }
   }
 
   editLivestock(livestock: Livestock): void {
-    // Navigate to the livestock form for editing the selected livestock
-    // This function is called when the edit button is clicked
-    this.router.navigate(['/owner/livestock-form',livestock]);
+    this.router.navigate(['/owner/livestock-form', livestock]);
   }
+  viewAttachment(id:string):void{
+      this.livestockService.getFileByLivestockId(id).subscribe(url=>{
+        console.log(url);
+        this.imageUrl=url;
+      })
+  }
+
+  
 }

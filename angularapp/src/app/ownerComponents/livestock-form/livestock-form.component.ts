@@ -112,7 +112,7 @@ export class LivestockFormComponent implements OnInit {
       });
     } else {
       this.livestockService.addLivestock(formData).subscribe(() => {
-        this.router.navigate(['/livestock-list']);
+        this.router.navigate(['/owner/view-livestock']);
       });
     }
 
@@ -120,6 +120,9 @@ export class LivestockFormComponent implements OnInit {
     this.attachment = null;
     this.fileRequired = false;
     this.fileTouched = false;
+  }
+  goBack():void{
+    this.router.navigate(['/owner/view-livestock'])
   }
 }
 
