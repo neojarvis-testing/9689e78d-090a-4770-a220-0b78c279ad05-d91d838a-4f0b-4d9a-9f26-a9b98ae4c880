@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl ='https://8080-accecafecdeeafbaaaafafeddafbdafabaec.premiumproject.examly.io';
+  private apiUrl ='https://8080-edeafbaaaafafeddafbdafabaec.premiumproject.examly.io';
 
   constructor(private http: HttpClient) {}
 
