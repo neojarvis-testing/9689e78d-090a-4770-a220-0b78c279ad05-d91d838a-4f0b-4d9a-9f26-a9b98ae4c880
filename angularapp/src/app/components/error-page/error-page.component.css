@@ -1,0 +1,26 @@
+.error-main{
+    height: 100dvh;
+    width: 100%;
+  }
+  
+  .error-container {
+      text-align: center;
+      padding: 40px;
+      font-family: Arial, sans-serif;
+    }
+    
+    .error-container h2 {
+      color: #8B0000; /* Dark red */
+      margin-bottom: 10px;
+    }
+    
+    .error-container p {
+      color: #333;
+      margin-bottom: 20px;
+    }
+    
+    .error-icon {
+      width: 120px;
+      height: auto;
+      opacity: 0.8;
+    }

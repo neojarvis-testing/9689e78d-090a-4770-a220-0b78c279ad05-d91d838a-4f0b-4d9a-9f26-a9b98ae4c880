@@ -7,13 +7,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./supplier-navbar.component.css']
 })
 export class SupplierNavbarComponent implements OnInit {
-
+  userName:string;
   showModal: boolean = false; // State for logout modal
 
   constructor(private router: Router) {}
 
   ngOnInit(): void {
     // Any initialization logic can go here
+    this.userName=(localStorage.getItem('username'));
+   console.log(this.userName);
   }
   openModal(): void {
     this.showModal = true;

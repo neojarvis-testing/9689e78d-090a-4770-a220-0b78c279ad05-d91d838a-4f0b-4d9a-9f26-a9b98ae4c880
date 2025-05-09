@@ -22,7 +22,6 @@ The following middleware enables the server to parse incoming JSON requests.
 Without this, Express cannot process JSON request bodies properly.
 It ensures that data sent from the client as JSON is converted into a usable JavaScript object.
 */
-app.use(express.json());
 app.use('/livestock',livestockRouter);
 
 /*
