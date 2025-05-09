@@ -11,12 +11,12 @@ import { Livestock } from 'src/app/models/livestock';
 
 export class ViewLivestockComponent implements OnInit {
   livestocks: Livestock[] = [
-    { _id: 1, name: "Bella", species: "Cow", age: 34, breed: "Holstein", healthCondition: "Healthy", location: "Farm xyz", vaccinationStatus: "Up to date", attachment: "attachment1", userId: "user1" },
-    { _id: 2, name: "Max", species: "Sheep", age: 6, breed: "Merino", healthCondition: "Needs attention", location: "Farm kl", vaccinationStatus: "Pending", attachment: "attachment2", userId: "user2" },
-    { _id: 3, name: "demo livestock", species: "demo species", age: 2, breed: "demo breed", healthCondition: "healthy", location: "demo location", vaccinationStatus: "Up to date", attachment: "attachment3", userId: "user3" },
-    { _id: 4, name: "Bella", species: "Cow", age: 34, breed: "Holstein", healthCondition: "Healthy", location: "Farm xyz", vaccinationStatus: "Up to date", attachment: "attachment1", userId: "user1" },
-    { _id: 5, name: "Max", species: "Sheep", age: 6, breed: "Merino", healthCondition: "Needs attention", location: "Farm kl", vaccinationStatus: "Pending", attachment: "attachment2", userId: "user2" },
-    { _id: 6, name: "demo livestock", species: "demo species", age: 2, breed: "demo breed", healthCondition: "healthy", location: "demo location", vaccinationStatus: "Up to date", attachment: "attachment3", userId: "user3" }
+    { _id: "1", name: "Bella", species: "Cow", age: 34, breed: "Holstein", healthCondition: "Healthy", location: "Farm xyz", vaccinationStatus: "Up to date", attachment: "attachment1"},
+    { _id: "2", name: "Max", species: "Sheep", age: 6, breed: "Merino", healthCondition: "Needs attention", location: "Farm kl", vaccinationStatus: "Pending", attachment: "attachment2" },
+    { _id: "3", name: "demo livestock", species: "demo species", age: 2, breed: "demo breed", healthCondition: "healthy", location: "demo location", vaccinationStatus: "Up to date", attachment: "attachment3" },
+    { _id: "4", name: "Bella", species: "Cow", age: 34, breed: "Holstein", healthCondition: "Healthy", location: "Farm xyz", vaccinationStatus: "Up to date", attachment: "attachment1" },
+    { _id: "5", name: "Max", species: "Sheep", age: 6, breed: "Merino", healthCondition: "Needs attention", location: "Farm kl", vaccinationStatus: "Pending", attachment: "attachment2"},
+    { _id: "6", name: "demo livestock", species: "demo species", age: 2, breed: "demo breed", healthCondition: "healthy", location: "demo location", vaccinationStatus: "Up to date", attachment: "attachment3"}
   ];
   itemsPerPage = 3;
   currentPage = 1;
