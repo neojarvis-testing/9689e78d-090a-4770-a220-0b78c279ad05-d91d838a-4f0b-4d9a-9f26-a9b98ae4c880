@@ -1,0 +1,58 @@
+thead tr th {
+    background-color: #4CAF50 !important;
+    color: white !important;
+  }
+  .pagination-controls button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    margin: 0 5px;
+    padding: 5px 12px;
+    border-radius: 5px;
+  }
+  .pagination-controls button:disabled {
+    opacity: 0.6;
+  }
+  .custom-search {
+    border: none;
+    border-bottom: 2px solid #4CAF50;
+    border-radius: 0;
+    box-shadow: none;
+    width: 400px;
+  }
+  .custom-search:focus {
+    border-bottom: 2px solid #4CAF50;
+    box-shadow: none;
+  }
+  .custom-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  .custom-modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 300px;
+  }
+  .custom-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .custom-modal-header .close {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+  }
+  .custom-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }

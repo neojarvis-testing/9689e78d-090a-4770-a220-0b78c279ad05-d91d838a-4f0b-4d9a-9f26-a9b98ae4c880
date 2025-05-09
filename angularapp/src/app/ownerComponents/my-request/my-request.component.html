@@ -1,1 +1,27 @@
-<p>my-request works!</p>
+<div class="p-4">
+    <h1 class="mb-4 text-center">My Requests</h1>
+
+    <input type="text" class="form-control form-control-sm mb-3" placeholder="Search by Feed Name..."
+        [(ngModel)]="searchQuery">
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>SNo</th>
+                <th>Feed Name</th>
+                <th>Quantity</th>
+                <th>Status</th>
+                <th>Request Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let request of paginatedRequests; let i = index">
+                <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
+                <td>{{ request.feedId.feedName }}</td>
+                <td>{{ request.quantity }}</td>
+                <td>{{ request.status }}</td>
+                <td>{{ request.requestDate | date:'short' }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
