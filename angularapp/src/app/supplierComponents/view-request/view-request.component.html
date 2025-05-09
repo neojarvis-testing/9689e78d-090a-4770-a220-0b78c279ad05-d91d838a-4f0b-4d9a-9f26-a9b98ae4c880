@@ -1,1 +1,42 @@
-<p>view-request works!</p>
+<div class="p-4">
+    <h1 class="mb-4 text-center">Requests</h1>
+
+    <input type="text" class="form-control form-control-sm mb-3 custom-search" placeholder="Search by Feed Name..."
+        [(ngModel)]="searchQuery" (input)="filterRequests()">
+
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>SNo</th>
+                <th>Feed Name</th>
+                <th>User Name</th>
+                <th>Livestock Name</th>
+                <th>Quantity</th>
+                <th>Status</th>
+                <th>Request Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let request of paginatedRequests; let i = index">
+                <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
+                <td>{{ request.feedId.feedName }}</td>
+                <td>{{ request.userId.userName }}</td>
+                <td>{{ request.livestockId.name }}</td>
+                <td>{{ request.quantity }}</td>
+                <td>{{ request.status }}</td>
+                <td>{{ request.requestDate | date:'short' }}</td>
+                <td>
+                    <button class="btn btn-success btn-sm me-2" (click)="updateRequestStatus(request._id, 'APPROVED')">Approve</button>
+                    <button class="btn btn-danger btn-sm" (click)="updateRequestStatus(request._id, 'REJECTED')">Reject</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="pagination-controls text-center mt-3">
+        <button (click)="prevPage()" [disabled]="currentPage === 1">Prev</button>
+        <span>Page {{ currentPage }} of {{ totalPages }}</span>
+        <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+    </div>
+</div>
