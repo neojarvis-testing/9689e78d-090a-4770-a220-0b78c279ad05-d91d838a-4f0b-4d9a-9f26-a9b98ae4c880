@@ -1,1 +1,88 @@
-<p>view-livestock works!</p>
+
+
+<div class="p-4">
+    <!-- Main heading of the livestock component -->
+    <h1 class="mb-4 text-center">Livestocks</h1>
+
+    <!-- Input field for searching livestock by name -->
+    <input type="text" id="searchInput" class="form-control form-control-sm mb-3 custom-search"
+        placeholder="Search by Name..." [(ngModel)]="searchQuery" (input)="filterLivestocks()">
+
+    <!-- Table to display the list of livestocks -->
+    <table class="table table-bordered table-striped">
+        <thead>
+            <!-- Table header row defining the columns -->
+            <tr>
+                <th>SNo</th>
+                <th>Name</th>
+                <th>Species</th>
+                <th>Age</th>
+                <th>Breed</th>
+                <th>Health Condition</th>
+                <th>Location</th>
+                <th>Vaccination Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Loop through paginatedLivestocks to display each livestock in a table row -->
+            <tr *ngFor="let livestock of paginatedLivestocks; let i = index">
+                <!-- Display the serial number for each livestock -->
+                <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
+                <!-- Display the name of the livestock -->
+                <td>{{ livestock.name }}</td>
+                <!-- Display the species of the livestock -->
+                <td>{{ livestock.species }}</td>
+                <!-- Display the age of the livestock -->
+                <td>{{ livestock.age }}</td>
+                <!-- Display the breed of the livestock -->
+                <td>{{ livestock.breed }}</td>
+                <!-- Display the health condition of the livestock -->
+                <td>{{ livestock.healthCondition }}</td>
+                <!-- Display the location of the livestock -->
+                <td>{{ livestock.location }}</td>
+                <!-- Display the vaccination status of the livestock -->
+                <td>{{ livestock.vaccinationStatus }}</td>
+                <!-- Action buttons for editing, deleting, and viewing attachment of the livestock -->
+                <td>
+                    <!-- Button to edit the livestock details -->
+                    <button class="btn btn-warning btn-sm me-2" (click)="editLivestock(livestock._id)">Edit</button>
+                    <!-- Button to confirm deletion of the livestock -->
+                    <button class="btn btn-danger btn-sm me-2" (click)="confirmDelete(livestock)">Delete</button>
+                    <!-- Button to view the attachment of the livestock -->
+                    <button class="btn btn-success btn-sm">View Attachment</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Pagination controls for navigating through pages -->
+    <div class="pagination-controls text-center mt-3">
+        <!-- Button to navigate to the previous page -->
+        <button (click)="prevPage()" [disabled]="currentPage === 1">Prev</button>
+        <!-- Display the current page number and total number of pages -->
+        <span>Page {{ currentPage }} of {{ totalPages }}</span>
+        <!-- Button to navigate to the next page -->
+        <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="custom-modal" *ngIf="showModal">
+        <div class="custom-modal-content">
+            <!-- Modal header with title and close button -->
+            <div class="custom-modal-header">
+                <h5>Confirm Delete</h5>
+                <button type="button" class="close" (click)="closeModal()">&times;</button>
+            </div>
+            <!-- Modal body with confirmation message -->
+            <div class="custom-modal-body">
+                Are you sure you want to delete this livestock?
+            </div>
+            <!-- Modal footer with cancel and delete buttons -->
+            <div class="custom-modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+                <button type="button" class="btn btn-danger" (click)="deleteLivestock()">Yes, Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
