@@ -14,7 +14,7 @@ export class LivestockFormComponent implements OnInit {
   livestockForm!: FormGroup;
   livestockId!: string;
   editMode = false;
-  vaccinationOptions = ['Vaccinated', 'Not Vaccinated', 'Up to Date'];
+  vaccinationOptions = ['Vaccinated', 'Not Vaccinated', 'Up to date'];
   fileRequired = false;
   fileTouched = false;
   attachment: File | null = null;
