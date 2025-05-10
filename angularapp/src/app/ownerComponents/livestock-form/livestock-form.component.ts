@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Livestock } from 'src/app/models/livestock';
 import { LivestockService } from 'src/app/services/livestock.service';
-import {ToastrService} from 'ngx-toastr'
+
 @Component({
   selector: 'app-livestock-form',
   templateUrl: './livestock-form.component.html',
@@ -30,11 +30,10 @@ export class LivestockFormComponent implements OnInit {
   ];
 
   constructor(
-    private readonly fb: FormBuilder,
-    private readonly livestockService: LivestockService,
-    private readonly router: Router,
-    private readonly route: ActivatedRoute,
-    private readonly toastr:ToastrService
+    private fb: FormBuilder,
+    private livestockService: LivestockService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     // Creating the reactive form with required validations
     this.livestockForm = this.fb.group({
@@ -73,13 +72,13 @@ export class LivestockFormComponent implements OnInit {
 
   isInvalid(controlName: string): boolean {
     const control = this.livestockForm.get(controlName);
-    return !!(control?.invalid && (control?.dirty || control?.touched));
+    return !!(control && control.invalid && (control.dirty || control.touched));
   }
 
   onFileChange(event: any): void {
     this.fileTouched = true;
     const file = event.target.files[0];
-    this.attachment = file ?? null;
+    this.attachment = file ? file : null;
     this.fileRequired = !this.attachment;
   }
 
@@ -94,7 +93,7 @@ export class LivestockFormComponent implements OnInit {
       return;
     }
     
-    const formData = new FormData();
+    let formData = new FormData();
     const formValues = this.livestockForm.value;
 
     Object.keys(formValues).forEach(key => {
@@ -104,16 +103,18 @@ export class LivestockFormComponent implements OnInit {
     if (this.attachment) {
       formData.append('attachment', this.attachment);
     }
+    const userId = localStorage.getItem('userId');
+    formData.append('userId', userId!);
 
     console.log(this.editMode);
     if (this.editMode) {
       console.log(Object.entries(formData));
       this.livestockService.updateLivestock(this.livestockId, formData).subscribe(() => {
-        this.toastr.success('Livestock Updated Successfully')
         this.router.navigate(['/owner/view-livestock']);
       });
     } else {
       this.livestockService.addLivestock(formData).subscribe(() => {
+        console.log(formData);
         this.toastr.success('Livestock Added Successfully')
         this.router.navigate(['/owner/view-livestock']);
       });
