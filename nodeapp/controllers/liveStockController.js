@@ -40,7 +40,8 @@ exports.getLivestockById = async (req, res) => {
  */
 exports.getLivestockByUserId = async (req, res) => {
     try {
-        const livestock = await Livestock.find({ userId: req.params.id });
+        // const {userId}=req.params.id
+        const livestock = await Livestock.find({userId:req.params.id});
         res.status(200).json(livestock);
     } catch (error) {
         res.status(500).json({ message: error.message });

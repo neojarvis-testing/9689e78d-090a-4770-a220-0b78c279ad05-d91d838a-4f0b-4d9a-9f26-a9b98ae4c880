@@ -21,7 +21,7 @@ export class ViewRequestComponent implements OnInit {
 
   // Fetch all requests
   fetchRequests() {
-    this.requestService.getAllRequests().subscribe((data: any) => {
+    this.requestService.getAllRequests().subscribe((data) => {
       this.requests = data;
       this.filteredRequests = [...this.requests];
     }, error => {

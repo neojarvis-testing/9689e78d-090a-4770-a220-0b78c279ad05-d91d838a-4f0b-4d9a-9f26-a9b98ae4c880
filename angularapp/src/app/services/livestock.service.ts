@@ -30,7 +30,7 @@ export class LivestockService {
 
   //  Add new livestock
   addLivestock(formData:FormData): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/livestock/addLivestock`, formData);
+    return this.http.post<any>(`${this.apiUrl}/livestock/addLivestock`,formData);
   }
 
   //  Update existing livestock
@@ -39,9 +39,9 @@ export class LivestockService {
   }
 
   //  Get livestock by user ID with pagination and search
-  getLivestockByUserId(userId: string, page: number, pageSize: number, searchValue: string): Observable<Livestock[]> {
-    const requestBody = { userId, page, pageSize, searchValue };
-    return this.http.post<Livestock[]>(`${this.apiUrl}/livestock/getLivestockByUserId/${userId}`, requestBody);
+  getLivestockByUserId(userId: string): Observable<Livestock[]> {
+    // const requestBody= { userId};
+    return this.http.get<Livestock[]>(`${this.apiUrl}/livestock/getLivestockByUserId/${userId}`);
   }
 
   //  Delete livestock
