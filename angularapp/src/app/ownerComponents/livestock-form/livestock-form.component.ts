@@ -93,7 +93,7 @@ export class LivestockFormComponent implements OnInit {
       return;
     }
     
-    const formData = new FormData();
+    let formData = new FormData();
     const formValues = this.livestockForm.value;
 
     Object.keys(formValues).forEach(key => {
@@ -103,6 +103,8 @@ export class LivestockFormComponent implements OnInit {
     if (this.attachment) {
       formData.append('attachment', this.attachment);
     }
+    const userId = localStorage.getItem('userId');
+    formData.append('userId', userId!);
 
     console.log(this.editMode);
     if (this.editMode) {
@@ -112,6 +114,8 @@ export class LivestockFormComponent implements OnInit {
       });
     } else {
       this.livestockService.addLivestock(formData).subscribe(() => {
+        console.log(formData);
+        
         this.router.navigate(['/owner/view-livestock']);
       });
     }

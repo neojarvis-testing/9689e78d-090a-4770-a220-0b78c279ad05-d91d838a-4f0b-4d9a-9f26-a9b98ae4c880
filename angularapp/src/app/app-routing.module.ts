@@ -13,12 +13,14 @@ import { MyRequestComponent } from './ownerComponents/my-request/my-request.comp
 import { OwnerViewfeedComponent } from './ownerComponents/owner-viewfeed/owner-viewfeed.component';
 import { ViewLivestockComponent } from './ownerComponents/view-livestock/view-livestock.component';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 
 const routes: Routes = [
   {path:'error-page',component:ErrorPageComponent},
   {path:'home-page',component:HomePageComponent},
   {path:'login',component:LoginComponent},
   {path:'signup',component:SignupComponent},
+  {path:'forgot-password',component:ForgotPasswordComponent},
   {path:'supplier/navbar',component:SupplierNavbarComponent},
   {path:'supplier/add-feed',component:AddFeedComponent},
   {path:'supplier/add-feed/:id',component:AddFeedComponent},

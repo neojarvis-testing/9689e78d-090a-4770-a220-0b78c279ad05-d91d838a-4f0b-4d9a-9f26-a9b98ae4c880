@@ -1,7 +1,7 @@
 <div class="p-4">
     <h1 class="mb-4 text-center">Available Feeds</h1>
 
-    <input type="text" class="form-control form-control-sm mb-3" placeholder="Search by Feed Name..."
+    <input type="text" class="form-control form-control-sm mb-3 custom-search" placeholder="Search by Feed Name..."
         [(ngModel)]="searchQuery">
 
     <table class="table table-bordered table-striped">
@@ -25,7 +25,7 @@
                 <td>{{ feed.unit }}</td>
                 <td>{{ feed.pricePerUnit["$numberDecimal"]}}</td>
                 <td>
-                    <button class="btn btn-primary btn-sm" (click)="openRequestForm(feed)">Request</button>
+                    <button class="btn btn-success btn-sm" (click)="openRequestForm(feed)">Request</button>
                 </td>
             </tr>
         </tbody>
@@ -55,9 +55,9 @@
                 <label class="mt-3">Quantity:</label>
                 <input type="number" [(ngModel)]="requestData.quantity" class="form-control" required>
             </div>
-            <div class="custom-modal-footer">
-                <button type="button" class="btn btn-secondary" (click)="closeRequestModal()">Cancel</button>
-                <button type="button" class="btn btn-primary" (click)="submitRequest()">Request</button>
+            <div class="custom-modal-footer mt-3">
+                <button type="button" class="btn btn-success" (click)="submitRequest()">Confirm Request</button>
+                <button type="button" class="btn btn-success" (click)="closeRequestModal()">Cancel</button>
             </div>
         </div>
     </div>

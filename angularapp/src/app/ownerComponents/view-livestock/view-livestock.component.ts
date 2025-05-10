@@ -28,7 +28,8 @@ export class ViewLivestockComponent implements OnInit {
   }
 
   fetchLivestocks(): void {
-    this.livestockService.getAllLivestocks().subscribe((data) => {
+    const userId = localStorage.getItem('userId');
+    this.livestockService.getLivestockByUserId(userId).subscribe((data) => {
       this.livestocks = data;
       this.filteredLivestocks = [...this.livestocks];
       this.renderTable();
