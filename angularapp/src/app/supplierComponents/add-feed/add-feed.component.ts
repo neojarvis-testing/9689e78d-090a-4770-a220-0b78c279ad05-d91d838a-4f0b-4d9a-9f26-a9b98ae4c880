@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FeedService } from 'src/app/services/feed.service';
-
+import {ToastrService} from 'ngx-toastr'
 @Component({
   selector: 'app-add-feed',
   templateUrl: './add-feed.component.html',
@@ -25,7 +25,8 @@ export class AddFeedComponent implements OnInit {
     private readonly fb: FormBuilder,
     private readonly route: ActivatedRoute,
     private readonly router: Router,
-    private readonly feedService: FeedService // Inject FeedService for API communication
+    private readonly feedService: FeedService, // Inject FeedService for API communication
+    private readonly toastr:ToastrService
   ) {
     /** Initializes the reactive form with validation rules.
      *  Default unit is set to 'kg', and description requires at least 6 characters.
@@ -91,7 +92,7 @@ export class AddFeedComponent implements OnInit {
        *  Displays a success alert and redirects upon completion.
        *  Logs any errors encountered during the API call. */
       this.feedService.updateFeed(this.feedId, feedData).subscribe(() => {
-        alert('Feed updated successfully!');
+        this.toastr.success('Feed updated successfully!')
         this.router.navigate(['/supplier/view-feed']);
       }, error => {
         console.error('Update failed:', error);
@@ -101,9 +102,10 @@ export class AddFeedComponent implements OnInit {
        *  Displays a success alert and redirects upon completion.
        *  Logs any errors encountered during the API call. */
       this.feedService.addFeed(feedData).subscribe(() => {
-        alert('Feed added successfully!');
+        this.toastr.success('Feed Added successfully!')
         this.router.navigate(['/supplier/view-feed']);
       }, error => {
+        this.toastr.error('Add Failed')
         console.error('Add failed:', error);
       });
     }

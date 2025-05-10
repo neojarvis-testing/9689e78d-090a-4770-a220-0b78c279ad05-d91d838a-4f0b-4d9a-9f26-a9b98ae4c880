@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-signup',
@@ -15,7 +16,7 @@ export class SignupComponent {
   successMessage: string = ''; // Store backend success message
   errorMessage: string = ''; // Store backend error message
 
-  constructor(private readonly fb: FormBuilder, private readonly router: Router, private readonly authService: AuthService) {
+  constructor(private readonly fb: FormBuilder, private readonly router: Router, private readonly authService: AuthService,private toastr:ToastrService) {
     this.signupForm = this.fb.group({
       userName: ['', Validators.required],
       email: ['', [
@@ -58,6 +59,7 @@ export class SignupComponent {
           this.errorMessage = ''; // Clear any previous error messages
         },
         error: (err) => {
+          this.toastr.error(err.error.error)
           console.error('Signup failed', err);
           this.errorMessage = err.error.message ?? 'Signup failed! Please try again.';
           this.showModal = false;

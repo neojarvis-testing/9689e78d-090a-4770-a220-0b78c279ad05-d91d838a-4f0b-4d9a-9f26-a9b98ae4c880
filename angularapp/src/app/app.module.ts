@@ -19,6 +19,9 @@ import { ViewRequestComponent } from './supplierComponents/view-request/view-req
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component'
 import {ToastrModule} from 'ngx-toastr'
+
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,8 +47,9 @@ import {ToastrModule} from 'ngx-toastr'
     HttpClientModule,
     FormsModule,
     ToastrModule.forRoot({
-      positionClass: 'toast-top-right'
+      positionClass: 'toast-bottom-right'
     }),
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

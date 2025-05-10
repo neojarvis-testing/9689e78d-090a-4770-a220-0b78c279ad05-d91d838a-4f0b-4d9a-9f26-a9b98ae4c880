@@ -75,7 +75,6 @@ exports.addLivestock = async (req, res) => {
             }
         });
         await newLivestock.save();
-        // const newLivestock = await Livestock.create(req.body);
         res.status(200).json({ message: "Livestock Added Successfully" });
     } catch (error) {
         res.status(500).json({ message: error.message });

@@ -14,24 +14,24 @@ import { OwnerViewfeedComponent } from './ownerComponents/owner-viewfeed/owner-v
 import { ViewLivestockComponent } from './ownerComponents/view-livestock/view-livestock.component';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
-
+import { AuthguardGuard } from './components/authguard/authguard.guard';
 const routes: Routes = [
   {path:'error-page',component:ErrorPageComponent},
-  {path:'home-page',component:HomePageComponent},
+  {path:'home-page',component:HomePageComponent,canActivate: [AuthguardGuard]},
   {path:'login',component:LoginComponent},
   {path:'signup',component:SignupComponent},
   {path:'forgot-password',component:ForgotPasswordComponent},
-  {path:'supplier/navbar',component:SupplierNavbarComponent},
-  {path:'supplier/add-feed',component:AddFeedComponent},
-  {path:'supplier/add-feed/:id',component:AddFeedComponent},
-  {path:'supplier/view-feed',component:ViewFeedComponent},
-  {path:'supplier/view-request',component:ViewRequestComponent},
-  {path:'owner/navbar',component:OwnerNavbarComponent},
-  {path:'owner/livestock-form',component:LivestockFormComponent},
-  {path:'owner/livestock-form/:id',component:LivestockFormComponent},
-  {path:'owner/my-request',component:MyRequestComponent},
-  {path:'owner/view-feed',component:OwnerViewfeedComponent},
-  {path:'owner/view-livestock',component:ViewLivestockComponent},
+  {path:'supplier/navbar',component:SupplierNavbarComponent,canActivate: [AuthguardGuard]},
+  {path:'supplier/add-feed',component:AddFeedComponent,canActivate: [AuthguardGuard]},
+  {path:'supplier/add-feed/:id',component:AddFeedComponent,canActivate: [AuthguardGuard]},
+  {path:'supplier/view-feed',component:ViewFeedComponent,canActivate: [AuthguardGuard]},
+  {path:'supplier/view-request',component:ViewRequestComponent,canActivate: [AuthguardGuard]},
+  {path:'owner/navbar',component:OwnerNavbarComponent,canActivate: [AuthguardGuard]},
+  {path:'owner/livestock-form',component:LivestockFormComponent,canActivate: [AuthguardGuard]},
+  {path:'owner/livestock-form/:id',component:LivestockFormComponent,canActivate: [AuthguardGuard]},
+  {path:'owner/my-request',component:MyRequestComponent,canActivate: [AuthguardGuard]},
+  {path:'owner/view-feed',component:OwnerViewfeedComponent,canActivate: [AuthguardGuard]},
+  {path:'owner/view-livestock',component:ViewLivestockComponent,canActivate: [AuthguardGuard]},
 ];
 
 @NgModule({
