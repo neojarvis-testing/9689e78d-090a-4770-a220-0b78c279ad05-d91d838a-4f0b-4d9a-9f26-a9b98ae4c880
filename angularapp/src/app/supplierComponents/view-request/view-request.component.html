@@ -20,15 +20,29 @@
         <tbody>
             <tr *ngFor="let request of paginatedRequests; let i = index">
                 <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td>
-                <td>{{ request.feedId.feedName }}</td>
-                <td>{{ request.userId.userName }}</td>
-                <td>{{ request.livestockId.name }}</td>
+                <td>{{ request.feedId?.feedName || 'N/A' }}</td>
+                <td>{{ request.userId?.userName || 'N/A' }}</td>
+                <td>{{ request.livestockId?.name || 'N/A' }}</td>
                 <td>{{ request.quantity }}</td>
-                <td>{{ request.status }}</td>
+                <td [ngClass]="{
+                    'text-warning': request.status === 'PENDING',
+                    'text-success': request.status === 'APPROVED',
+                    'text-danger': request.status === 'REJECTED'
+                }">
+                    {{ request.status }}
+                </td>
                 <td>{{ request.requestDate | date:'short' }}</td>
                 <td>
-                    <button class="btn btn-success btn-sm me-2" (click)="updateRequestStatus(request._id, 'APPROVED')">Approve</button>
-                    <button class="btn btn-danger btn-sm" (click)="updateRequestStatus(request._id, 'REJECTED')">Reject</button>
+                    <button class="btn btn-success btn-sm me-2"
+                        *ngIf="request.status === 'PENDING' || request.status === 'REJECTED'"
+                        (click)="updateRequestStatus(request._id, 'APPROVED')">
+                        Approve
+                    </button>
+                    <button class="btn btn-danger btn-sm"
+                        *ngIf="request.status === 'PENDING' || request.status === 'APPROVED'"
+                        (click)="updateRequestStatus(request._id, 'REJECTED')">
+                        Reject
+                    </button>
                 </td>
             </tr>
         </tbody>

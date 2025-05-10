@@ -32,6 +32,6 @@ export class RequestService {
   }
   
   getAllRequests(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/request/getAllRequests`);
+    return this.http.get<any>(`${this.baseUrl}/request/getAllRequests`);
   }
 }  

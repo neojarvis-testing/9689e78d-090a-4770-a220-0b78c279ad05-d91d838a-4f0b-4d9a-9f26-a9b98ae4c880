@@ -28,6 +28,7 @@ export class OwnerViewfeedComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    const userId = localStorage.getItem('userId');
     this.fetchFeeds();
     this.fetchLivestock();
     this.loadUserId();
@@ -42,12 +43,20 @@ export class OwnerViewfeedComponent implements OnInit {
   }
 
   fetchLivestock() {
-    this.livestockService.getAllLivestocks().subscribe((data: any) => {
-      this.livestockList = data;
+    const userId = localStorage.getItem('userId');
+
+    if (!userId) {
+        console.error("User ID not found in localStorage.");
+        return;
+    }
+
+    this.livestockService.getLivestockByUserId(userId).subscribe((data: any) => {
+        this.livestockList = data;
     }, error => {
-      console.error("Error fetching livestock:", error);
+        console.error("Error fetching livestock:", error);
     });
-  }
+}
+
 
   loadUserId() {
     const userId = localStorage.getItem('userId');
