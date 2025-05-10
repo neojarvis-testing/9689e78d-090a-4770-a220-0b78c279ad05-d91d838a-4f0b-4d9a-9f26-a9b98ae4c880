@@ -44,6 +44,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('token', response.token); // Store authentication token
           localStorage.setItem('username', response.username); // Store username
           localStorage.setItem('currentuserRole',response.role);
+          localStorage.setItem('userId',response.id);
           localStorage.removeItem('currentuserFarm');
           this.router.navigate(['/home-page']); // Redirect after successful login
         },

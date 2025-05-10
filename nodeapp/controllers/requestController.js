@@ -56,6 +56,7 @@ exports.getRequestsByUserId = async (req, res) => {
  * req.body contains feedId, userId, livestockId, quantity, status, and requestDate.
  */
 exports.addRequest = async (req, res) => {
+    console.log(req.body);
     try {
         const newRequest = await Request.create(req.body);
         res.status(200).json({ message: "Request Added Successfully", request: newRequest });

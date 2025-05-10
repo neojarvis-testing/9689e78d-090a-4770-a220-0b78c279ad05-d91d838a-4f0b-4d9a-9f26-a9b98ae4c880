@@ -9,6 +9,7 @@ router.get('/getLivestockByUserId/:id',getLivestockByUserId);
 router.post('/addLivestock', addLivestock);
 // router.put('/updateLivestock/:id',updateLivestock);
 router.put('/updateLivestock/:id',upload.single('attachment'),updateLivestock);
+
 router.delete('/deleteLivestock/:id',deleteLivestock)
 router.get('/getFileByLivestockId/:id/file',getFileByLivestockId);
 module.exports=router;
