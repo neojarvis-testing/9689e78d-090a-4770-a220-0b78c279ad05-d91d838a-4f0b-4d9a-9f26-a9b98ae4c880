@@ -6,9 +6,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class RequestService {
-  private baseUrl = 'https://8080-eedceaeaffefbaaaafafeddafbdafabaec.premiumproject.examly.io'; // Change this if needed
+  private readonly baseUrl = 'https://8080-eeddcfeffbaaaafafeddafbdafabaec.premiumproject.examly.io'; // Change this if needed
 
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   private getHeaders() {
     const token = localStorage.getItem('token'); 

@@ -12,11 +12,10 @@
             <div class="form-group mb-4" *ngFor="let field of fields">
                 <label class="form-label w-100 text-center fw-semibold">
                     {{ field.label }} <span class="text-danger">*</span>
+                    <input [type]="field.type" [formControlName]="field.name"
+                        class="form-control border-0 border-bottom border-3 rounded-0 text-center"
+                        [ngClass]="{ 'is-invalid': isInvalid(field.name) }" />
                 </label>
-                <input [type]="field.type" [formControlName]="field.name"
-                    class="form-control border-0 border-bottom border-3 rounded-0 text-center"
-                    [ngClass]="{ 'is-invalid': isInvalid(field.name) }" />
-
                 <!-- Validation Messages -->
                 <div *ngIf="isInvalid(field.name)" class="text-danger text-center small mt-1">
                     <span *ngIf="feedForm.get(field.name)?.errors?.required">{{ field.label }} is required.</span>

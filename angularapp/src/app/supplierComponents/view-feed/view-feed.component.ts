@@ -18,7 +18,7 @@ export class ViewFeedComponent implements OnInit {
   feedToDelete: any;
   showModal = false;
 
-  constructor(private feedService: FeedService,private router:Router) { }
+  constructor(private readonly feedService: FeedService,private readonly  router:Router) { }
 
   ngOnInit(): void {
     this.loadFeeds();

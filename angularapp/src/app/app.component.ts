@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
 
-  constructor(private router: Router) { }
+  constructor(private readonly router: Router) { }
 
   isLanding(): boolean {
     return this.router.url === '/';

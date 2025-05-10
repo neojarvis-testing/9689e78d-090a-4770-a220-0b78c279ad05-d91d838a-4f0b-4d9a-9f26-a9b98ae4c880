@@ -15,12 +15,12 @@ export class SignupComponent {
   successMessage: string = ''; // Store backend success message
   errorMessage: string = ''; // Store backend error message
 
-  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) {
+  constructor(private readonly fb: FormBuilder, private readonly router: Router, private readonly authService: AuthService) {
     this.signupForm = this.fb.group({
       userName: ['', Validators.required],
       email: ['', [
         Validators.required,
-        Validators.pattern(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/) // Email validation
+        Validators.pattern(/^[\w]+@([\w-]+\.)+[\w-]{2,4}$/) // Email validation
       ]],
       mobile: ['', [
         Validators.required,
@@ -59,9 +59,9 @@ export class SignupComponent {
         },
         error: (err) => {
           console.error('Signup failed', err);
-          this.errorMessage = err.error.message || 'Signup failed! Please try again.';
-          this.showModal =false; // Show modal for error message too
-        }
+          this.errorMessage = err.error.message ?? 'Signup failed! Please try again.';
+          this.showModal = false;
+      }
       });
     } else {
       this.signupForm.markAllAsTouched(); // Trigger validation messages
@@ -79,7 +79,7 @@ export class SignupComponent {
   // Validate numeric input for mobile field
   validateNumber(event: KeyboardEvent): void {
     const key = event.key;
-    if (!/^[0-9]$/.test(key)) {  // Only allows digits 0-9
+    if (!/^\d$/.test(key)) {  // Only allows digits 0-9
       event.preventDefault(); // Blocks input of any non-numeric character
     }
   }

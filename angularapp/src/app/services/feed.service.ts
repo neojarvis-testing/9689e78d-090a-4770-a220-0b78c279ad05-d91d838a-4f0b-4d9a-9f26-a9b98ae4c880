@@ -2,7 +2,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { Feed } from '../models/feed';
 
 @Injectable({
@@ -10,7 +9,7 @@ import { Feed } from '../models/feed';
 })
 export class FeedService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private readonly http: HttpClient) { }
 
   private readonly backendUrl = 'https://8080-eeddcfeffbaaaafafeddafbdafabaec.premiumproject.examly.io'
   private getHeaders() {

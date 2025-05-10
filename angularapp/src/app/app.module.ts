@@ -17,7 +17,7 @@ import { SupplierNavbarComponent } from './supplierComponents/supplier-navbar/su
 import { ViewFeedComponent } from './supplierComponents/view-feed/view-feed.component';
 import { ViewRequestComponent } from './supplierComponents/view-request/view-request.component';
 import { ReactiveFormsModule,FormsModule } from '@angular/forms'
-
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -42,7 +42,10 @@ import { ReactiveFormsModule,FormsModule } from '@angular/forms'
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-top-right'
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -10,9 +10,9 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 })
 export class LivestockService {
 
-  constructor(private http: HttpClient, private sanitizer: DomSanitizer) { }
+  constructor(private readonly http: HttpClient, private readonly sanitizer: DomSanitizer) { }
 
-  private apiUrl:string='https://8080-eedceaeaffefbaaaafafeddafbdafabaec.premiumproject.examly.io'
+  private readonly apiUrl:string='https://8080-eeddcfeffbaaaafafeddafbdafabaec.premiumproject.examly.io'
 
   private getHeaders() {
     const token = localStorage.getItem('authToken');

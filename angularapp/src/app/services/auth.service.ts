@@ -7,9 +7,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl ='https://8080-eeddcfeffbaaaafafeddafbdafabaec.premiumproject.examly.io';
+  private readonly apiUrl ='https://8080-eeddcfeffbaaaafafeddafbdafabaec.premiumproject.examly.io';
 
-  constructor(private http: HttpClient) {}
+  constructor(private readonly http: HttpClient) {}
 
   // User registration
   registerUser(userData: any): Observable<{ message: string }> {

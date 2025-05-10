@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   errorMessage: string = ''; // Store backend error message
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) { }
+  constructor( private readonly fb: FormBuilder, private readonly authService: AuthService, private readonly router: Router) { }
 
   ngOnInit(): void {
     localStorage.removeItem('token');
@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.fb.group({
       email: ['', [
         Validators.required,
-        Validators.pattern(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/) // Email validation
+        Validators.pattern(/^[\w]+@([\w-]+\.)+[\w-]{2,4}$/) // Email validation
       ]],
       password: ['', [
         Validators.required,
