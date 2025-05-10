@@ -1,4 +1,4 @@
-require('dotenv').config();
+
 const mongoose = require('mongoose');
 const cors=require('cors');
 const express = require('express');
@@ -8,7 +8,7 @@ const userRouetr=require('./routers/userRouter');
 const requestRouter=require('./routers/requestRouter');
 const app = express();
 app.use(cors({
-    origin:'https://8081-eeddcfeffbaaaafafeddafbdafabaec.premiumproject.examly.io',
+    origin:'https://8081-eeddcfeffbaaaafafeddafbdafabaec.project.examly.io',
     methods:['GET','POST','PUT','DELETE','PATCH'],
     allowedHeaders:['Content-Type','authentication'],
     exposedHeaders:['Content-Type','X-Powered-By'],

@@ -18,9 +18,7 @@ import { ViewFeedComponent } from './supplierComponents/view-feed/view-feed.comp
 import { ViewRequestComponent } from './supplierComponents/view-request/view-request.component';
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component'
-
-
-
+import {ToastrModule} from 'ngx-toastr'
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +42,10 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-top-right'
+    }),
   ],
   providers: [],
   bootstrap: [AppComponent]

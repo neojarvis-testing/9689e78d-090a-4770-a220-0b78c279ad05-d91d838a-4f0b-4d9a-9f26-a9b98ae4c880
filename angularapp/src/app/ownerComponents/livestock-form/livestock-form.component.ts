@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Livestock } from 'src/app/models/livestock';
 import { LivestockService } from 'src/app/services/livestock.service';
 
@@ -33,7 +34,8 @@ export class LivestockFormComponent implements OnInit {
     private fb: FormBuilder,
     private livestockService: LivestockService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastr:ToastrService
   ) {
     // Creating the reactive form with required validations
     this.livestockForm = this.fb.group({
@@ -110,6 +112,7 @@ export class LivestockFormComponent implements OnInit {
     if (this.editMode) {
       console.log(Object.entries(formData));
       this.livestockService.updateLivestock(this.livestockId, formData).subscribe(() => {
+        this.toastr.success('Livestock Updated Successfully')
         this.router.navigate(['/owner/view-livestock']);
       });
     } else {

@@ -12,7 +12,7 @@ export class LivestockService {
 
   constructor(private readonly http: HttpClient, private readonly sanitizer: DomSanitizer) { }
 
-  private readonly apiUrl:string='https://8080-eeddcfeffbaaaafafeddafbdafabaec.premiumproject.examly.io'
+  private readonly apiUrl:string='https://8080-eeddcfeffbaaaafafeddafbdafabaec.project.examly.io'
 
   private getHeaders() {
     const token = localStorage.getItem('authToken');
