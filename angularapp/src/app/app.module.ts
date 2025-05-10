@@ -16,7 +16,8 @@ import { AddFeedComponent } from './supplierComponents/add-feed/add-feed.compone
 import { SupplierNavbarComponent } from './supplierComponents/supplier-navbar/supplier-navbar.component';
 import { ViewFeedComponent } from './supplierComponents/view-feed/view-feed.component';
 import { ViewRequestComponent } from './supplierComponents/view-request/view-request.component';
-import { ReactiveFormsModule,FormsModule } from '@angular/forms'
+import { ReactiveFormsModule,FormsModule } from '@angular/forms';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component'
 
 
 
@@ -35,7 +36,8 @@ import { ReactiveFormsModule,FormsModule } from '@angular/forms'
     AddFeedComponent,
     SupplierNavbarComponent,
     ViewFeedComponent,
-    ViewRequestComponent
+    ViewRequestComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,
