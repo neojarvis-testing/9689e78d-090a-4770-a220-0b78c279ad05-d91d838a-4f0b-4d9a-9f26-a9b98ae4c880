@@ -2,11 +2,12 @@
 <app-supplier-navbar *ngIf="userRole === 'admin'"></app-supplier-navbar>
 <section class="hero-section">
   <video autoplay loop class="background-video">
-    <source src= "https://videos.pexels.com/video-files/5982476/5982476-uhd_2560_1440_30fps.mp4" type="video/mp4">
+    <source src="https://videos.pexels.com/video-files/5982476/5982476-uhd_2560_1440_30fps.mp4" type="video/mp4">
+    <track src="subtitles.vtt" kind="subtitles" srclang="en" label="English">
     Your browser does not support the video tag.
-  </video>
+</video>
+<p class="video-description">A stunning high-definition nature video showcasing breathtaking landscapes and vibrant scenery.</p>
   <div class="overlay">
-    <!-- <h1 class="hero-title text-center">🌾 Farm Connect 🌱</h1> -->
     <h1 class="hero-title text-center">FarmConnect</h1>
     <p class="hero-tagline text-center mt-4">Connecting Livestock Owners with Feed Sellers</p>
   </div>

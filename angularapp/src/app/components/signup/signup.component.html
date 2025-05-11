@@ -1,12 +1,8 @@
 <div class="container-fluid min-vh-100 d-flex flex-column justify-content-center align-items-center" 
      style="background: url('https://shorturl.at/cjOeS') no-repeat center center fixed; background-size: cover;">
-  
-  <!-- FarmConnect Heading (Centered) -->
   <div class="dark-bg text-center mt-3">
     <h1 class="fw-bold text-success">FarmConnect</h1>
   </div>
-
-  <!-- Signup Form -->
   <div class="col-md-6 p-4 " style="background: linear-gradient(to right,  #077A7D, #03A791);">
     <div class="card shadow-lg p-5 m-3 bg-white">
       <h2 class="text-center mb-4 ">Sign Up</h2>
@@ -18,7 +14,6 @@
             User Name is required.
           </div>
         </div>
-
         <div class="mb-3">
           <label class="form-label">Email <span class="text-danger">*</span></label>
           <input type="email" class="form-control"  formControlName="email" placeholder="Email">
@@ -29,7 +24,6 @@
 
         <div class="mb-3">
           <label class="form-label">Mobile Number <span class="text-danger">*</span></label>
-          <!-- <input type="tel" class="form-control" formControlName="mobile"> -->
           <input type="tel" class="form-control" formControlName="mobile" maxlength="10" pattern="[0-9]{10}" 
        (keypress)="validateNumber($event)" placeholder="Mobile">
           <div *ngIf="signupForm.get('mobile')?.touched && signupForm.get('mobile')?.invalid" class="text-danger">
@@ -44,7 +38,6 @@
             Password does not meet the required constraints.
           </div>
         </div>
-
         <div class="mb-3">
           <label class="form-label">Confirm Password <span class="text-danger">*</span></label>
           <input type="password" class="form-control" formControlName="confirmPassword" placeholder="Confirm Password">
@@ -52,7 +45,6 @@
             Passwords must match.
           </div>
         </div>
-
         <div class="mb-3">
           <small class="text-muted d-block">Your password must meet the following requirements:</small>
           <ul class="text-muted">
@@ -63,7 +55,6 @@
             <li>Include at least one special character (!"&#64;"#$%^&*)</li>
           </ul>
         </div>
-        
         <div class="mb-3">
           <label class="form-label">Role <span class="text-danger">*</span></label>
           <select class="form-select" formControlName="role">
@@ -75,18 +66,14 @@
             Role is required.
           </div>
         </div>
-
         <button type="submit" class="btn btn-success w-100 fw-bold">Signup</button>
       </form>
-
       <p class="text-center mt-3">Already have an account?
         <a routerLink="/login" class="text-success fw-bold text-decoration-none">Login</a>
       </p>
     </div>
   </div>
 </div>
-
-<!-- Bootstrap Modal -->
 <div class="modal fade" [class.show]="showModal" [style.display]="showModal ? 'block' : 'none'" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center">
@@ -99,6 +86,4 @@
     </div>
   </div>
 </div>
-
-<!-- Overlay background when modal is open -->
 <div *ngIf="showModal" class="modal-backdrop fade show"></div>

@@ -1,3 +1,4 @@
+<app-owner-navbar></app-owner-navbar>
 <div class="p-4">
     <h1 class="mb-4 text-center">Available Feeds</h1>
 
@@ -47,6 +48,7 @@
             <div class="custom-modal-body">
                 <label>Select Livestock:</label>
                 <select [(ngModel)]="requestData.livestockId" class="form-control" required>
+                    <option value="" disabled selected>Select Livestock</option>
                     <option *ngFor="let livestock of livestockList" [value]="livestock._id">
                         {{ livestock.breed }} - {{ livestock.name }}
                     </option>
