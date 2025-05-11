@@ -11,7 +11,14 @@ export class AuthguardGuard implements CanActivate {
   canActivate(): boolean {
     const token = localStorage.getItem('token'); // Check if token exists
     if (token) {
-      return true; // Allow navigation
+      const role=localStorage.getItem('currentuserRole')
+      if(role==='admin'){
+        return true;
+      }
+      else{
+        this.router.navigate(['/home-page']);
+        return false
+      }
     } else {
       this.router.navigate(['/login']); // Redirect to login if not authenticated
       return false;
