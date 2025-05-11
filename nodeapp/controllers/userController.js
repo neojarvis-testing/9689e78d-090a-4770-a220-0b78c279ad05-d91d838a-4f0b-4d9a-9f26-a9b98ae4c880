@@ -26,7 +26,6 @@ exports.getUserByEmailAndPassword = async (req, res) => {
            
         });
     } catch (error) {
-        res.status(200)
         res.status(500).json({ message: error.message });
     }
 }
