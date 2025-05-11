@@ -12,12 +12,6 @@ export class FeedService {
   constructor(private readonly http: HttpClient) { }
 
   private readonly backendUrl = 'https://8080-eeddcfeffbaaaafafeddafbdafabaec.project.examly.io'
-  private getHeaders() {
-    const token = localStorage.getItem('authToken'); // Retrieve token from storage
-    return {
-      headers: new HttpHeaders({ Authorization: `Bearer ${token}` })
-    };
-  }
 
   // Fetch all feeds
   getAllFeeds(): Observable<Feed[]> {

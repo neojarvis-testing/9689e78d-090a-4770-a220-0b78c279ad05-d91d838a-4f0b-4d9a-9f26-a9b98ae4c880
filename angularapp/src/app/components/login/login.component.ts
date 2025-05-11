@@ -63,7 +63,8 @@ login(): void {
     this.authService.loginUser(this.loginForm.value).subscribe({
       next: (response) => {
         // Store authentication details in localStorage
-        localStorage.setItem('token', response.token);
+        if(response.message!=='Incorrect password'|| 'User not found'){
+          localStorage.setItem('token', response.token);
         localStorage.setItem('username', response.username);
         localStorage.setItem('currentuserRole', response.role);
         localStorage.setItem('userId', response.id);
@@ -73,6 +74,10 @@ login(): void {
 
         this.toastr.success('Login successful!', 'Success'); // Show success notification
         this.router.navigate(['/home-page']); // Redirect after successful login
+        }
+        else{
+          this.toastr.error(response.message)
+        }
       },
       error: (errMessage) => {
         console.error('Login failed:', errMessage); // Logs only the message

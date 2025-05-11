@@ -10,7 +10,7 @@ const app = express();
 app.use(cors({
     origin:'https://8081-eeddcfeffbaaaafafeddafbdafabaec.project.examly.io',
     methods:['GET','POST','PUT','DELETE','PATCH'],
-    allowedHeaders:['Content-Type','authentication'],
+    allowedHeaders:['Content-Type','authentication','Authorization'],
     exposedHeaders:['Content-Type','X-Powered-By'],
     credentials:false
 }))

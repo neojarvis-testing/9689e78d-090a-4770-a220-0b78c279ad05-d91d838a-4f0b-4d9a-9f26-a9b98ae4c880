@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -15,7 +15,7 @@ export class ForgotPasswordComponent implements OnInit {
   confirmPassword: string = '';
   showPasswordFields: boolean = false;
 
-  constructor(private authService: AuthService, private router:Router) {} // Inject AuthService
+  constructor(private authService: AuthService, private router:Router,private toastr:ToastrService) {} // Inject AuthService
 
   ngOnInit(): void {}
 
@@ -28,11 +28,11 @@ export class ForgotPasswordComponent implements OnInit {
   resetPassword() {
     if (this.newPassword === this.confirmPassword) {
       this.authService.resetPassword(this.email, this.newPassword).subscribe(response => {
-        alert('Password reset successfully');
+        this.toastr.success('Password reset Successfull')
         this.router.navigate(['/login'])
       });
     } else {
-      alert('Passwords do not match');
+      this.toastr.error('Passwords do not match')
     }
   }
 

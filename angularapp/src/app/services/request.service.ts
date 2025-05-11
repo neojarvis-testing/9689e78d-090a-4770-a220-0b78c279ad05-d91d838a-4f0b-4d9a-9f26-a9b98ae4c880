@@ -10,11 +10,6 @@ export class RequestService {
 
   constructor(private readonly http: HttpClient) {}
 
-  private getHeaders() {
-    const token = localStorage.getItem('token'); 
-    return { headers: new HttpHeaders({ Authorization: `Bearer ${token}` }) };
-  }
-
   addRequest(requestObject: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/request/addRequest`, requestObject);
   }

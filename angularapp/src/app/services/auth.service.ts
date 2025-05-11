@@ -75,4 +75,7 @@ export class AuthService {
   
     return throwError(() => errorMessage); // ✅ Return only the extracted message
   }
+  getToken():string|null{
+    return localStorage.getItem('token');
+  }
 }

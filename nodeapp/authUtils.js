@@ -8,7 +8,7 @@ const generateToken = (userId) => {
 
 const validateToken = (req, res, next) => {
     try {
-        const header = req.header('Authorization');
+        const header = req.headers.authorization;
         if (!header || !header.startsWith('Bearer ')) {
             return res.status(400).json({ message: 'Authentication failed' });
         }
