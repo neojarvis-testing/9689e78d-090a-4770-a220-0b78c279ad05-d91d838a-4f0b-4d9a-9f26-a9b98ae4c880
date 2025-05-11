@@ -11,7 +11,7 @@ describe('AuthService', () => {
       imports: [HttpClientTestingModule],
     });
     service = TestBed.inject(AuthService);
-    httpMock = TestBed.inject(HttpTestingController);
+    
   });
 
   fit('Frontend_should_create_auth_service', () => {

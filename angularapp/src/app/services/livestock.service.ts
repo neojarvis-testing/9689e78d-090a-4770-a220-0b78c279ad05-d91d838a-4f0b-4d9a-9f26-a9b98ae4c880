@@ -10,14 +10,10 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 })
 export class LivestockService {
 
-  constructor(private http: HttpClient, private sanitizer: DomSanitizer) { }
+  constructor(private readonly http: HttpClient, private readonly sanitizer: DomSanitizer) { }
 
-  private apiUrl:string='https://8080-eedceaeaffefbaaaafafeddafbdafabaec.premiumproject.examly.io'
+  private readonly apiUrl:string='https://8080-eeddcfeffbaaaafafeddafbdafabaec.project.examly.io'
 
-  private getHeaders() {
-    const token = localStorage.getItem('authToken');
-    return { headers: new HttpHeaders({ Authorization: `Bearer ${token}` }) };
-  }
   //get all livestocks
   getAllLivestocks():Observable<any>{
     return this.http.get<any>(`${this.apiUrl}/livestock/getAllLivestock`)

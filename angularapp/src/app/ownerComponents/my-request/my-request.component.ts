@@ -31,7 +31,7 @@ export class MyRequestComponent implements OnInit {
 
   filterRequests(): any[] {
     return this.requests.filter(request =>
-      request.feedId.feedName.toLowerCase().includes(this.searchQuery.toLowerCase())
+      request.feedId?.feedName.toLowerCase().includes(this.searchQuery.toLowerCase())
     );
   }
 

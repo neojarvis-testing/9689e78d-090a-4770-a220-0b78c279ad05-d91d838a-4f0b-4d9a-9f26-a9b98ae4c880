@@ -10,7 +10,7 @@ export class OwnerNavbarComponent implements OnInit {
   userName:string;
   showModal: boolean = false; // State for logout modal
 
-  constructor(private router: Router) {}
+  constructor(private readonly router: Router) {}
 
   ngOnInit(): void {
     // Any initialization logic can go here
