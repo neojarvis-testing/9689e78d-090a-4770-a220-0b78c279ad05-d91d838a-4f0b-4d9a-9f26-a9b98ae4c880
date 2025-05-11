@@ -6,14 +6,9 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class RequestService {
-  private baseUrl = 'https://8080-eedceaeaffefbaaaafafeddafbdafabaec.premiumproject.examly.io'; // Change this if needed
+  private readonly baseUrl = 'https://8080-eeddcfeffbaaaafafeddafbdafabaec.project.examly.io'; // Change this if needed
 
-  constructor(private http: HttpClient) {}
-
-  private getHeaders() {
-    const token = localStorage.getItem('token'); 
-    return { headers: new HttpHeaders({ Authorization: `Bearer ${token}` }) };
-  }
+  constructor(private readonly http: HttpClient) {}
 
   addRequest(requestObject: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/request/addRequest`, requestObject);
@@ -32,6 +27,6 @@ export class RequestService {
   }
   
   getAllRequests(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/request/getAllRequests`);
+    return this.http.get<any>(`${this.baseUrl}/request/getAllRequests`);
   }
 }  

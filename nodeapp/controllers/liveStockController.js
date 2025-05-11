@@ -40,7 +40,8 @@ exports.getLivestockById = async (req, res) => {
  */
 exports.getLivestockByUserId = async (req, res) => {
     try {
-        const livestock = await Livestock.find({ userId: req.params.id });
+        // const {userId}=req.params.id
+        const livestock = await Livestock.find({userId:req.params.id});
         res.status(200).json(livestock);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -53,28 +54,27 @@ exports.getLivestockByUserId = async (req, res) => {
  */
 exports.addLivestock = async (req, res) => {
     try {
-        // const { name, species, age, breed, healthCondition, location, vaccinationStatus, userId } = req.body;
-        // if (!req.file) {
-        //     return res.status(400).json({ message: "Attachment file is required" });
-        // }
-        // const newLivestock = new Livestock({
-        //     name,
-        //     species,
-        //     age,
-        //     breed,
-        //     healthCondition,
-        //     location,
-        //     vaccinationStatus,
-        //     userId,
-        //     attachment: {
-        //         filename: req.file.filename,
-        //         path: req.file.path,
-        //         mimetype: req.file.mimetype,
-        //         size: req.file.size
-        //     }
-        // });
-        // await newLivestock.save();
-        const newLivestock = await Livestock.create(req.body);
+        const { name, species, age, breed, healthCondition, location, vaccinationStatus, userId } = req.body;
+        if (!req.file) {
+            return res.status(400).json({ message: "Attachment file is required" });
+        }
+        const newLivestock = new Livestock({
+            name,
+            species,
+            age,
+            breed,
+            healthCondition,
+            location,
+            vaccinationStatus,
+            userId,
+            attachment: {
+                filename: req.file.filename,
+                path: req.file.path,
+                mimetype: req.file.mimetype,
+                size: req.file.size
+            }
+        });
+        await newLivestock.save();
         res.status(200).json({ message: "Livestock Added Successfully" });
     } catch (error) {
         res.status(500).json({ message: error.message });

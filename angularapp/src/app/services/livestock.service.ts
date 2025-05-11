@@ -10,14 +10,10 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 })
 export class LivestockService {
 
-  constructor(private http: HttpClient, private sanitizer: DomSanitizer) { }
+  constructor(private readonly http: HttpClient, private readonly sanitizer: DomSanitizer) { }
 
-  private apiUrl:string='https://8080-eedceaeaffefbaaaafafeddafbdafabaec.premiumproject.examly.io'
+  private readonly apiUrl:string='https://8080-eeddcfeffbaaaafafeddafbdafabaec.project.examly.io'
 
-  private getHeaders() {
-    const token = localStorage.getItem('authToken');
-    return { headers: new HttpHeaders({ Authorization: `Bearer ${token}` }) };
-  }
   //get all livestocks
   getAllLivestocks():Observable<any>{
     return this.http.get<any>(`${this.apiUrl}/livestock/getAllLivestock`)
@@ -30,7 +26,7 @@ export class LivestockService {
 
   //  Add new livestock
   addLivestock(formData:FormData): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/livestock/addLivestock`, formData);
+    return this.http.post<any>(`${this.apiUrl}/livestock/addLivestock`,formData);
   }
 
   //  Update existing livestock
@@ -39,9 +35,9 @@ export class LivestockService {
   }
 
   //  Get livestock by user ID with pagination and search
-  getLivestockByUserId(userId: string, page: number, pageSize: number, searchValue: string): Observable<Livestock[]> {
-    const requestBody = { userId, page, pageSize, searchValue };
-    return this.http.post<Livestock[]>(`${this.apiUrl}/livestock/getLivestockByUserId/${userId}`, requestBody);
+  getLivestockByUserId(userId: string): Observable<Livestock[]> {
+    // const requestBody= { userId};
+    return this.http.get<Livestock[]>(`${this.apiUrl}/livestock/getLivestockByUserId/${userId}`);
   }
 
   //  Delete livestock

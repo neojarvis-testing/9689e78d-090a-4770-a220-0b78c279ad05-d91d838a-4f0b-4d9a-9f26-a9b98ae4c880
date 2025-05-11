@@ -8,15 +8,15 @@
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <button class="btn btn-supplier">{{userName}} / Supplier</button>
+          <button class="btn btn-supplier"> {{userName}} / Supplier</button>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/home-page">Home</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <button class="nav-link dropdown-toggle text-white fw-bold" type="button" data-bs-toggle="dropdown" aria-expanded="false">
             Feed
-          </a>
+        </button>
           <ul class="dropdown-menu dropdown-menu-dark">
             <li><a class="dropdown-item" routerLink="/supplier/add-feed">Add Feed</a></li>
             <li><a class="dropdown-item" routerLink="/supplier/view-feed">View Feed</a></li>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Livestock } from 'src/app/models/livestock';
 import { LivestockService } from 'src/app/services/livestock.service';
 
@@ -14,7 +15,7 @@ export class LivestockFormComponent implements OnInit {
   livestockForm!: FormGroup;
   livestockId!: string;
   editMode = false;
-  vaccinationOptions = ['Vaccinated', 'Not Vaccinated', 'Up to Date'];
+  vaccinationOptions = ['Vaccinated', 'Not Vaccinated', 'Up to date'];
   fileRequired = false;
   fileTouched = false;
   attachment: File | null = null;
@@ -33,7 +34,8 @@ export class LivestockFormComponent implements OnInit {
     private fb: FormBuilder,
     private livestockService: LivestockService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toastr:ToastrService
   ) {
     // Creating the reactive form with required validations
     this.livestockForm = this.fb.group({
@@ -93,7 +95,7 @@ export class LivestockFormComponent implements OnInit {
       return;
     }
     
-    const formData = new FormData();
+    let formData = new FormData();
     const formValues = this.livestockForm.value;
 
     Object.keys(formValues).forEach(key => {
@@ -103,15 +105,20 @@ export class LivestockFormComponent implements OnInit {
     if (this.attachment) {
       formData.append('attachment', this.attachment);
     }
+    const userId = localStorage.getItem('userId');
+    formData.append('userId', userId!);
 
     console.log(this.editMode);
     if (this.editMode) {
       console.log(Object.entries(formData));
       this.livestockService.updateLivestock(this.livestockId, formData).subscribe(() => {
+        this.toastr.success('Livestock Updated Successfully')
         this.router.navigate(['/owner/view-livestock']);
       });
     } else {
       this.livestockService.addLivestock(formData).subscribe(() => {
+        console.log(formData);
+        this.toastr.success('Livestock Added Successfully')
         this.router.navigate(['/owner/view-livestock']);
       });
     }

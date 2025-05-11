@@ -3,6 +3,7 @@ import { FeedService } from '../../services/feed.service';
 import { RequestService } from '../../services/request.service';
 import { LivestockService } from '../../services/livestock.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-owner-viewfeed',
@@ -24,10 +25,12 @@ export class OwnerViewfeedComponent implements OnInit {
     private feedService: FeedService,
     private requestService: RequestService,
     private livestockService: LivestockService,
-    private router: Router
+    private router: Router,
+    private toastr:ToastrService
   ) {}
 
   ngOnInit(): void {
+    const userId = localStorage.getItem('userId');
     this.fetchFeeds();
     this.fetchLivestock();
     this.loadUserId();
@@ -42,12 +45,20 @@ export class OwnerViewfeedComponent implements OnInit {
   }
 
   fetchLivestock() {
-    this.livestockService.getAllLivestocks().subscribe((data: any) => {
-      this.livestockList = data;
+    const userId = localStorage.getItem('userId');
+
+    if (!userId) {
+        console.error("User ID not found in localStorage.");
+        return;
+    }
+
+    this.livestockService.getLivestockByUserId(userId).subscribe((data: any) => {
+        this.livestockList = data;
     }, error => {
-      console.error("Error fetching livestock:", error);
+        console.error("Error fetching livestock:", error);
     });
-  }
+}
+
 
   loadUserId() {
     const userId = localStorage.getItem('userId');
@@ -100,7 +111,7 @@ export class OwnerViewfeedComponent implements OnInit {
 
   submitRequest(): void {
     if (!this.requestData.quantity || !this.requestData.livestockId || !this.requestData.userId) {
-      alert('Please select livestock, enter quantity, and ensure user ID is available.');
+      this.toastr.error('Please select livestock, enter quantity, and ensure user ID is available.')
       return;
     }
 
@@ -113,7 +124,7 @@ export class OwnerViewfeedComponent implements OnInit {
     };
 
     this.requestService.addRequest(requestPayload).subscribe(() => {
-      alert('Request submitted successfully!');
+      this.toastr.success('Request submitted successfully!')
       this.closeRequestModal();
       this.router.navigate(['/owner/my-request']); // Redirect to My Requests Page
     }, error => {

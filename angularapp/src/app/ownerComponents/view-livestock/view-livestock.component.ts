@@ -21,14 +21,15 @@ export class ViewLivestockComponent implements OnInit {
   showModal = false;
   imageLink:string;
 
-  constructor(private router: Router, private livestockService: LivestockService) { }
+  constructor(private readonly router: Router, private readonly livestockService: LivestockService) { }
 
   ngOnInit(): void {
     this.fetchLivestocks();
   }
 
   fetchLivestocks(): void {
-    this.livestockService.getAllLivestocks().subscribe((data) => {
+    const userId = localStorage.getItem('userId');
+    this.livestockService.getLivestockByUserId(userId).subscribe((data) => {
       this.livestocks = data;
       this.filteredLivestocks = [...this.livestocks];
       this.renderTable();

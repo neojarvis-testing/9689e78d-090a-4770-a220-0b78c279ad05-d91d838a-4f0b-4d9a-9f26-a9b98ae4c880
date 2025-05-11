@@ -26,22 +26,9 @@ exports.getUserByEmailAndPassword = async (req, res) => {
            
         });
     } catch (error) {
-        res.status(200)
         res.status(500).json({ message: error.message });
     }
 }
-
-// exports.getUserByEmailAndPassword = async (req, res)=>{
-//     try {
-//         const user=await User.findOne({email,password});
-//         if(!user){
-//             return res.status(404).json({ message: 'User not found' });  
-//         }
-//         res.status(200).json(user)
-//     } catch (error) {
-//         res.status(500).json({ message: error.message })
-//     }
-// }
 // ✅ Register User
 // This function creates a new user in the database using the provided request body.
 // It ensures that all required fields (userName, email, mobile, password, role) are passed before creating the user.
@@ -63,3 +50,25 @@ exports.addUser = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 }
+
+
+exports.verifyEmail = async (req, res) => {
+  const { email } = req.body;
+  const user = await User.findOne({ email });
+
+  if (user) {
+    res.json({ success: true });
+  } else {
+    res.status(400).json({ error: 'Email not found' });
+  }
+};
+
+exports.resetPassword = async (req, res) => {
+  const { email, newPassword } = req.body;
+  const salt = await bcrypt.genSalt(10); // Generate salt
+  const hashedPassword = await bcrypt.hash(newPassword, salt); // Hash password
+
+  await User.updateOne({ email }, { $set: { password: hashedPassword } });
+
+  res.json({ success: true, message: 'Password reset successfully' });
+};

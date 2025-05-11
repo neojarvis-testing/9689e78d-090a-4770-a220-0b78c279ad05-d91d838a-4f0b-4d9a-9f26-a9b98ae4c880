@@ -1,3 +1,4 @@
+<app-owner-navbar></app-owner-navbar>
 <div class="container mt-5 d-flex justify-content-center">
     <div class="card p-4 shadow" style="width: 400px;">
 
@@ -13,10 +14,10 @@
             <div class="form-group mb-4" *ngFor="let field of fields">
                 <label class="form-label w-100 text-center fw-semibold">
                     {{ field.label }} <span class="text-danger">*</span>
+                    <input [type]="field.type" [formControlName]="field.name"
+                        class="form-control border-0 border-bottom border-3 rounded-0 text-center"
+                        [ngClass]="{ 'is-invalid': isInvalid(field.name) }" />
                 </label>
-                <input [type]="field.type" [formControlName]="field.name"
-                    class="form-control border-0 border-bottom border-3 rounded-0 text-center"
-                    [ngClass]="{ 'is-invalid': isInvalid(field.name) }" />
                 <div *ngIf="isInvalid(field.name)" class="text-danger text-center small mt-1">
                     {{ field.label }} is required
                 </div>
@@ -26,15 +27,15 @@
             <div class="form-group mb-4">
                 <label class="form-label w-100 text-center fw-semibold">
                     Vaccination Status <span class="text-danger">*</span>
+                    <select formControlName="vaccinationStatus"
+                        class="form-control border-0 border-bottom border-3 rounded-0 text-center"
+                        [ngClass]="{ 'is-invalid': isInvalid('vaccinationStatus') }">
+                        <option value="" disabled selected>Select</option>
+                        <option *ngFor="let option of vaccinationOptions" [value]="option">
+                            {{ option }}
+                        </option>
+                    </select>
                 </label>
-                <select formControlName="vaccinationStatus"
-                    class="form-control border-0 border-bottom border-3 rounded-0 text-center"
-                    [ngClass]="{ 'is-invalid': isInvalid('vaccinationStatus') }">
-                    <option value="" disabled selected>Select</option>
-                    <option *ngFor="let option of vaccinationOptions" [value]="option">
-                        {{ option }}
-                    </option>
-                </select>
                 <div *ngIf="isInvalid('vaccinationStatus')" class="text-danger text-center small mt-1">
                     Vaccination Status is required
                 </div>
@@ -44,9 +45,9 @@
             <div class="form-group mb-4">
                 <label class="form-label w-100 text-center fw-semibold">
                     Attachment <span class="text-danger">*</span>
+                    <input type="file" class="form-control border-0 border-bottom border-3 rounded-0 text-center"
+                        (change)="onFileChange($event)" name="attachment" />
                 </label>
-                <input type="file" class="form-control border-0 border-bottom border-3 rounded-0 text-center"
-                    (change)="onFileChange($event)" name="attachment" />
                 <div *ngIf="fileTouched && fileRequired" class="text-danger text-center small mt-1">
                     Attachment is required
                 </div>
