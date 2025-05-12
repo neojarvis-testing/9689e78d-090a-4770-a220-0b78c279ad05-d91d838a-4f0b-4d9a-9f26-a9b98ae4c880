@@ -1,101 +1,8 @@
-// import { Component, OnInit } from '@angular/core';
-// import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-// import { ActivatedRoute, Router } from '@angular/router';
-// import { FeedService } from 'src/app/services/feed.service';
-
-// @Component({
-//   selector: 'app-add-feed',
-//   templateUrl: './add-feed.component.html',
-//   styleUrls: ['./add-feed.component.css']
-// })
-// export class AddFeedComponent implements OnInit {
-//   feedForm: FormGroup;
-//   editMode = false;
-//   feedId: string | null = null;
-
-//   fields = [
-//     { name: 'feedName', label: 'Feed Name', type: 'text' },
-//     { name: 'type', label: 'Type', type: 'text' },
-//     { name: 'description', label: 'Description', type: 'text' },
-//     // Updated label with (kg)
-//     { name: 'unit', label: 'Unit (kg)', type: 'text' },
-//     { name: 'pricePerUnit', label: 'Price Per Unit', type: 'number' }
-//   ];
-
-//   constructor(
-//     private fb: FormBuilder,
-//     private route: ActivatedRoute,
-//     private router: Router,
-//     private feedService: FeedService // Inject FeedService
-//   ) {
-//     this.feedForm = this.fb.group({
-//       feedName: ['', Validators.required],
-//       type: ['', Validators.required],
-//       description: ['', [Validators.required, Validators.minLength(6)]], // Min 6 chars validation
-//       unit: ['kg', Validators.required],
-//       pricePerUnit: ['', [Validators.required, Validators.min(0)]]
-//     });
-//   }
-
-//   ngOnInit(): void {
-//     this.feedId = this.route.snapshot.params['id'];
-
-//     if (this.feedId) {
-//       this.editMode = true;
-//       this.feedService.getFeedById(this.feedId).subscribe(feed => {
-//         this.feedForm.patchValue({
-//           feedName: feed.feedName,
-//           type: feed.type,
-//           description: feed.description,
-//           unit: feed.unit,
-//           pricePerUnit: feed.pricePerUnit["$numberDecimal"] // Extract decimal value
-//         });
-//       });
-//     }
-//   }
-
-//   isInvalid(controlName: string): boolean {
-//     const control = this.feedForm.get(controlName);
-//     return !!(control && control.invalid && (control.dirty || control.touched));
-//   }
-
-//   goBack(): void {
-//     this.router.navigate(['/supplier/view-feed']); // Redirect to feed list
-//   }
-
-//   onSubmit(): void {
-//     if (this.feedForm.invalid) {
-//       this.feedForm.markAllAsTouched();
-//       return;
-//     }
-
-//     console.log(this.feedForm.value);
-//     const feedData = { ...this.feedForm.value, pricePerUnit: this.feedForm.value.pricePerUnit.toString() }; // Convert Decimal128 to string
-
-//     if (this.editMode && this.feedId) {
-//       this.feedService.updateFeed(this.feedId, feedData).subscribe(() => {
-//         alert('Feed updated successfully!');
-//         this.router.navigate(['/supplier/view-feed']);
-//       }, error => {
-//         console.error('Update failed:', error);
-//       });
-//     } else {
-//       this.feedService.addFeed(feedData).subscribe(() => {
-//         alert('Feed added successfully!');
-//         this.router.navigate(['/supplier/view-feed']);
-//       }, error => {
-//         console.error('Add failed:', error);
-//       });
-//     }
-//   }
-// }
-
-
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FeedService } from 'src/app/services/feed.service';
-
+import {ToastrService} from 'ngx-toastr'
 @Component({
   selector: 'app-add-feed',
   templateUrl: './add-feed.component.html',
@@ -110,15 +17,16 @@ export class AddFeedComponent implements OnInit {
     { name: 'feedName', label: 'Feed Name', type: 'text' },
     { name: 'type', label: 'Type', type: 'text' },
     { name: 'description', label: 'Description', type: 'text' },
-    { name: 'unit', label: 'Unit (kg)', type: 'text' }, // Label updated with (kg)
+    { name: 'unit', label: 'Unit', type: 'text' }, // Label updated with (kg)
     { name: 'pricePerUnit', label: 'Price Per Unit', type: 'number' }
   ];
 
   constructor(
-    private fb: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
-    private feedService: FeedService // Inject FeedService for API communication
+    private readonly fb: FormBuilder,
+    private readonly route: ActivatedRoute,
+    private readonly router: Router,
+    private readonly feedService: FeedService, // Inject FeedService for API communication
+    private readonly toastr:ToastrService
   ) {
     /** Initializes the reactive form with validation rules.
      *  Default unit is set to 'kg', and description requires at least 6 characters.
@@ -127,7 +35,7 @@ export class AddFeedComponent implements OnInit {
       feedName: ['', Validators.required],
       type: ['', Validators.required],
       description: ['', [Validators.required, Validators.minLength(6)]],
-      unit: ['kg', Validators.required],
+      unit: ['', Validators.required],
       pricePerUnit: ['', [Validators.required, Validators.min(0)]]
     });
   }
@@ -157,7 +65,7 @@ export class AddFeedComponent implements OnInit {
      *  A field is marked invalid if it has errors and the user has interacted with it.
      *  Returns true if the field needs validation feedback, otherwise false. */
     const control = this.feedForm.get(controlName);
-    return !!(control && control.invalid && (control.dirty || control.touched));
+    return !!(control?.invalid && (control?.dirty || control?.touched));
   }
 
   goBack(): void {
@@ -184,7 +92,7 @@ export class AddFeedComponent implements OnInit {
        *  Displays a success alert and redirects upon completion.
        *  Logs any errors encountered during the API call. */
       this.feedService.updateFeed(this.feedId, feedData).subscribe(() => {
-        alert('Feed updated successfully!');
+        this.toastr.success('Feed updated successfully!')
         this.router.navigate(['/supplier/view-feed']);
       }, error => {
         console.error('Update failed:', error);
@@ -194,9 +102,10 @@ export class AddFeedComponent implements OnInit {
        *  Displays a success alert and redirects upon completion.
        *  Logs any errors encountered during the API call. */
       this.feedService.addFeed(feedData).subscribe(() => {
-        alert('Feed added successfully!');
+        this.toastr.success('Feed Added successfully!')
         this.router.navigate(['/supplier/view-feed']);
       }, error => {
+        this.toastr.error('Add Failed')
         console.error('Add failed:', error);
       });
     }

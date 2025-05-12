@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   errorMessage: string = ''; // Store backend error message
 
-  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) { }
+  constructor( private readonly fb: FormBuilder, private readonly authService: AuthService, private readonly router: Router,private readonly toastr:ToastrService) { }
 
   ngOnInit(): void {
     localStorage.removeItem('token');
@@ -23,7 +24,7 @@ export class LoginComponent implements OnInit {
     this.loginForm = this.fb.group({
       email: ['', [
         Validators.required,
-        Validators.pattern(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/) // Email validation
+        Validators.pattern(/^[a-zA-Z0-9]+@([\w-]+\.)+[\w-]{2,4}$/) // Email validation
       ]],
       password: ['', [
         Validators.required,
@@ -36,25 +37,36 @@ export class LoginComponent implements OnInit {
     }
     
   }
+login(): void {
+  if (this.loginForm.valid) {
+    this.authService.loginUser(this.loginForm.value).subscribe({
+      next: (response) => {
+        // Store authentication details in localStorage
+        if(response.message!=='Incorrect password'|| 'User not found'){
+          localStorage.setItem('token', response.token);
+        localStorage.setItem('username', response.username);
+        localStorage.setItem('currentuserRole', response.role);
+        localStorage.setItem('userId', response.id);
+        localStorage.setItem('userEmail', this.loginForm.value.email); // Store user email for reference
+        
+        localStorage.removeItem('currentuserFarm'); // Remove temp user data
 
-  login(): void {
-    if (this.loginForm.valid) {
-      this.authService.loginUser(this.loginForm.value).subscribe({
-        next: (response) => {
-          localStorage.setItem('token', response.token); // Store authentication token
-          localStorage.setItem('username', response.username); // Store username
-          localStorage.setItem('currentuserRole',response.role);
-          localStorage.setItem('userId',response.id);
-          localStorage.removeItem('currentuserFarm');
-          this.router.navigate(['/home-page']); // Redirect after successful login
-        },
-        error: (err) => {
-          console.error('Login failed', err);
-          this.errorMessage = err.error.message || 'Invalid email or password!';
+        this.toastr.success('Login successful!', 'Success'); // Show success notification
+        this.router.navigate(['/home-page']); // Redirect after successful login
         }
-      });
-    } else {
-      this.loginForm.markAllAsTouched(); // Trigger validation messages
-    }
+        else{
+          this.toastr.error(response.message)
+        }
+      },
+      error: (errMessage) => {
+        console.error('Login failed:', errMessage); // Logs only the message
+      
+        this.toastr.error('Invalid Email and password'); // ✅ Displays only the extracted error message
+      }
+    });
+  } else {
+    this.loginForm.markAllAsTouched(); // Trigger validation messages
+    this.toastr.warning('Please fill in valid details before submitting', 'Warning');
   }
 }
+ }

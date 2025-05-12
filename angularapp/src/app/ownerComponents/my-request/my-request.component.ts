@@ -1,44 +1,57 @@
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from '../../services/request.service';
 
+interface Request {
+  _id: string;
+  feedId?: { feedName: string };
+  status?: string;
+}
+
 @Component({
   selector: 'app-my-request',
   templateUrl: './my-request.component.html',
   styleUrls: ['./my-request.component.css']
 })
 export class MyRequestComponent implements OnInit {
-  requests: any[] = [];
-  searchQuery: string = '';
+  requests: Request[] = [];
+  searchQuery = '';
   itemsPerPage = 5;
   currentPage = 1;
-  requestToDelete: any | null = null; 
+  requestToDelete: Request | null = null;
   showModal = false; // Track modal visibility
 
-  constructor(private requestService: RequestService) {}
+  constructor(private readonly requestService: RequestService) {}
 
   ngOnInit(): void {
     this.fetchRequests();
   }
 
-  fetchRequests() {
-    const userId = localStorage.getItem('userId'); 
-    this.requestService.getRequestsByUserId(userId!).subscribe((data: any) => {
-      this.requests = data;
-    }, error => {
-      console.error("Error fetching requests:", error);
-    });
-  }
+  fetchRequests(): void {
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      console.error("User ID not found.");
+      return;
+    }
 
-  filterRequests(): any[] {
-    return this.requests.filter(request =>
-      request.feedId.feedName.toLowerCase().includes(this.searchQuery.toLowerCase())
+    this.requestService.getRequestsByUserId(userId).subscribe(
+      (data: Request[]) => {
+        this.requests = data;
+      },
+      (error) => {
+        console.error("Error fetching requests:", error);
+      }
     );
   }
 
-  get paginatedRequests(): any[] {
+  filterRequests(): Request[] {
+    return this.requests.filter(request =>
+      request.feedId?.feedName.toLowerCase().includes(this.searchQuery.toLowerCase())
+    );
+  }
+
+  get paginatedRequests(): Request[] {
     const start = (this.currentPage - 1) * this.itemsPerPage;
-    const end = start + this.itemsPerPage;
-    return this.filterRequests().slice(start, end);
+    return this.filterRequests().slice(start, start + this.itemsPerPage);
   }
 
   get totalPages(): number {
@@ -46,19 +59,14 @@ export class MyRequestComponent implements OnInit {
   }
 
   prevPage(): void {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-    }
+    if (this.currentPage > 1) this.currentPage--;
   }
 
   nextPage(): void {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-    }
+    if (this.currentPage < this.totalPages) this.currentPage++;
   }
 
-  // Show confirmation modal before deleting
-  confirmDelete(request: any): void {
+  confirmDelete(request: Request): void {
     this.requestToDelete = request;
     this.showModal = true;
   }
@@ -68,15 +76,17 @@ export class MyRequestComponent implements OnInit {
     this.requestToDelete = null;
   }
 
-  // Delete request only if status is PENDING
   deleteRequest(): void {
     if (this.requestToDelete) {
-      this.requestService.deleteRequest(this.requestToDelete._id).subscribe(() => {
-        this.fetchRequests(); // Refresh requests after deletion
-        this.closeModal();
-      }, error => {
-        console.error("Error deleting request:", error);
-      });
+      this.requestService.deleteRequest(this.requestToDelete._id).subscribe(
+        () => {
+          this.fetchRequests();
+          this.closeModal();
+        },
+        (error) => {
+          console.error("Error deleting request:", error);
+        }
+      );
     }
   }
 }

@@ -1,8 +1,7 @@
 
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { Feed } from '../models/feed';
 
 @Injectable({
@@ -10,15 +9,9 @@ import { Feed } from '../models/feed';
 })
 export class FeedService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private readonly http: HttpClient) { }
 
-  private readonly backendUrl = 'https://8080-eedceaeaffefbaaaafafeddafbdafabaec.premiumproject.examly.io'
-  private getHeaders() {
-    const token = localStorage.getItem('authToken'); // Retrieve token from storage
-    return {
-      headers: new HttpHeaders({ Authorization: `Bearer ${token}` })
-    };
-  }
+  private readonly backendUrl = 'https://8080-accecafecdeeafbaaaafafeddafbdafabaec.project.examly.io'
 
   // Fetch all feeds
   getAllFeeds(): Observable<Feed[]> {
