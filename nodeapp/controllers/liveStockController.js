@@ -55,7 +55,7 @@ exports.getLivestockByUserId = async (req, res) => {
  */
 exports.addLivestock = async (req, res) => {
     try {
-        const { name, species, age, breed, healthCondition, location, vaccinationStatus, userId } = req.body;
+        let { name, species, age, breed, healthCondition, location, vaccinationStatus, userId } = req.body;
         if (!req.file) {
             return res.status(400).json({ message: "Attachment file is required" });
         }

@@ -59,14 +59,13 @@ exports.getRequestsByUserId = async (req, res) => {
 exports.addRequest = async (req, res) => {
     console.log(req.body);
     try {
-        const {feedId,userId,livestockId,quantity,status,requestDate}=req.body;
+        let {feedId,userId,livestockId,quantity,status}=req.body;
         const newRequest = await Request.create({
             feedId:sanitizeHtml(feedId),
             userId:sanitizeHtml(userId),
             livestockId:sanitizeHtml(livestockId),
             quantity:sanitizeHtml(quantity),
-            status:sanitizeHtml(status),
-            requestDate:sanitizeHtml(requestDate)
+            status:sanitizeHtml(status)
         });
         res.status(200).json({ message: "Request Added Successfully", request: newRequest });
     } catch (error) {
