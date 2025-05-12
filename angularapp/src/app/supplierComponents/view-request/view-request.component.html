@@ -41,7 +41,7 @@
                     </button>
                     <button class="btn btn-danger btn-sm"
                         *ngIf="request.status === 'PENDING' || request.status === 'APPROVED'"
-                        (click)="updateRequestStatus(request._id, 'REJECTED')">
+                        (click)="setRequestId(request._id)" data-bs-toggle="modal" data-bs-target="#reasonModal">
                         Reject
                     </button>
                 </td>
@@ -53,5 +53,24 @@
         <button (click)="prevPage()" [disabled]="currentPage === 1">Prev</button>
         <span>Page {{ currentPage }} of {{ totalPages }}</span>
         <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+    </div>
+    <div class="modal fade " id="reasonModal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Reason</h4>
+                    <button type="button" data-bs-dismiss="modal" class="btn-close"></button>
+                </div>
+                <div class="modal-body">
+                    <textarea name="reason" id="reason" class="form-control" [(ngModel)]="reason"
+                        placeholder="Write a reason here.." cols="5" rows="5" required></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="onReason()"
+                        data-bs-dismiss="modal">Submit</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
