@@ -18,7 +18,7 @@ import { AuthguardGuard } from './components/authguard/authguard.guard';
 import {Authguard1Guard} from './components/authguard1.guard'
 const routes: Routes = [
   {path:'error-page',component:ErrorPageComponent},
-  {path:'home-page',component:HomePageComponent,canActivate: [AuthguardGuard]},
+  {path:'home-page',component:HomePageComponent},
   {path:'login',component:LoginComponent},
   {path:'signup',component:SignupComponent},
   {path:'forgot-password',component:ForgotPasswordComponent},

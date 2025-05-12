@@ -38,14 +38,14 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly apiUrl = 'https://8080-eeddcfeffbaaaafafeddafbdafabaec.project.examly.io';
+  private readonly apiUrl = 'https://8080-adaebaebcccbfbaaaafafeddafbdafabaec.project.examly.io';
 
   constructor(private readonly http: HttpClient) {}
 
   // User registration
   registerUser(userData: any): Observable<{ message: string }> {
     return this.http.post<{ message: string }>(`${this.apiUrl}/user/signup`, userData)
-      .pipe(catchError(this.handleError));
+      
   }
 
   // User login

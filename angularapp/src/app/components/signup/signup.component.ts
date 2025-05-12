@@ -59,7 +59,7 @@ export class SignupComponent {
           this.errorMessage = ''; // Clear any previous error messages
         },
         error: (err) => {
-          this.toastr.error(err.error.error)
+          this.toastr.error('The email you entered is already registered. Please use a different email or try logging in instead.')
           console.error('Signup failed', err);
           this.errorMessage = err.error.message ?? 'Signup failed! Please try again.';
           this.showModal = false;
