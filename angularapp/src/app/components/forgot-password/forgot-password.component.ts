@@ -19,7 +19,15 @@ export class ForgotPasswordComponent {
 
   verifyEmail() {
     this.authService.verifyEmail(this.email).subscribe(response => {
-      this.showPasswordFields = true;
+      console.log(response.success);
+      
+      if(response.success===true){
+        this.showPasswordFields = true;
+      }
+      else{
+        this.toastr.error('Email not Exists')
+      }
+        
     });
   }
 

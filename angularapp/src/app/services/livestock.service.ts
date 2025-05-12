@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Livestock } from '../models/livestock';
@@ -36,7 +36,6 @@ export class LivestockService {
 
   //  Get livestock by user ID with pagination and search
   getLivestockByUserId(userId: string): Observable<Livestock[]> {
-    // const requestBody= { userId};
     return this.http.get<Livestock[]>(`${this.apiUrl}/livestock/getLivestockByUserId/${userId}`);
   }
 
