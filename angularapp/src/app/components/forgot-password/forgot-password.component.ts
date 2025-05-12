@@ -8,20 +8,26 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './forgot-password.component.html',
   styleUrls: ['./forgot-password.component.css']
 })
-export class ForgotPasswordComponent implements OnInit {
+export class ForgotPasswordComponent {
 
   email: string = '';
   newPassword: string = '';
   confirmPassword: string = '';
   showPasswordFields: boolean = false;
 
-  constructor(private authService: AuthService, private router:Router,private toastr:ToastrService) {} // Inject AuthService
-
-  ngOnInit(): void {}
+  constructor(private readonly authService: AuthService, private readonly router:Router,private readonly toastr:ToastrService) {} // Inject AuthService
 
   verifyEmail() {
     this.authService.verifyEmail(this.email).subscribe(response => {
-      this.showPasswordFields = true;
+      console.log(response.success);
+      
+      if(response.success===true){
+        this.showPasswordFields = true;
+      }
+      else{
+        this.toastr.error('Email not Exists')
+      }
+        
     });
   }
 
