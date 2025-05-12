@@ -59,7 +59,7 @@ exports.verifyEmail = async (req, res) => {
   if (user) {
     res.json({ success: true });
   } else {
-    res.status(400).json({ error: 'Email not found' });
+    res.status(200).json({success: false });
   }
 };
 

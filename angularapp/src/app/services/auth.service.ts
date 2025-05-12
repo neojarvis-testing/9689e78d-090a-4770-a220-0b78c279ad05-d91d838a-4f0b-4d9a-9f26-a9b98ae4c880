@@ -55,9 +55,9 @@ export class AuthService {
   }
 
   // Email verification
-  verifyEmail(email: string): Observable<{ success: boolean }> {
-    return this.http.post<{ success: boolean }>(`${this.apiUrl}/user/verifyEmail`, { email })
-      .pipe(catchError(this.handleError));
+  verifyEmail(email: string): Observable<{ success:boolean }> {
+    return this.http.post<{ success:boolean }>(`${this.apiUrl}/user/verifyEmail`, { email })
+      
   }
 
   // Reset password
