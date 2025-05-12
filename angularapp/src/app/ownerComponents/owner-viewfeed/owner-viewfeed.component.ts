@@ -22,15 +22,14 @@ export class OwnerViewfeedComponent implements OnInit {
   requestData = { quantity: null, livestockId: null, userId: null };
 
   constructor(
-    private feedService: FeedService,
-    private requestService: RequestService,
-    private livestockService: LivestockService,
-    private router: Router,
-    private toastr:ToastrService
+    private readonly feedService: FeedService,
+    private readonly requestService: RequestService,
+    private readonly livestockService: LivestockService,
+    private readonly router: Router,
+    private readonly toastr:ToastrService
   ) {}
 
   ngOnInit(): void {
-    const userId = localStorage.getItem('userId');
     this.fetchFeeds();
     this.fetchLivestock();
     this.loadUserId();
