@@ -12,7 +12,7 @@ const createError=require('http-errors');
 // If an error occurs during the process, it responds with a 500 status code and the error message.
 exports.getUserByEmailAndPassword = async (req, res) => {
     try {
-        const { email, password } = req.body;
+        let { email, password } = req.body;
         email = email.toString();
         if(!validator.isEmail(email)) throw createError(400, `Invalid EMAIL ID: ${email}`)
         const user = await User.findOne({ email: sanitizeHtml(email)});
@@ -43,7 +43,7 @@ exports.getUserByEmailAndPassword = async (req, res) => {
 
 exports.addUser = async (req, res) => {
     try {
-        const { userName, email, mobile, password, role } = req.body;
+        let { userName, email, mobile, password, role } = req.body;
 
         // Ensure user inputs are properly converted to strings
         userName = userName.toString();
@@ -70,7 +70,7 @@ exports.addUser = async (req, res) => {
 
 
 exports.verifyEmail = async (req, res) => {
-  const { email } = req.body;
+  let { email } = req.body;
   email = email.toString();
   if(!validator.isEmail(email)) throw createError(400, `Invalid EMAIL ID: ${email}`)
   const user = await User.findOne({ email: sanitizeHtml(email)});
@@ -83,7 +83,7 @@ exports.verifyEmail = async (req, res) => {
 };
 
 exports.resetPassword = async (req, res) => {
-  const { email, newPassword } = req.body;
+  let { email, newPassword } = req.body;
   email = email.toString();
   if(!validator.isEmail(email)) throw createError(400, `Invalid EMAIL ID: ${email}`)
   const salt = await bcrypt.genSalt(10); // Generate salt
