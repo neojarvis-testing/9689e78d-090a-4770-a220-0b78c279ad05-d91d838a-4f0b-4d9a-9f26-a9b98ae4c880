@@ -34,22 +34,32 @@ exports.getUserByEmailAndPassword = async (req, res) => {
 // It ensures that all required fields (userName, email, mobile, password, role) are passed before creating the user.
 // If successful, it responds with a status code of 200 and a success message.
 // If an error occurs during the user creation process, it responds with a 500 status code and the error message.
+
 exports.addUser = async (req, res) => {
     try {
         const { userName, email, mobile, password, role } = req.body;
-        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Ensure user inputs are properly converted to strings
+        const sanitizedUserName = userName.toString();
+        const sanitizedEmail = email.toString();
+        const sanitizedMobile = mobile.toString();
+        const sanitizedRole = role.toString();
+
+        const hashedPassword = await bcrypt.hash(password.toString(), 10);
+
         const newUser = await User.create({ 
-            userName, 
-            email, 
-            mobile, 
+            userName: sanitizedUserName, 
+            email: sanitizedEmail, 
+            mobile: sanitizedMobile, 
             password: hashedPassword, 
-            role 
+            role: sanitizedRole 
         });
-        res.status(200).json({ message: "Success"});
+
+        res.status(200).json({ message: "Success" });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
-}
+};
 
 
 exports.verifyEmail = async (req, res) => {

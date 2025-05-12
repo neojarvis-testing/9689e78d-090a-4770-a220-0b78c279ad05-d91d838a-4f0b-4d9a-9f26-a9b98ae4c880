@@ -6,7 +6,7 @@ import { CanActivate,Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthguardGuard implements CanActivate {
-  constructor(private router: Router) { }
+  constructor(private readonly router: Router) { }
 
   canActivate(): boolean {
     const token = localStorage.getItem('token'); // Check if token exists
@@ -16,7 +16,6 @@ export class AuthguardGuard implements CanActivate {
         return true;
       }
       else{
-        this.router.navigate(['/home-page']);
         return false
       }
     } else {

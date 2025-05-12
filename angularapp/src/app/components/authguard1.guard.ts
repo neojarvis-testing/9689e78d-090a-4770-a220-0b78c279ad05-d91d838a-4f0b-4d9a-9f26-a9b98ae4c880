@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { CanActivate, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class Authguard1Guard implements CanActivate {
-  constructor(private router: Router) { }
+  constructor(private readonly router: Router) { }
   canActivate():boolean{
       const token = localStorage.getItem('token'); // Check if token exists
       if (token) {
