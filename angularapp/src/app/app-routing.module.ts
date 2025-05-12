@@ -15,7 +15,7 @@ import { ViewLivestockComponent } from './ownerComponents/view-livestock/view-li
 import { ErrorPageComponent } from './components/error-page/error-page.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { AuthguardGuard } from './components/authguard/authguard.guard';
-import {Authguard1Guard} from './components/authguard1.guard'
+import {Authguard1Guard} from './components/authguard1.guard';
 const routes: Routes = [
   {path:'error-page',component:ErrorPageComponent},
   {path:'home-page',component:HomePageComponent},

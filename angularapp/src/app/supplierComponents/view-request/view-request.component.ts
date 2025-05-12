@@ -32,7 +32,7 @@ export class ViewRequestComponent implements OnInit {
   // Filters requests based on the feed name search
   filterRequests(): void {
     this.filteredRequests = this.requests.filter(request =>
-      request.feedId.feedName.toLowerCase().includes(this.searchQuery.toLowerCase())
+      request.feedId?.feedName.toLowerCase().includes(this.searchQuery.toLowerCase())
     );
     this.currentPage = 1;
     this.renderTable();
