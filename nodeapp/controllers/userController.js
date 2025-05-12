@@ -1,6 +1,10 @@
 const User = require('../models/userModel');
 const { generateToken } = require('../authUtils'); // Import JWT generation function
 const bcrypt = require('bcryptjs');
+const validator=require('validator');
+const sanitizeHtml = require('sanitize-html');
+const createError=require('http-errors');
+
 // ✅ Login User
 // This function retrieves a user from the database by matching the provided email and password.
 // If found, it generates a JWT token using the generateToken utility and returns user details along with the token.
@@ -9,7 +13,9 @@ const bcrypt = require('bcryptjs');
 exports.getUserByEmailAndPassword = async (req, res) => {
     try {
         const { email, password } = req.body;
-        const user = await User.findOne({ email});
+        email = email.toString();
+        if(!validator.isEmail(email)) throw createError(400, `Invalid EMAIL ID: ${email}`)
+        const user = await User.findOne({ email: sanitizeHtml(email)});
         if(!user) {
             return res.status(404).json({ message: 'User not found' });
         }
@@ -40,19 +46,20 @@ exports.addUser = async (req, res) => {
         const { userName, email, mobile, password, role } = req.body;
 
         // Ensure user inputs are properly converted to strings
-        const sanitizedUserName = userName.toString();
-        const sanitizedEmail = email.toString();
-        const sanitizedMobile = mobile.toString();
-        const sanitizedRole = role.toString();
-
+        userName = userName.toString();
+        email = email.toString();
+        password = password.toString();
+        role=role.toString();
+        mobile = mobile.toString();
+        
         const hashedPassword = await bcrypt.hash(password.toString(), 10);
-
+    if(!validator.isEmail(email)) throw createError(400, `Invalid EMAIL ID: ${email}`)
         const newUser = await User.create({ 
-            userName: sanitizedUserName, 
-            email: sanitizedEmail, 
-            mobile: sanitizedMobile, 
-            password: hashedPassword, 
-            role: sanitizedRole 
+            userName: sanitizeHtml(userName), 
+            email: sanitizeHtml(email), 
+            mobile: sanitizeHtml(mobile), 
+            password: sanitizeHtml(hashedPassword), 
+            role: sanitizeHtml(role) 
         });
 
         res.status(200).json({ message: "Success" });
@@ -64,7 +71,9 @@ exports.addUser = async (req, res) => {
 
 exports.verifyEmail = async (req, res) => {
   const { email } = req.body;
-  const user = await User.findOne({ email });
+  email = email.toString();
+  if(!validator.isEmail(email)) throw createError(400, `Invalid EMAIL ID: ${email}`)
+  const user = await User.findOne({ email: sanitizeHtml(email)});
 
   if (user) {
     res.json({ success: true });
@@ -75,10 +84,11 @@ exports.verifyEmail = async (req, res) => {
 
 exports.resetPassword = async (req, res) => {
   const { email, newPassword } = req.body;
+  email = email.toString();
+  if(!validator.isEmail(email)) throw createError(400, `Invalid EMAIL ID: ${email}`)
   const salt = await bcrypt.genSalt(10); // Generate salt
-  const hashedPassword = await bcrypt.hash(newPassword, salt); // Hash password
-
-  await User.updateOne({ email }, { $set: { password: hashedPassword } });
+  const hashedPassword = await bcrypt.hash(newPassword.toString(), salt); // Hash password
+  await User.updateOne({ email: sanitizeHtml(email)}, { $set: { password: hashedPassword } });
 
   res.json({ success: true, message: 'Password reset successfully' });
 };

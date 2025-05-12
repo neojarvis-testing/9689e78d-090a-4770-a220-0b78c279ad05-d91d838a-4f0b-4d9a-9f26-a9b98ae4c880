@@ -1,6 +1,7 @@
 const express=require('express');
 const router=express.Router();
 const upload=require('../config/multerConfig');
+
 const {getAllLivestock,getLivestockById,getLivestockByUserId,addLivestock,updateLivestock,deleteLivestock,getFileByLivestockId}=require('../controllers/liveStockController');
 const {validateToken}=require('../authUtils')
 router.get('/getAllLivestock',validateToken,getAllLivestock);

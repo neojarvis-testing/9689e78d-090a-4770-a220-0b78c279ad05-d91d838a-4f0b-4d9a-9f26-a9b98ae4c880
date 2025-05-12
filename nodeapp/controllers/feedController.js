@@ -1,5 +1,6 @@
 
 const Feed = require('../models/feedModel');
+const sanitizeHtml = require('sanitize-html');
 // Get all Feeds
 // This function retrieves all feed items from the database using `Feed.find({})`.
 // If feeds are found, it responds with a status code of 200 and sends the data in JSON format.
@@ -40,7 +41,12 @@ exports.getFeedById = async (req, res) => {
 exports.addFeed = async (req, res) => {
     try {
         const {feedName,type,description,unit,pricePerUnit}=req.body;
-        await Feed.create({feedName,type,description,unit,pricePerUnit});
+        await Feed.create({feedName: sanitizeHtml(feedName),
+            type: sanitizeHtml(type),
+            description: sanitizeHtml(description),
+            unit: sanitizeHtml(unit),
+            pricePerUnit: ssanitizeHtml(pricePerUnit)
+        });
         res.status(200).json({ message: "Feed Added Successfully"});
     } catch (error) {
         res.status(500).json({ message: error.message });

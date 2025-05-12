@@ -1,6 +1,7 @@
 const Livestock = require('../models/liveStockModel');
 const fs=require('fs');
 const path=require('path');
+const sanitizeHtml = require('sanitize-html');
 
 /**
  * Retrieves all livestock from the database.
@@ -59,14 +60,14 @@ exports.addLivestock = async (req, res) => {
             return res.status(400).json({ message: "Attachment file is required" });
         }
         const newLivestock = new Livestock({
-            name,
-            species,
-            age,
-            breed,
-            healthCondition,
-            location,
-            vaccinationStatus,
-            userId,
+            name: sanitizeHtml(name),
+            species: sanitizeHtml(species),
+            age: sanitizeHtml(age),
+            breed: sanitizeHtml(breed),
+            healthCondition: sanitizeHtml(healthCondition),
+            location: sanitizeHtml(location),
+            vaccinationStatus: sanitizeHtml(vaccinationStatus),
+            userId: sanitizeHtml(userId),
             attachment: {
                 filename: req.file.filename,
                 path: req.file.path,
