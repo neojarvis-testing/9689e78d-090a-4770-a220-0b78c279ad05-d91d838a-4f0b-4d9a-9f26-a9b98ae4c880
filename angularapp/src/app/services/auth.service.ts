@@ -1,34 +1,3 @@
-// import { Injectable } from '@angular/core';
-// import { HttpClient } from '@angular/common/http';
-// import { Observable } from 'rxjs';
-
-
-// @Injectable({
-//   providedIn: 'root'
-// })
-// export class AuthService {
-//   private readonly apiUrl ='https://8080-eeddcfeffbaaaafafeddafbdafabaec.project.examly.io';
-
-//   constructor(private readonly http: HttpClient) {}
-
-//   // User registration
-//   registerUser(userData: any): Observable<{ message: string }> {
-//     return this.http.post<{ message: string}>(`${this.apiUrl}/user/signup`, userData);
-//   }
-
-//   // User login
-//   loginUser(credentials: { email: string; password: string }): Observable<any> {
-//     return this.http.post<any>(`${this.apiUrl}/user/login`, credentials);
-//   }
-//   verifyEmail(email: string) {
-//     return this.http.post(`${this.apiUrl}/user/verifyEmail`, { email });
-//   }
-
-//   resetPassword(email: string, newPassword: string) {
-//     return this.http.post(`${this.apiUrl}/user/resetPassword`, { email, newPassword });
-//   }
-
-// }
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';

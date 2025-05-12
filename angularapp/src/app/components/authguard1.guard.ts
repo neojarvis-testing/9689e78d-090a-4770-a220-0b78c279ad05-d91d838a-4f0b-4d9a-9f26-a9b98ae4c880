@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class Authguard1Guard implements CanActivate {
-  constructor(private router: Router) { }
+  constructor(private readonly router: Router) { }
   canActivate():boolean{
       const token = localStorage.getItem('token'); // Check if token exists
       if (token) {
