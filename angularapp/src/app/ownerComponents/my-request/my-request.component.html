@@ -13,6 +13,7 @@
                 <th>Quantity</th>
                 <th>Status</th>
                 <th>Request Date</th>
+                <th>Reject Reason</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -27,9 +28,10 @@
                     {{ request.status }}
                 </td>
                 <td>{{ request.requestDate | date:'short' }}</td>
+                <td *ngIf="request.status === 'PENDING' || request.status === 'APPROVED'"> N/A </td>
+                <td *ngIf="request.status === 'REJECTED'"> {{ request.reason ? request.reason : 'N/A' }} </td>
                 <td>
-                    <button class="btn btn-danger btn-sm" 
-                        [disabled]="request.status !== 'PENDING'"
+                    <button class="btn btn-danger btn-sm" [disabled]="request.status !== 'PENDING'"
                         (click)="confirmDelete(request)">
                         Delete
                     </button>

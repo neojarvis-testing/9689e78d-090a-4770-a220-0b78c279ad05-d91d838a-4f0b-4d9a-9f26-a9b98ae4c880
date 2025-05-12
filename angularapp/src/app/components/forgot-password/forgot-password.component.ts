@@ -1,3 +1,4 @@
+
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -9,11 +10,11 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./forgot-password.component.css']
 })
 export class ForgotPasswordComponent {
-
   email: string = '';
   newPassword: string = '';
   confirmPassword: string = '';
   showPasswordFields: boolean = false;
+  emailVerified: boolean = false; // Track email verification status
 
   constructor(private readonly authService: AuthService, private readonly router:Router,private readonly toastr:ToastrService) {} // Inject AuthService
 
@@ -23,6 +24,7 @@ export class ForgotPasswordComponent {
       
       if(response.success===true){
         this.showPasswordFields = true;
+        this.emailVerified = true; // Disable email input and button
       }
       else{
         this.toastr.error('Email not Exists')
