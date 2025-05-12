@@ -16,7 +16,7 @@ export class SignupComponent {
   successMessage: string = ''; // Store backend success message
   errorMessage: string = ''; // Store backend error message
 
-  constructor(private readonly fb: FormBuilder, private readonly router: Router, private readonly authService: AuthService,private toastr:ToastrService) {
+  constructor(private readonly fb: FormBuilder, private readonly router: Router, private readonly authService: AuthService,private readonly toastr:ToastrService) {
     this.signupForm = this.fb.group({
       userName: ['', Validators.required],
       email: ['', [

@@ -14,7 +14,7 @@ export class MyRequestComponent implements OnInit {
   requestToDelete: any | null = null; 
   showModal = false; // Track modal visibility
 
-  constructor(private requestService: RequestService) {}
+  constructor(private readonly requestService: RequestService) {}
 
   ngOnInit(): void {
     this.fetchRequests();
@@ -22,7 +22,7 @@ export class MyRequestComponent implements OnInit {
 
   fetchRequests() {
     const userId = localStorage.getItem('userId'); 
-    this.requestService.getRequestsByUserId(userId!).subscribe((data: any) => {
+    this.requestService.getRequestsByUserId(userId).subscribe((data: any) => {
       this.requests = data;
     }, error => {
       console.error("Error fetching requests:", error);
