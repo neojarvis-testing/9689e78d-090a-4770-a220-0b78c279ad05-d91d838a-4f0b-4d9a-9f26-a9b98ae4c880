@@ -12,8 +12,7 @@ export class LivestockService {
 
   constructor(private readonly http: HttpClient, private readonly sanitizer: DomSanitizer) { }
 
-  private readonly apiUrl:string='https://8080-eeddcfeffbaaaafafeddafbdafabaec.project.examly.io'
-
+  private readonly apiUrl:string='https://8080-edeafbaaaafafeddafbdafabaec.project.examly.io'
   //get all livestocks
   getAllLivestocks():Observable<any>{
     return this.http.get<any>(`${this.apiUrl}/livestock/getAllLivestock`)
