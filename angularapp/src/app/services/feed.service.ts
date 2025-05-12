@@ -1,5 +1,5 @@
 
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Feed } from '../models/feed';
@@ -11,7 +11,7 @@ export class FeedService {
 
   constructor(private readonly http: HttpClient) { }
 
-  private readonly backendUrl = 'https://8080-edeafbaaaafafeddafbdafabaec.project.examly.io'
+  private readonly backendUrl = 'https://8080-accecafecdeeafbaaaafafeddafbdafabaec.project.examly.io'
 
   // Fetch all feeds
   getAllFeeds(): Observable<Feed[]> {

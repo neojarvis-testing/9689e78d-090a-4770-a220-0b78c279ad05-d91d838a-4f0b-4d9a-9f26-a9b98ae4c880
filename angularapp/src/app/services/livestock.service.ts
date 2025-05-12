@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Livestock } from '../models/livestock';
@@ -12,7 +12,8 @@ export class LivestockService {
 
   constructor(private readonly http: HttpClient, private readonly sanitizer: DomSanitizer) { }
 
-  private readonly apiUrl:string='https://8080-edeafbaaaafafeddafbdafabaec.project.examly.io'
+  private readonly apiUrl:string='https://8080-accecafecdeeafbaaaafafeddafbdafabaec.project.examly.io'
+
   //get all livestocks
   getAllLivestocks():Observable<any>{
     return this.http.get<any>(`${this.apiUrl}/livestock/getAllLivestock`)
@@ -35,7 +36,6 @@ export class LivestockService {
 
   //  Get livestock by user ID with pagination and search
   getLivestockByUserId(userId: string): Observable<Livestock[]> {
-    // const requestBody= { userId};
     return this.http.get<Livestock[]>(`${this.apiUrl}/livestock/getLivestockByUserId/${userId}`);
   }
 

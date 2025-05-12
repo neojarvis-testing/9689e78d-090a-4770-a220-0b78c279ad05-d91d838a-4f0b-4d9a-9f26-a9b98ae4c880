@@ -13,7 +13,7 @@ export class ViewRequestComponent implements OnInit {
   itemsPerPage = 5;
   currentPage = 1;
 
-  constructor(private requestService: RequestService) {}
+  constructor(private readonly requestService: RequestService) {}
 
   ngOnInit(): void {
     this.fetchRequests();

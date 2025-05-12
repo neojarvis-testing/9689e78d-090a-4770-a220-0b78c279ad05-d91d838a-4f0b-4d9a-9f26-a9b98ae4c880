@@ -1,5 +1,6 @@
 
 const Feed = require('../models/feedModel');
+const sanitizeHtml = require('sanitize-html');
 // Get all Feeds
 // This function retrieves all feed items from the database using `Feed.find({})`.
 // If feeds are found, it responds with a status code of 200 and sends the data in JSON format.
@@ -37,10 +38,23 @@ exports.getFeedById = async (req, res) => {
 // This function adds a new feed entry to the database using `Feed.create(req.body)`.
 // If successful, it responds with a status code of 200 and a success message.
 // If an error occurs, it responds with a 500 status code and the error message.
+
 exports.addFeed = async (req, res) => {
     try {
-        const {feedName,type,description,unit,pricePerUnit}=req.body;
-        await Feed.create({feedName,type,description,unit,pricePerUnit});
+        let {feedName,type,description,unit,pricePerUnit}=req.body;
+        feedName = feedName.toString();
+        type = type.toString();
+        description = description.toString();
+        unit=unit.toString();
+        pricePerUnit=parseInt(pricePerUnit);
+        
+        await Feed.create({
+            feedName: sanitizeHtml(feedName),
+            type: sanitizeHtml(type),
+            description: sanitizeHtml(description),
+            unit: sanitizeHtml(unit),
+            pricePerUnit: sanitizeHtml(pricePerUnit)
+        });
         res.status(200).json({ message: "Feed Added Successfully"});
     } catch (error) {
         res.status(500).json({ message: error.message });
