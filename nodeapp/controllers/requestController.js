@@ -60,6 +60,12 @@ exports.addRequest = async (req, res) => {
     console.log(req.body);
     try {
         let {feedId,userId,livestockId,quantity,status}=req.body;
+        feedId=feedId.toString();
+        userId=userId.toString();
+        livestockId=livestockId.toString();
+        quantity=parseInt(quantity);
+        status=status.toString();
+        
         const newRequest = await Request.create({
             feedId:sanitizeHtml(feedId),
             userId:sanitizeHtml(userId),

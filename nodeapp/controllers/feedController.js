@@ -38,9 +38,16 @@ exports.getFeedById = async (req, res) => {
 // This function adds a new feed entry to the database using `Feed.create(req.body)`.
 // If successful, it responds with a status code of 200 and a success message.
 // If an error occurs, it responds with a 500 status code and the error message.
+
 exports.addFeed = async (req, res) => {
     try {
-        const {feedName,type,description,unit,pricePerUnit}=req.body;
+        let {feedName,type,description,unit,pricePerUnit}=req.body;
+        feedName = feedName.toString();
+        type = type.toString();
+        description = description.toString();
+        unit=unit.toString();
+        pricePerUnit=parseInt(pricePerUnit);
+        
         await Feed.create({
             feedName: sanitizeHtml(feedName),
             type: sanitizeHtml(type),
