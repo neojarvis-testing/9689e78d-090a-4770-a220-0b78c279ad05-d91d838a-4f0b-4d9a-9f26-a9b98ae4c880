@@ -16,21 +16,20 @@ export class OwnerViewfeedComponent implements OnInit {
   searchQuery: string = '';
   itemsPerPage = 5;
   currentPage = 1;
-  selectedFeed: any | null = null;
-  selectedLivestock: any | null = null;
+  selectedFeed: any  = null;
+  selectedLivestock: any  = null;
   showRequestModal = false;
   requestData = { quantity: null, livestockId: null, userId: null };
 
   constructor(
-    private feedService: FeedService,
-    private requestService: RequestService,
-    private livestockService: LivestockService,
-    private router: Router,
-    private toastr:ToastrService
+    private readonly feedService: FeedService,
+    private readonly requestService: RequestService,
+    private readonly livestockService: LivestockService,
+    private readonly router: Router,
+    private readonly toastr:ToastrService
   ) {}
 
   ngOnInit(): void {
-    const userId = localStorage.getItem('userId');
     this.fetchFeeds();
     this.fetchLivestock();
     this.loadUserId();

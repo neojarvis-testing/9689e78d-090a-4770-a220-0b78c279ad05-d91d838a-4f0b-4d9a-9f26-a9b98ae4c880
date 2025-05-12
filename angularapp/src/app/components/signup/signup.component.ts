@@ -16,12 +16,12 @@ export class SignupComponent {
   successMessage: string = ''; // Store backend success message
   errorMessage: string = ''; // Store backend error message
 
-  constructor(private readonly fb: FormBuilder, private readonly router: Router, private readonly authService: AuthService,private toastr:ToastrService) {
+  constructor(private readonly fb: FormBuilder, private readonly router: Router, private readonly authService: AuthService,private readonly toastr:ToastrService) {
     this.signupForm = this.fb.group({
       userName: ['', Validators.required],
       email: ['', [
         Validators.required,
-        Validators.pattern(/^[\w]+@([\w-]+\.)+[\w-]{2,4}$/) // Email validation
+        Validators.pattern(/^[a-zA-Z0-9]+@([\w-]+\.)+[\w-]{2,4}$/) // Email validation
       ]],
       mobile: ['', [
         Validators.required,
