@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from '../../services/request.service';
 
@@ -5,6 +6,7 @@ interface Request {
   _id: string;
   feedId?: { feedName: string };
   status?: string;
+  reason?:string
 }
 
 @Component({

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class RequestService {
-  private readonly baseUrl = 'https://8080-accecafecdeeafbaaaafafeddafbdafabaec.project.examly.io'; // Change this if needed
+  private readonly baseUrl = 'https://8080-edeafbaaaafafeddafbdafabaec.project.examly.io'; // Change this if needed
 
   constructor(private readonly http: HttpClient) {}
 

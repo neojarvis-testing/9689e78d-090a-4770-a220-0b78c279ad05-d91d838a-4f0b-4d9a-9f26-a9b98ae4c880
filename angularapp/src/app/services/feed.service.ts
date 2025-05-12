@@ -11,7 +11,7 @@ export class FeedService {
 
   constructor(private readonly http: HttpClient) { }
 
-  private readonly backendUrl = 'https://8080-accecafecdeeafbaaaafafeddafbdafabaec.project.examly.io'
+  private readonly backendUrl = 'https://8080-edeafbaaaafafeddafbdafabaec.project.examly.io'
 
   // Fetch all feeds
   getAllFeeds(): Observable<Feed[]> {

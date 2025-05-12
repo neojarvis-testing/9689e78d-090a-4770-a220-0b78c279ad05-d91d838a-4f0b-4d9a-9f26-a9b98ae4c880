@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { RequestService } from '../../services/request.service';
 
@@ -12,6 +13,8 @@ export class ViewRequestComponent implements OnInit {
   searchQuery: string = '';
   itemsPerPage = 5;
   currentPage = 1;
+  reason:string='';
+  requestIdToReject: string = '';
 
   constructor(private readonly requestService: RequestService) {}
 
@@ -77,4 +80,23 @@ export class ViewRequestComponent implements OnInit {
       console.error("Error updating request:", error);
     });
   }
+
+
+setRequestId(requestId: string): void {
+    this.requestIdToReject = requestId;
+}
+onReason(): void {
+  if (!this.requestIdToReject || !this.reason) {
+      console.error("Missing request ID or reason!");
+      return;
+  }
+  this.requestService.updateRequest(this.requestIdToReject, { status: 'REJECTED', reason: this.reason })
+      .subscribe(() => {
+          this.fetchRequests(); // Refresh UI after update
+          this.requestIdToReject = ''; // Reset stored ID
+          this.reason = ''; // Reset reason
+      }, error => {
+          console.error("Error updating request:", error);
+      });
+}
 }
