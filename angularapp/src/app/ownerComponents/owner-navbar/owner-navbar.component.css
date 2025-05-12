@@ -1,6 +1,5 @@
   /* Gradient background for navbar */
   .navbar-custom {
-    /* background: linear-gradient(to right, #28a745, #1f7a37, #28a745); */
     background-color: #1F7D53;
     padding: 10px; /* Adjusted padding */
     font-size: 18px;
