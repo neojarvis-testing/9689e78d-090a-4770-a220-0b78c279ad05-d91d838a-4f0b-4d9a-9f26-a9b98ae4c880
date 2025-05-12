@@ -53,8 +53,10 @@ exports.addUser = async (req, res) => {
         mobile = mobile.toString();
         
         const hashedPassword = await bcrypt.hash(password.toString(), 10);
-    if(!validator.isEmail(email)) throw createError(400, `Invalid EMAIL ID: ${email}`)
-        const newUser = await User.create({ 
+    if(!validator.isEmail(email)) {
+        throw createError(400, `Invalid EMAIL ID: ${email}`)
+    }
+       await User.create({ 
             userName: sanitizeHtml(userName), 
             email: sanitizeHtml(email), 
             mobile: sanitizeHtml(mobile), 

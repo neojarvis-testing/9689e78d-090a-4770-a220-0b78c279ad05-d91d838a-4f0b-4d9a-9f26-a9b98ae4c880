@@ -40,7 +40,7 @@ export class AuthService {
     console.error('API Error:', error); // Log full error object
   
     // ✅ Extract only the error message from `error.error.message`
-    const errorMessage = error.error?.message || 'Something went wrong! Please try again.';
+    const errorMessage = error.error?.message ?? 'Something went wrong! Please try again.';
   
     return throwError(() => errorMessage); // ✅ Return only the extracted message
   }

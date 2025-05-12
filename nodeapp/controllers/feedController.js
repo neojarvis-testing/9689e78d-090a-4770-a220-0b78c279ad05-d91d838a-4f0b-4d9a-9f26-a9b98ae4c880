@@ -41,7 +41,7 @@ exports.getFeedById = async (req, res) => {
 exports.addFeed = async (req, res) => {
     try {
         const {feedName,type,description,unit,pricePerUnit}=req.body;
-        const feed = await Feed.create({
+        await Feed.create({
             feedName: sanitizeHtml(feedName),
             type: sanitizeHtml(type),
             description: sanitizeHtml(description),

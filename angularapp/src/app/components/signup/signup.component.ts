@@ -21,7 +21,7 @@ export class SignupComponent {
       userName: ['', Validators.required],
       email: ['', [
         Validators.required,
-        Validators.pattern(/^[\w]+@([\w-]+\.)+[\w-]{2,4}$/) // Email validation
+        Validators.pattern(/^[a-zA-Z0-9]+@([\w-]+\.)+[\w-]{2,4}$/) // Email validation
       ]],
       mobile: ['', [
         Validators.required,
