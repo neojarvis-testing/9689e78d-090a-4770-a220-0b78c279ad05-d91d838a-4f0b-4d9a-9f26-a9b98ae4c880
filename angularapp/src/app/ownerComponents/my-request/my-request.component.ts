@@ -5,6 +5,7 @@ interface Request {
   _id: string;
   feedId?: { feedName: string };
   status?: string;
+  reason?:string
 }
 
 @Component({
@@ -90,3 +91,4 @@ export class MyRequestComponent implements OnInit {
     }
   }
 }
+

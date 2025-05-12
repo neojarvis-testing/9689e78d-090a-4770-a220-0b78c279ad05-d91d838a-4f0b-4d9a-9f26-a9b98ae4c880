@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly apiUrl = 'https://8080-accecafecdeeafbaaaafafeddafbdafabaec.project.examly.io';
+  private readonly apiUrl = 'https://8080-eeddcfeffbaaaafafeddafbdafabaec.project.examly.io';
 
   constructor(private readonly http: HttpClient) {}
 

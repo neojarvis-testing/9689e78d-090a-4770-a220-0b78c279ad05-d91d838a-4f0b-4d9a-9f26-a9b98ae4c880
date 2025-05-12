@@ -1,3 +1,4 @@
+
 const mongoose = require('mongoose');
 
 const requestSchema = new mongoose.Schema({
@@ -30,6 +31,9 @@ const requestSchema = new mongoose.Schema({
         type: Date,
         required: true,
         default: Date.now
+    },
+    reason:{
+        type:String
     }
 }, { timestamps: true });
 
