@@ -16,8 +16,8 @@ export class OwnerViewfeedComponent implements OnInit {
   searchQuery: string = '';
   itemsPerPage = 5;
   currentPage = 1;
-  selectedFeed: any | null = null;
-  selectedLivestock: any | null = null;
+  selectedFeed: any  = null;
+  selectedLivestock: any  = null;
   showRequestModal = false;
   requestData = { quantity: null, livestockId: null, userId: null };
 
